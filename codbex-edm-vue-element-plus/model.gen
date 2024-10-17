@@ -1,0 +1,108 @@
+{
+  "brand": "demo",
+  "brandUrl": "demo",
+  "title": "demo",
+  "description": "demo",
+  "projectName": "project1234",
+  "workspaceName": "workspace",
+  "filePath": "model.model",
+  "templateId": "template-application-angular/template/template.js",
+  "fileName": "model",
+  "genFolderName": "model",
+  "dataSource": "DefaultDB",
+  "tablePrefix": "",
+  "perspectives": {
+    "entities": {
+      "views": [
+        "Employees"
+      ],
+      "name": "entities",
+      "label": "entities",
+      "order": "100",
+      "icon": "/services/web/resources/unicons/copy.svg",
+      "role": ""
+    }
+  },
+  "models": [
+    {
+      "properties": [
+        {
+          "dataAutoIncrement": true,
+          "dataName": "EMPLOYEES_ID",
+          "dataNullable": true,
+          "dataPrimaryKey": true,
+          "dataType": "INTEGER",
+          "description": "",
+          "name": "Id",
+          "tooltip": "",
+          "widgetIsMajor": true,
+          "widgetLength": "20",
+          "widgetSize": "",
+          "widgetType": "TEXTBOX",
+          "dataNotNull": false,
+          "dataUnique": false,
+          "isRequiredProperty": false,
+          "isCalculatedProperty": false,
+          "widgetLabel": "Id",
+          "widgetDropdownUrl": "",
+          "dataTypeJava": "int",
+          "dataTypeTypescript": "number",
+          "inputRule": ""
+        },
+        {
+          "dataLength": "20",
+          "dataName": "EMPLOYEES_NAME",
+          "dataNullable": true,
+          "dataType": "VARCHAR",
+          "description": "",
+          "name": "Name",
+          "tooltip": "",
+          "widgetIsMajor": true,
+          "widgetLength": "20",
+          "widgetSize": "",
+          "widgetType": "TEXTBOX",
+          "dataNotNull": false,
+          "dataAutoIncrement": false,
+          "dataPrimaryKey": false,
+          "dataUnique": false,
+          "isRequiredProperty": false,
+          "isCalculatedProperty": false,
+          "widgetLabel": "Name",
+          "widgetDropdownUrl": "",
+          "dataTypeJava": "string",
+          "dataTypeTypescript": "string",
+          "minLength": 0,
+          "maxLength": 20,
+          "inputRule": ""
+        }
+      ],
+      "caption": "Manage entity Employees",
+      "dataCount": "SELECT COUNT(*) AS COUNT FROM \"EMPLOYEES\"",
+      "dataName": "EMPLOYEES",
+      "dataQuery": "",
+      "description": "Manage entity Employees",
+      "generateReport": "false",
+      "icon": "/services/web/resources/unicons/file.svg",
+      "layoutType": "MANAGE",
+      "menuIndex": "100",
+      "menuKey": "employees",
+      "menuLabel": "Employees",
+      "name": "Employees",
+      "navigationPath": "/Home",
+      "perspectiveIcon": "/services/web/resources/unicons/copy.svg",
+      "perspectiveLabel": "Entities",
+      "perspectiveName": "entities",
+      "perspectiveOrder": "100",
+      "perspectiveRole": "",
+      "title": "Employees",
+      "tooltip": "Employees",
+      "type": "PRIMARY",
+      "dataSource": "DefaultDB",
+      "referencedProjections": [],
+      "primaryKeys": [
+        "Id"
+      ],
+      "primaryKeysString": "Id"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "schema": {
+        "structures": [
+            {
+                "name": "EMPLOYEES",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "EMPLOYEES_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "nullable": true,
+                        "name": "EMPLOYEES_NAME"
+                    }
+                ]
+            }
+        ]
+    },
+    "datasource": "DefaultDB"
+}

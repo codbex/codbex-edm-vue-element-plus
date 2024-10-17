@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "table": "EMPLOYEES",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/employees.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    }
+  ]
+}

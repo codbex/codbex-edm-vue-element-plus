@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Element Plus with ESM Import Map</title>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://unpkg.com/vue@3.2.45/dist/vue.esm-browser.js",
+                    "vue-i18n": "https://unpkg.com/vue-i18n@9/dist/vue-i18n.esm-browser.js",
+                    "element-plus": "https://cdn.jsdelivr.net/npm/element-plus@latest/dist/index.full.min.mjs",
+                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/"
+                }
+            }
+        </script>
+
+        <link rel="stylesheet" href="https://unpkg.com/element-plus@2.3.4/dist/index.css">
+        <link rel="stylesheet" href="https://element-plus.org/assets/style.B_e9f5k0.css">
+    </head>
+
+    <body>
+        <div id="app">
+            <el-select @change="changeLocale()" v-model="selectedLocale" placeholder="Language" size="large"
+                style="width: 240px">
+                <el-option key="en" label="English" value="en"></el-option>
+                <el-option key="bg" label="Bulgarian" value="bg"></el-option>
+            </el-select>
+
+            <el-divider></el-divider>
+
+            <el-button type="primary" @click="startTour = true">{{ $t('startTourButton') }}</el-button>
+
+            <el-divider></el-divider>
+
+            <el-table v-loading="loading" :data="filterTableData" style="width: 100%">
+                <el-table-column :label="$t('idColumn')" sortable prop="Id"></el-table-column>
+                <el-table-column :label="$t('nameColumn')" sortable prop="Name"></el-table-column>
+                <el-table-column align="right">
+                    <template #header>
+                        <el-input v-model="search" size="small" :placeholder="$t('searchPlaceholder')"
+                            ref="tourSearchInput" />
+                    </template>
+                    <template #default="scope">
+                        <el-button size="small" @click="handleEdit(scope.$index, scope.row)" ref="tourEditButton">
+                            {{ $t('editButton') }}
+                        </el-button>
+                        <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
+                            ref="tourDeleteButton">
+                            {{ $t('deleteButton') }}
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <el-tour v-model="startTour">
+                <el-tour-step :target="tourSearchInput?.$el" :title="$t('searchPlaceholder')"
+                    :description="$t('searchDescription')" placement="left"></el-tour-step>
+                <el-tour-step :target="tourEditButton?.$el" :title="$t('editButton')"
+                    :description="$t('editButtonDescription')">
+                </el-tour-step>
+                <el-tour-step :target="tourDeleteButton?.$el" :title="$t('deleteButton')"
+                    :description="$t('deleteButtonDescription')">
+                </el-tour-step>
+            </el-tour>
+
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
+
+</html>

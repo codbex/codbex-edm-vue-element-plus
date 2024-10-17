@@ -1,0 +1,13 @@
+<model>
+ <entities>
+  <entity name="Employees" dataName="EMPLOYEES" dataCount="SELECT COUNT(*) AS COUNT FROM &quot;${tablePrefix}EMPLOYEES&quot;" dataQuery="" type="PRIMARY" title="Employees" caption="Manage entity Employees" description="Manage entity Employees" tooltip="Employees" icon="/services/web/resources/unicons/file.svg" menuKey="employees" menuLabel="Employees" menuIndex="100" layoutType="MANAGE" navigationPath="/Home" perspectiveName="entities" perspectiveLabel="Entities" perspectiveIcon="/services/web/resources/unicons/copy.svg" perspectiveOrder="100" perspectiveRole="" generateReport="false">
+    <property name="Id" description="" tooltip="" dataName="EMPLOYEES_ID" dataType="INTEGER" dataNullable="true" dataPrimaryKey="true" dataAutoIncrement="true" widgetType="TEXTBOX" widgetSize="" widgetLength="20" widgetIsMajor="true"></property>
+    <property name="Name" description="" tooltip="" dataName="EMPLOYEES_NAME" dataType="VARCHAR" dataLength="20" dataNullable="true" widgetType="TEXTBOX" widgetSize="" widgetLength="20" widgetIsMajor="true"></property>
+  </entity>
+ </entities>
+ <perspectives>
+ </perspectives>
+ <navigations>
+ </navigations>
+ <mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="483c4b49-3202-0de6-2328-b2b2e01551e2" style="entity" vertex="1" parent="1"><Entity name="Employees" dataName="EMPLOYEES" dataCount="SELECT COUNT(*) AS COUNT FROM &quot;${tablePrefix}EMPLOYEES&quot;" title="Employees" caption="Manage entity Employees" description="Manage entity Employees" tooltip="Employees" menuLabel="Employees" type="Entity" menuKey="employees" as="value"><Array as="referenceProjections"/></Entity><mxGeometry x="150" y="100" width="200" height="80" as="geometry"><mxRectangle width="200" height="28" as="alternateBounds"/></mxGeometry></mxCell><mxCell id="e61b3a4a-721d-34e8-5c86-e9917327eebb" vertex="1" connectable="0" parent="483c4b49-3202-0de6-2328-b2b2e01551e2"><Property name="Id" dataType="INTEGER" dataLength="0" dataPrimaryKey="true" dataAutoIncrement="true" dataName="EMPLOYEES_ID" as="value"/><mxGeometry y="28" width="200" height="26" as="geometry"/></mxCell><mxCell id="aa33dd0b-24cf-c9fb-a0b9-d05c44749980" vertex="1" connectable="0" parent="483c4b49-3202-0de6-2328-b2b2e01551e2"><Property name="Name" dataName="EMPLOYEES_NAME" as="value"/><mxGeometry y="54" width="200" height="26" as="geometry"/></mxCell></root></mxGraphModel>
+</model>

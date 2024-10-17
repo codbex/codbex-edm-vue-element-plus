@@ -1,0 +1,11 @@
+{
+    "startTourButton": "Начало на Обиколката",
+    "editButton": "Редактиране",
+    "deleteButton": "Изтриване",
+    "idColumn": "№",
+    "nameColumn": "Име",
+    "searchPlaceholder": "Въведете за търсене",
+    "editButtonDescription": "Редактирайте данните на реда",
+    "deleteButtonDescription": "Изтрийте реда",
+    "searchDescription": "Пълнотекстово търсене на данните в таблицата"
+}

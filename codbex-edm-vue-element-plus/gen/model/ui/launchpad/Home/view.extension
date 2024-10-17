@@ -1,0 +1,5 @@
+{
+    "module": "project1234/gen/model/ui/launchpad/Home/view.js",
+    "extensionPoint": "project1234-view",
+    "description": "project1234 - Application View"
+}

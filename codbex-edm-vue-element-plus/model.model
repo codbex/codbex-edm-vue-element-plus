@@ -1,0 +1,60 @@
+{
+    "model": {
+        "entities": [
+            {
+                "properties": [
+                    {
+                        "dataAutoIncrement": "true",
+                        "dataName": "EMPLOYEES_ID",
+                        "dataNullable": "true",
+                        "dataPrimaryKey": "true",
+                        "dataType": "INTEGER",
+                        "description": "",
+                        "name": "Id",
+                        "tooltip": "",
+                        "widgetIsMajor": "true",
+                        "widgetLength": "20",
+                        "widgetSize": "",
+                        "widgetType": "TEXTBOX"
+                    },
+                    {
+                        "dataLength": "20",
+                        "dataName": "EMPLOYEES_NAME",
+                        "dataNullable": "true",
+                        "dataType": "VARCHAR",
+                        "description": "",
+                        "name": "Name",
+                        "tooltip": "",
+                        "widgetIsMajor": "true",
+                        "widgetLength": "20",
+                        "widgetSize": "",
+                        "widgetType": "TEXTBOX"
+                    }
+                ],
+                "caption": "Manage entity Employees",
+                "dataCount": "SELECT COUNT(*) AS COUNT FROM \"${tablePrefix}EMPLOYEES\"",
+                "dataName": "EMPLOYEES",
+                "dataQuery": "",
+                "description": "Manage entity Employees",
+                "generateReport": "false",
+                "icon": "/services/web/resources/unicons/file.svg",
+                "layoutType": "MANAGE",
+                "menuIndex": "100",
+                "menuKey": "employees",
+                "menuLabel": "Employees",
+                "name": "Employees",
+                "navigationPath": "/Home",
+                "perspectiveIcon": "/services/web/resources/unicons/copy.svg",
+                "perspectiveLabel": "Entities",
+                "perspectiveName": "entities",
+                "perspectiveOrder": "100",
+                "perspectiveRole": "",
+                "title": "Employees",
+                "tooltip": "Employees",
+                "type": "PRIMARY"
+            }
+        ],
+        "perspectives": [],
+        "navigations": []
+    }
+}
