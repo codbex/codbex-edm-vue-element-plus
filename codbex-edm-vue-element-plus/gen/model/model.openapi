@@ -11,7 +11,7 @@ servers:
 tags:
   - name: entities
 paths:
-  /project1234/gen/model/api/entities/EmployeesService.ts:
+  /codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts:
     get:
       summary: List Employees
       parameters:
@@ -95,7 +95,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /project1234/gen/model/api/entities/EmployeesService.ts/{id}:
+  /codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/{id}:
     get:
       summary: Get Employees by Id
       parameters:
@@ -214,7 +214,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /project1234/gen/model/api/entities/EmployeesService.ts/count:
+  /codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/count:
     get:
       summary: Count the number of Employees
       tags:
@@ -324,7 +324,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /project1234/gen/model/api/entities/EmployeesService.ts/search:
+  /codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/search:
     post:
       summary: Search Employees by EmployeesFilterOptions
       tags:

@@ -182,7 +182,7 @@ export class EmployeesRepository {
     }
 
     private async triggerEvent(data: EmployeesEntityEvent | EmployeesUpdateEntityEvent) {
-        const triggerExtensions = await extensions.loadExtensionModules("project1234-entities-Employees", ["trigger"]);
+        const triggerExtensions = await extensions.loadExtensionModules("codbex-edm-vue-element-plus-entities-Employees", ["trigger"]);
         triggerExtensions.forEach(triggerExtension => {
             try {
                 triggerExtension.trigger(data);
@@ -190,6 +190,6 @@ export class EmployeesRepository {
                 console.error(error);
             }            
         });
-        producer.topic("project1234-entities-Employees").send(JSON.stringify(data));
+        producer.topic("codbex-edm-vue-element-plus-entities-Employees").send(JSON.stringify(data));
     }
 }

@@ -1,9 +1,9 @@
 angular.module('page', ["ideUI", "ideView", "entityApi"])
 	.config(["messageHubProvider", function (messageHubProvider) {
-		messageHubProvider.eventIdPrefix = 'project1234.entities.Employees';
+		messageHubProvider.eventIdPrefix = 'codbex-edm-vue-element-plus.entities.Employees';
 	}])
 	.config(["entityApiProvider", function (entityApiProvider) {
-		entityApiProvider.baseUrl = "/services/ts/project1234/gen/model/api/entities/EmployeesService.ts";
+		entityApiProvider.baseUrl = "/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts";
 	}])
 	.controller('PageController', ['$scope', 'messageHub', 'entityApi', 'Extensions', function ($scope, messageHub, entityApi, Extensions) {
 
@@ -12,7 +12,7 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 		$scope.dataLimit = 20;
 
 		//-----------------Custom Actions-------------------//
-		Extensions.get('dialogWindow', 'project1234-custom-action').then(function (response) {
+		Extensions.get('dialogWindow', 'codbex-edm-vue-element-plus-custom-action').then(function (response) {
 			$scope.pageActions = response.filter(e => e.perspective === "entities" && e.view === "Employees" && (e.type === "page" || e.type === undefined));
 			$scope.entityActions = response.filter(e => e.perspective === "entities" && e.view === "Employees" && e.type === "entity");
 		});

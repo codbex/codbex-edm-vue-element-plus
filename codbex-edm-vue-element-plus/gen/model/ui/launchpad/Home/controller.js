@@ -5,13 +5,13 @@
  */
 angular.module('page', ['ideUI', 'ideView', 'entityApi'])
 	.config(['messageHubProvider', function (messageHubProvider) {
-		messageHubProvider.eventIdPrefix = 'project1234.launchpad.Home';
+		messageHubProvider.eventIdPrefix = 'codbex-edm-vue-element-plus.launchpad.Home';
 	}])
 	.config(['entityApiProvider', function (entityApiProvider) {
-		entityApiProvider.baseUrl = '/services/js/project1234/gen/model/ui/launchpad/Home/tiles.js';
+		entityApiProvider.baseUrl = '/services/js/codbex-edm-vue-element-plus/gen/model/ui/launchpad/Home/tiles.js';
 	}])
 	.controller('PageController', ['$scope', 'messageHub', 'entityApi', '$document', function ($scope, messageHub, entityApi, $document) {
-		const favoritesStoreId = 'DIRIGIBLE.project1234.favorites';
+		const favoritesStoreId = 'DIRIGIBLE.codbex-edm-vue-element-plus.favorites';
 		$scope.state = {
 			isBusy: true,
 			error: false,

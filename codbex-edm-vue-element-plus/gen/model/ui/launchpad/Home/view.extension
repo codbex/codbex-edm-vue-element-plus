@@ -1,5 +1,5 @@
 {
-    "module": "project1234/gen/model/ui/launchpad/Home/view.js",
-    "extensionPoint": "project1234-view",
-    "description": "project1234 - Application View"
+    "module": "codbex-edm-vue-element-plus/gen/model/ui/launchpad/Home/view.js",
+    "extensionPoint": "codbex-edm-vue-element-plus-view",
+    "description": "codbex-edm-vue-element-plus - Application View"
 }

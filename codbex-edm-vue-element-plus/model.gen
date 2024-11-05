@@ -3,14 +3,14 @@
   "brandUrl": "demo",
   "title": "demo",
   "description": "demo",
-  "projectName": "project1234",
-  "workspaceName": "workspace",
-  "filePath": "model.model",
-  "templateId": "template-application-angular/template/template.js",
   "fileName": "model",
   "genFolderName": "model",
   "dataSource": "DefaultDB",
   "tablePrefix": "",
+  "projectName": "codbex-edm-vue-element-plus",
+  "workspaceName": "workspace",
+  "filePath": "model.model",
+  "templateId": "template-application-angular/template/template.js",
   "perspectives": {
     "entities": {
       "views": [

@@ -8,7 +8,7 @@ const viewData = {
     label: "Employees",
     factory: "frame",
     region: "center",
-    link: "/services/web/project1234/gen/model/ui/entities/Employees/index.html",
+    link: "/services/web/codbex-edm-vue-element-plus/gen/model/ui/entities/Employees/index.html",
     perspectiveName: "entities",
 };
 

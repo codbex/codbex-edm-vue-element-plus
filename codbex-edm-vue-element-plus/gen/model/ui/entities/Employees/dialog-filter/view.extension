@@ -1,5 +1,5 @@
 {
-    "module": "project1234/gen/model/ui/entities/Employees/dialog-filter/view.js",
-    "extensionPoint": "project1234-dialog-window",
-    "description": "project1234 - Application Dialog Window"
+    "module": "codbex-edm-vue-element-plus/gen/model/ui/entities/Employees/dialog-filter/view.js",
+    "extensionPoint": "codbex-edm-vue-element-plus-dialog-window",
+    "description": "codbex-edm-vue-element-plus - Application Dialog Window"
 }

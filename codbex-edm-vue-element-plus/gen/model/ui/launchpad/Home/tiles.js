@@ -9,7 +9,7 @@ import { user } from "sdk/security";
 
 let tiles = {};
 
-let tileExtensions = await extensions.loadExtensionModules("project1234-tile");
+let tileExtensions = await extensions.loadExtensionModules("codbex-edm-vue-element-plus-tile");
 for (let i = 0; i < tileExtensions?.length; i++) {
     let tile = tileExtensions[i].getTile();
 

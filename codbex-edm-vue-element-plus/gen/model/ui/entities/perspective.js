@@ -6,7 +6,7 @@
 const perspectiveData = {
 	id: 'entities',
 	name: 'Entities',
-	link: '/services/web/project1234/gen/model/ui/entities/index.html',
+	link: '/services/web/codbex-edm-vue-element-plus/gen/model/ui/entities/index.html',
 	order: 100,
 	icon: '/services/web/resources/unicons/copy.svg',
 };

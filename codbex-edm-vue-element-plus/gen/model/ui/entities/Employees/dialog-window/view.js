@@ -6,7 +6,7 @@
 const viewData = {
     id: "Employees-details",
     label: "Employees",
-    link: "/services/web/project1234/gen/model/ui/entities/Employees/dialog-window/index.html",
+    link: "/services/web/codbex-edm-vue-element-plus/gen/model/ui/entities/Employees/dialog-window/index.html",
     perspectiveName: "entities",
 };
 

@@ -4,7 +4,7 @@ import { EmployeesRepository, EmployeesEntityOptions } from "../../dao/entities/
 import { ValidationError } from "../utils/ValidationError";
 import { HttpUtils } from "../utils/HttpUtils";
 
-const validationModules = await Extensions.loadExtensionModules("project1234-entities-Employees", ["validate"]);
+const validationModules = await Extensions.loadExtensionModules("codbex-edm-vue-element-plus-entities-Employees", ["validate"]);
 
 @Controller
 class EmployeesService {
@@ -30,7 +30,7 @@ class EmployeesService {
         try {
             this.validateEntity(entity);
             entity.Id = this.repository.create(entity);
-            response.setHeader("Content-Location", "/services/ts/project1234/gen/model/api/entities/EmployeesService.ts/" + entity.Id);
+            response.setHeader("Content-Location", "/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/" + entity.Id);
             response.setStatus(response.CREATED);
             return entity;
         } catch (error: any) {

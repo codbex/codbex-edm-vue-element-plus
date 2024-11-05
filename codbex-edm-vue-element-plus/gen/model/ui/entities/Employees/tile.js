@@ -5,14 +5,14 @@
  */
 exports.getTile = function () {
     return {
-        group: "project1234",
+        group: "codbex-edm-vue-element-plus",
         name: "Employees",
         caption: "Manage entity Employees",
         tooltip: "Employees",
         type: "PRIMARY",
         report: "false",
         icon: "/services/web/resources/unicons/file.svg",
-        location: "/services/web/project1234/gen/model/ui/entities/index.html",
+        location: "/services/web/codbex-edm-vue-element-plus/gen/model/ui/entities/index.html",
         order: "100",
         groupOrder: "100",
     };

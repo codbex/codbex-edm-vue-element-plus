@@ -1,9 +1,9 @@
 angular.module('page', ["ideUI", "ideView", "entityApi"])
 	.config(["messageHubProvider", function (messageHubProvider) {
-		messageHubProvider.eventIdPrefix = 'project1234.entities.Employees';
+		messageHubProvider.eventIdPrefix = 'codbex-edm-vue-element-plus.entities.Employees';
 	}])
 	.config(["entityApiProvider", function (entityApiProvider) {
-		entityApiProvider.baseUrl = "/services/ts/project1234/gen/model/api/entities/EmployeesService.ts";
+		entityApiProvider.baseUrl = "/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts";
 	}])
 	.controller('PageController', ['$scope', 'messageHub', 'ViewParameters', 'entityApi', function ($scope, messageHub, ViewParameters, entityApi) {
 
@@ -54,6 +54,7 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 				messageHub.showAlertSuccess("Employees", "Employees successfully updated");
 			});
 		};
+
 
 		$scope.cancel = function () {
 			$scope.entity = {};

@@ -1,5 +1,5 @@
 {
-    "module": "project1234/gen/model/ui/launchpad/menu-help.js",
-    "extensionPoint": "project1234-menu",
-    "description": "project1234 - Application Menu"
+    "module": "codbex-edm-vue-element-plus/gen/model/ui/launchpad/menu-help.js",
+    "extensionPoint": "codbex-edm-vue-element-plus-menu",
+    "description": "codbex-edm-vue-element-plus - Application Menu"
 }

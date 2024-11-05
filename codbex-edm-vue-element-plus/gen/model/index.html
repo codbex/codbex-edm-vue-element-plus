@@ -24,10 +24,10 @@
     </head>
 
     <body>
-        <ide-header menu-ext-id="project1234-menu"></ide-header>
+        <ide-header menu-ext-id="codbex-edm-vue-element-plus-menu"></ide-header>
 
         <ide-container>
-            <view id="project1234-home-launchpad"></view>
+            <view id="codbex-edm-vue-element-plus-home-launchpad"></view>
         </ide-container>
 
         <ide-dialogs></ide-dialogs>
@@ -47,12 +47,12 @@
                     logo: '/services/web/ide-branding/images/logo.svg',
                 })
                 .constant('extensionPoint', {
-                    perspectives: "project1234",
-                    views: "project1234-view",
-                    dialogWindows: "project1234-dialog-window"
+                    perspectives: "codbex-edm-vue-element-plus",
+                    views: "codbex-edm-vue-element-plus-view",
+                    dialogWindows: "codbex-edm-vue-element-plus-dialog-window"
                 })
                 .config(["messageHubProvider", function (messageHubProvider) {
-                    messageHubProvider.eventIdPrefix = 'project1234.launchpad.Home';
+                    messageHubProvider.eventIdPrefix = 'codbex-edm-vue-element-plus.launchpad.Home';
                 }])
                 .controller('ApplicationController', ["$scope", "messageHub", function ($scope, messageHub) {
 

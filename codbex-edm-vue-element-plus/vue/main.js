@@ -57,7 +57,7 @@ const app = createApp({
             });
         },
         handleDelete: async function (index, entity) {
-            // const response = await fetch(`/services/ts/project1234/gen/model/api/entities/EmployeesService.ts/${entity.Id}`, { method: 'DELETE' })
+            // const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${entity.Id}`, { method: 'DELETE' })
             this.tableData.splice(index, 1);
             ElMessage({
                 message: `Entity with Id = ${entity.Id} was deleted successfully.`,
@@ -70,14 +70,14 @@ const app = createApp({
         }
     },
     mounted: async function () {
-        const response = await fetch('/services/ts/project1234/gen/model/api/entities/EmployeesService.ts');
+        const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts');
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
 
-        this.tableData = await response.json();
-        setTimeout(function (context) {
+        setTimeout(async function (context) {
             context.loading = false
+            context.tableData = await response.json();
         }, 1000, this);
     }
 });

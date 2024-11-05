@@ -24,7 +24,7 @@
     </head>
 
     <body dg-embeddable-perspective>
-        <ide-header menu-ext-id="project1234-menu"></ide-header>
+        <ide-header menu-ext-id="codbex-edm-vue-element-plus-menu"></ide-header>
         <ide-container ng-if="!state.error && !state.isBusy">
             <ide-layout views-layout-model="layoutModel"></ide-layout>
         </ide-container>
@@ -50,9 +50,9 @@
                     logo: '/services/web/ide-branding/images/logo.svg',
                 })
                 .constant('extensionPoint', {
-                    perspectives: 'project1234',
-                    views: 'project1234-view',
-                    dialogWindows: 'project1234-dialog-window'
+                    perspectives: 'codbex-edm-vue-element-plus',
+                    views: 'codbex-edm-vue-element-plus-view',
+                    dialogWindows: 'codbex-edm-vue-element-plus-dialog-window'
                 })
                 .controller('ApplicationController', ['$scope', 'messageHub', 'Extensions', function ($scope, messageHub, Extensions) {
                     $scope.state = {
@@ -63,7 +63,7 @@
                     $scope.layoutModel = {
                         views: []
                     };
-                    Extensions.get('view', 'project1234-view').then(function (response) {
+                    Extensions.get('view', 'codbex-edm-vue-element-plus-view').then(function (response) {
                         $scope.layoutModel = {
                             views: response.filter(e => !e.isLaunchpad && e.perspectiveName === 'entities').map(e => e.id)
                         };

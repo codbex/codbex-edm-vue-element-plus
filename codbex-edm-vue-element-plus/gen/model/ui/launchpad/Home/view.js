@@ -4,11 +4,11 @@
  * Do not modify the content as it may be re-generated again.
  */
 const viewData = {
-    id: "project1234-home-launchpad",
+    id: "codbex-edm-vue-element-plus-home-launchpad",
     label: "Home Launchpad",
     factory: "frame",
     region: "center",
-    link: "/services/web/project1234/gen/model/ui/launchpad/Home/index.html",
+    link: "/services/web/codbex-edm-vue-element-plus/gen/model/ui/launchpad/Home/index.html",
     isLaunchpad: true,
 };
 
