@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Element Plus with ESM Import Map</title>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://unpkg.com/vue@3.2.45/dist/vue.esm-browser.js",
+                    "element-plus": "https://cdn.jsdelivr.net/npm/element-plus@latest/dist/index.full.min.mjs",
+                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/",
+                    "@element-plus/icons-vue": "https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2/dist/index.min.js"
+                }
+            }
+        </script>
+
+        <link rel="stylesheet" href="./styles.css">
+
+        <style>
+            iframe {
+                display: block;
+                border: none;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+            }
+
+        </style>
+        <style scoped>
+            :global(h2#card-usage ~ .example .example-showcase) {
+                background-color: var(--el-fill-color) !important;
+            }
+
+            .el-statistic {
+                --el-statistic-content-font-size: 28px;
+            }
+
+            .statistic-card {
+                height: 100%;
+                padding: 20px;
+                border-radius: 4px;
+                background-color: var(--el-bg-color-overlay);
+            }
+
+            .statistic-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                font-size: 12px;
+                color: var(--el-text-color-regular);
+                margin-top: 16px;
+            }
+
+            .statistic-footer .footer-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .statistic-footer .footer-item span:last-child {
+                display: inline-flex;
+                align-items: center;
+                margin-left: 4px;
+            }
+
+            .green {
+                color: var(--el-color-success);
+            }
+
+            .red {
+                color: var(--el-color-error);
+            }
+
+            .text-large {
+                font-size: 28px;
+                margin-left: 1em;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <div>
+                <el-container>
+                    <el-header>
+
+                        <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false"
+                            @select="handleSelect">
+                            <el-menu-item index="0">
+                                <img style="width: 100px" src="./button-logo-orange.png" alt="codbex logo" />
+                                <span class="text-large font-600 mr-3"> Hestia </span>
+                            </el-menu-item>
+                            <el-menu-item index="1">Processes</el-menu-item>
+                            <el-menu-item index="2">Documents</el-menu-item>
+                            <el-sub-menu index="3">
+                                <template #title>Workspace</template>
+                                <el-menu-item index="3-1">item one</el-menu-item>
+                                <el-menu-item index="3-2">item two</el-menu-item>
+                                <el-menu-item index="3-3">item three</el-menu-item>
+                                <el-sub-menu index="3-4">
+                                    <template #title>item four</template>
+                                    <el-menu-item index="3-4-1">item one</el-menu-item>
+                                    <el-menu-item index="3-4-2">item two</el-menu-item>
+                                    <el-menu-item index="3-4-3">item three</el-menu-item>
+                                </el-sub-menu>
+                            </el-sub-menu>
+                            <el-menu-item index="4" disabled>Info</el-menu-item>
+                            <el-menu-item index="5">Orders</el-menu-item>
+                        </el-menu>
+
+                    </el-header>
+                    <el-container>
+                        <el-aside width="200px">
+
+                            <el-menu
+                                default-active="/services/web/codbex-sample-vue-element-plus/components/Space/index.html"
+                                class="el-menu-vertical-demo" @select="handleSelect">
+                                <el-menu-item
+                                    index="/services/web/codbex-sample-vue-element-plus/components/Space/index.html">
+                                    <el-icon>
+                                        <document />
+                                    </el-icon>
+                                    <span>Dashboard</span>
+                                </el-menu-item>
+                                <el-sub-menu :index="navigationIndex" v-for="(next, navigationIndex) in navigation">
+                                    <template #title>
+                                        <el-icon>
+                                            <document />
+                                        </el-icon>
+                                        <span>{{next.name}}</span>
+                                    </template>
+                                    <el-menu-item v-for="menuItem in next.menuItems" :index="menuItem.path">
+                                        {{menuItem.name}}
+                                    </el-menu-item>
+                                    <el-sub-menu :index="navigationIndex + '-' + subMenuIndex"
+                                        v-for="(subMenu, subMenuIndex) in next.subMenus">
+                                        <template #title>
+                                            <el-icon>
+                                                <document />
+                                            </el-icon>
+                                            <span>{{subMenu.name}}</span>
+                                        </template>
+                                        <el-menu-item v-for="subMenuItem in subMenu.menuItems"
+                                            :index="subMenuItem.path">
+                                            {{subMenuItem.name}}
+                                        </el-menu-item>
+                                    </el-sub-menu>
+                                </el-sub-menu>
+                            </el-menu>
+                            <!-- <el-menu default-active="1" class="el-menu-vertical-demo" @select="handleSelect">
+                                <el-menu-item index="1">
+                                    <el-icon>
+                                        <document />
+                                    </el-icon>
+                                    <span>Dashboard</span>
+                                </el-menu-item>
+                                <el-sub-menu index="2">
+                                    <template #title>
+                                        <el-icon>
+                                            <document />
+                                        </el-icon>
+                                        <span>Employees</span>
+                                    </template>
+                                    <el-menu-item
+                                        index="/services/web/codbex-edm-vue-element-plus/vue/Employees/index.html">
+                                        Employees</el-menu-item>
+                                    <el-menu-item
+                                        index="/services/web/codbex-sample-vue-element-plus/components/Button/index.html">
+                                        Organizations</el-menu-item>
+                                </el-sub-menu>
+                                <el-sub-menu index="3">
+                                    <template #title>
+                                        <el-icon>
+                                            <icon-menu />
+                                        </el-icon>
+                                        <span>
+                                            Documents
+                                        </span>
+                                    </template>
+                                    <el-sub-menu index="3-1">
+                                        <template #title>
+                                            <el-icon>
+                                                <location />
+                                            </el-icon>
+                                            <span>
+                                                Purchasing
+                                            </span>
+                                        </template>
+                                        <el-menu-item
+                                            index="/services/web/codbex-sample-vue-element-plus/components/Checkbox/index.html">
+                                            Purchase Orders</el-menu-item>
+                                        <el-menu-item
+                                            index="/services/web/codbex-sample-vue-element-plus/components/ColorPicker/index.html">
+                                            Purchase Invoices</el-menu-item>
+                                        <el-menu-item
+                                            index="/services/web/codbex-sample-vue-element-plus/components/DatePicker/index.html">
+                                            Supplier Payments</el-menu-item>
+                                    </el-sub-menu>
+                                    <el-sub-menu index="3-2">
+                                        <template #title>
+                                            <el-icon>
+                                                <location />
+                                            </el-icon>
+                                            <span>
+                                                Sales
+                                            </span>
+                                        </template>
+                                        <el-menu-item index="3-2-1">Sales Orders</el-menu-item>
+                                        <el-menu-item index="3-2-2">Sales Invoices</el-menu-item>
+                                        <el-menu-item index="3-2-3">Customer Payments</el-menu-item>
+                                        <el-menu-item index="3-2-4">Debit Note</el-menu-item>
+                                        <el-menu-item index="3-2-5">Credit Note</el-menu-item>
+                                    </el-sub-menu>
+                                </el-sub-menu>
+                                <el-sub-menu index="4">
+                                    <template #title>
+                                        <el-icon>
+                                            <icon-menu />
+                                        </el-icon>
+                                        <span>
+                                            Reports
+                                        </span>
+                                    </template>
+                                    <el-sub-menu index="4-1">
+                                        <template #title>
+                                            <el-icon>
+                                                <location />
+                                            </el-icon>
+                                            <span>
+                                                Finance
+                                            </span>
+                                        </template>
+                                        <el-menu-item index="4-1-1">Sales Orders</el-menu-item>
+                                        <el-menu-item index="4-1-2">Sales Orders Total</el-menu-item>
+                                        <el-menu-item index="4-1-3">Purchase Orders</el-menu-item>
+                                        <el-menu-item index="4-1-4">Purchase Orders Total</el-menu-item>
+                                    </el-sub-menu>
+                                </el-sub-menu>
+                            </el-menu> -->
+
+                        </el-aside>
+                        <el-container>
+
+                            <el-main>
+
+                                <iframe :src="view">
+                                </iframe>
+                                <el-row :gutter="16">
+                                </el-row>
+
+                            </el-main>
+
+                        </el-container>
+                    </el-container>
+                    <el-footer>
+
+                        <el-descriptions>
+                            <el-descriptions-item label="Remarks">
+                                <el-tag size="small">School</el-tag>
+                            </el-descriptions-item>
+                            <el-descriptions-item label="Address">
+                                No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+                            </el-descriptions-item>
+                        </el-descriptions>
+
+                    </el-footer>
+                </el-container>
+            </div>
+
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
+
+</html>
