@@ -124,26 +124,50 @@
                             </el-sub-menu>
                             <el-menu-item index="4" disabled>Info</el-menu-item>
                             <el-menu-item index="5">Orders</el-menu-item>
+                            <el-menu-item>
+                                <el-dropdown>
+                                    <span>
+                                        <el-icon size="30">
+                                            <Setting />
+                                        </el-icon>
+                                    </span>
+                                    <template #dropdown>
+                                        <el-dropdown-menu>
+                                            <el-dropdown-item @click="changeLocale('en')">English</el-dropdown-item>
+                                            <el-dropdown-item @click="changeLocale('bg')">Bulgarian</el-dropdown-item>
+                                            <el-dropdown-item divided="true" @click="startTour">Start Guided Tour
+                                            </el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </template>
+                                </el-dropdown>
+                            </el-menu-item>
                         </el-menu>
 
                     </el-header>
                     <el-container>
                         <el-aside width="200px">
-
                             <el-menu
                                 default-active="/services/web/codbex-sample-vue-element-plus/components/Space/index.html"
-                                class="el-menu-vertical-demo" @select="handleSelect">
+                                class="el-menu-vertical-demo" @select="handleSelect" :collapse="isCollapse">
+                                <el-menu-item @click="isCollapse = !isCollapse">
+                                    <el-icon v-show="isCollapse">
+                                        <Expand />
+                                    </el-icon>
+                                    <el-icon v-show="!isCollapse">
+                                        <Fold />
+                                    </el-icon>
+                                </el-menu-item>
                                 <el-menu-item
                                     index="/services/web/codbex-sample-vue-element-plus/components/Space/index.html">
                                     <el-icon>
-                                        <document />
+                                        <Document />
                                     </el-icon>
                                     <span>Dashboard</span>
                                 </el-menu-item>
                                 <el-sub-menu :index="navigationIndex" v-for="(next, navigationIndex) in navigation">
                                     <template #title>
                                         <el-icon>
-                                            <document />
+                                            <Document />
                                         </el-icon>
                                         <span>{{next.name}}</span>
                                     </template>
@@ -154,7 +178,7 @@
                                         v-for="(subMenu, subMenuIndex) in next.subMenus">
                                         <template #title>
                                             <el-icon>
-                                                <document />
+                                                <Document />
                                             </el-icon>
                                             <span>{{subMenu.name}}</span>
                                         </template>
@@ -170,10 +194,8 @@
 
                             <el-main>
 
-                                <iframe :src="view">
+                                <iframe :src="view" style="height: 80vh">
                                 </iframe>
-                                <el-row :gutter="16">
-                                </el-row>
 
                             </el-main>
 

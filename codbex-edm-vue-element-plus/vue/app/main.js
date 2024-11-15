@@ -1,21 +1,7 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
-import {
-    Check,
-    Delete,
-    Edit,
-    Message,
-    Search,
-    Star,
-    ArrowRight,
-    CaretBottom,
-    CaretTop,
-    Warning,
-    Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
-} from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import * as icons from '@element-plus/icons-vue'
 
 import { ref } from 'vue'
 
@@ -27,20 +13,7 @@ const value2 = ref(['Option1'])
 const app = createApp({
     setup() {
         return {
-            Check: Check,
-            Delete: Delete,
-            Edit: Edit,
-            Message: Message,
-            Search: Search,
-            Star: Star,
-            ArrowRight: ArrowRight,
-            CaretBottom: CaretBottom,
-            CaretTop: CaretTop,
-            Warning: Warning,
-            Document: Document,
-            IconMenu: IconMenu,
-            Location: Location,
-            Setting: Setting,
+            ...icons
         }
     },
     created() {
@@ -48,6 +21,7 @@ const app = createApp({
     },
     data: function () {
         return {
+            isCollapse: false,
             dialogDetailVisible: true,
             view: '/services/web/codbex-sample-vue-element-plus/components/Space/index.html',
             sampleTitle: 'Button - Basic usage',
@@ -172,8 +146,17 @@ const app = createApp({
         };
     },
     methods: {
+        changeLocale(locale) {
+            this.$messageHub.post(locale, 'app.changeLocale');
+        },
+        startTour() {
+            this.$messageHub.post({}, 'app.startTour');
+        },
         handleMessage(event) {
-            alert(`Message Hub Integrated! key = ${event.key}, keyPath = ${event.keyPath}`);
+            ElMessage({
+                message: `Message Hub Integrated! key = ${event.key}, keyPath = ${event.keyPath}`,
+                type: 'success',
+            });
         },
         handleSelect(key, keyPath) {
             this.$messageHub.post({
@@ -186,17 +169,11 @@ const app = createApp({
     },
 });
 
+
+Object.keys(icons).forEach(iconName => app.component(iconName.toLowerCase(), icons[iconName]));
+
 app.config.globalProperties.$messageHub = new FramesMessageHub();
 
 app.use(ElementPlus);
-
-app.component('arrowright', ArrowRight)
-app.component('caretbottom', CaretBottom)
-app.component('carettop', CaretTop)
-app.component('warning', Warning)
-app.component('location', Location)
-app.component('icon-menu', IconMenu)
-app.component('document', Document)
-app.component('setting', Setting)
 
 app.mount('#app');
