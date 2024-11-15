@@ -43,8 +43,12 @@ const app = createApp({
             Setting: Setting,
         }
     },
+    created() {
+        this.$messageHub.subscribe(this.handleMessage, 'vue.test');
+    },
     data: function () {
         return {
+            dialogDetailVisible: true,
             view: '/services/web/codbex-sample-vue-element-plus/components/Space/index.html',
             sampleTitle: 'Button - Basic usage',
             sampleUrl: 'https://element-plus.org/en-US/component/button.html#basic-usage',
@@ -168,15 +172,24 @@ const app = createApp({
         };
     },
     methods: {
+        handleMessage(event) {
+            alert(`Message Hub Integrated! key = ${event.key}, keyPath = ${event.keyPath}`);
+        },
         handleSelect(key, keyPath) {
-            debugger
+            this.$messageHub.post({
+                key: key,
+                keyPath: keyPath
+            }, 'vue.test');
             this.view = key;
             console.log(key, keyPath)
         },
     },
 });
 
+app.config.globalProperties.$messageHub = new FramesMessageHub();
+
 app.use(ElementPlus);
+
 app.component('arrowright', ArrowRight)
 app.component('caretbottom', CaretBottom)
 app.component('carettop', CaretTop)
@@ -185,4 +198,5 @@ app.component('location', Location)
 app.component('icon-menu', IconMenu)
 app.component('document', Document)
 app.component('setting', Setting)
+
 app.mount('#app');
