@@ -14,7 +14,7 @@ const i18n = createI18n({
         en: en,
         bg: bg,
     }
-})
+});
 
 const app = createApp({
     setup() {
@@ -25,9 +25,12 @@ const app = createApp({
             Plus: Plus,
         }
     },
+    created() {
+        this.$messageHub.subscribe(this.start, 'app.startTour');
+        this.$messageHub.subscribe(this.changeLocale, 'app.changeLocale');
+    },
     data: function () {
         return {
-            selectedLocale: null,
             startTour: false,
             loading: true,
             tableData: [],
@@ -39,6 +42,9 @@ const app = createApp({
         };
     },
     methods: {
+        start: function () {
+            this.startTour = true;
+        },
         showDetail: function (_index, entity) {
             this.dialogDetailVisible = true;
             this.selectedEntity = entity;
@@ -77,8 +83,12 @@ const app = createApp({
             this.dialogEditVisible = false;
         },
         handleCreate: function () {
-            this.dialogCreateVisible = true;
+            // this.dialogCreateVisible = true;
             this.selectedEntity = {};
+            this.$messageHub.post({
+                title: 'Demo Title',
+                path: '/services/web/codbex-edm-vue-element-plus/vue/app/index.html'
+            }, 'app.openDialog');
         },
         saveCreate: async function () {
             const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts', {
@@ -132,8 +142,8 @@ const app = createApp({
             });
 
         },
-        changeLocale: function () {
-            i18n.global.locale = this.selectedLocale;
+        changeLocale: function (event) {
+            i18n.global.locale = event.data;
         }
     },
     mounted: async function () {
@@ -148,6 +158,8 @@ const app = createApp({
         }, 1000, this);
     }
 });
+
+app.config.globalProperties.$messageHub = new FramesMessageHub();
 
 app.use(i18n);
 app.use(ElementPlus);

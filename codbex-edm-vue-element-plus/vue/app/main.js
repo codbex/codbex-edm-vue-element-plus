@@ -1,14 +1,6 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
-import { ElMessage } from 'element-plus'
 import * as icons from '@element-plus/icons-vue'
-
-import { ref } from 'vue'
-
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
-const value1 = ref('Option1')
-const value2 = ref(['Option1'])
 
 const app = createApp({
     setup() {
@@ -17,87 +9,25 @@ const app = createApp({
         }
     },
     created() {
-        this.$messageHub.subscribe(this.handleMessage, 'vue.test');
+        this.$messageHub.subscribe(this.openDialog, 'app.openDialog');
+        this.$messageHub.subscribe(this.closeDialog, 'app.closeDialog');
     },
     data: function () {
         return {
-            isCollapse: false,
-            dialogDetailVisible: true,
-            view: '/services/web/codbex-sample-vue-element-plus/components/Space/index.html',
-            sampleTitle: 'Button - Basic usage',
-            sampleUrl: 'https://element-plus.org/en-US/component/button.html#basic-usage',
-            activeIndex: activeIndex,
-            activeIndex2: activeIndex2,
-            activities: [
-                {
-                    content: 'Event start',
-                    timestamp: '2018-04-15',
-                },
-                {
-                    content: 'Approved',
-                    timestamp: '2018-04-13',
-                },
-                {
-                    content: 'Success',
-                    timestamp: '2018-04-11',
-                },
-            ],
-            tableData: [
-                {
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-                {
-                    date: '2016-05-02',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-                {
-                    date: '2016-05-04',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-                {
-                    date: '2016-05-01',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-            ],
-            options: [
-                {
-                    value: 'Option1',
-                    label: 'Label1',
-                },
-                {
-                    value: 'Option2',
-                    label: 'Label2',
-                },
-                {
-                    value: 'Option3',
-                    label: 'Label3',
-                },
-                {
-                    value: 'Option4',
-                    label: 'Label4',
-                },
-                {
-                    value: 'Option5',
-                    label: 'Label5',
-                }
-            ],
-            value1: value1,
-            value2: value2,
+            isNavigationCollapsed: false,
+            dialogVisible: false,
+            dialogTitle: null,
+            view: '/services/web/codbex-sample-vue-element-plus/components/Space/',
             navigation: [
                 {
                     name: 'Employees',
                     menuItems: [
                         {
                             name: 'Employees',
-                            path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/index.html'
+                            path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/'
                         }, {
                             name: 'Organizations',
-                            path: '/services/web/codbex-sample-vue-element-plus/components/Button/index.html'
+                            path: '/services/web/codbex-sample-vue-element-plus/components/Button/'
                         }
                     ]
                 },
@@ -109,13 +39,13 @@ const app = createApp({
                             menuItems: [
                                 {
                                     name: 'Purchase Orders',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Checkbox/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/Checkbox/'
                                 }, {
                                     name: 'Purchase Invoices',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/ColorPicker/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/ColorPicker/'
                                 }, {
                                     name: 'Supplier Payments',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/DatePicker/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/DatePicker/'
                                 }
                             ]
                         },
@@ -124,19 +54,19 @@ const app = createApp({
                             menuItems: [
                                 {
                                     name: 'Sales Orders',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/DateTimePicker/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/DateTimePicker/'
                                 }, {
                                     name: 'Sales Invoices',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Dialog/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/Dialog/'
                                 }, {
                                     name: 'Customer Payments',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Form/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/Form/'
                                 }, {
                                     name: 'Debit Note',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/LayoutContainer/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/LayoutContainer/'
                                 }, {
                                     name: 'Credit Note',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Link/index.html'
+                                    path: '/services/web/codbex-sample-vue-element-plus/components/Link/'
                                 }
                             ]
                         }
@@ -152,20 +82,27 @@ const app = createApp({
         startTour() {
             this.$messageHub.post({}, 'app.startTour');
         },
-        handleMessage(event) {
-            ElMessage({
-                message: `Message Hub Integrated! key = ${event.key}, keyPath = ${event.keyPath}`,
-                type: 'success',
-            });
+        openDialog(event) {
+            debugger
+            this.dialogVisible = true;
+            this.dialogTitle = event.title;
+            this.dialogPath = event.path;
+        },
+        closeDialog() {
+            this.dialogVisible = false;
+            this.dialogTitle = null;
+            this.dialogPath = null;
         },
         handleSelect(key, keyPath) {
-            this.$messageHub.post({
-                key: key,
-                keyPath: keyPath
-            }, 'vue.test');
             this.view = key;
             console.log(key, keyPath)
         },
+        openInNewTab(url) {
+            window.open(url);
+        },
+        logout() {
+            location.replace('/logout');
+        }
     },
 });
 

@@ -16,8 +16,8 @@
                 }
             }
         </script>
-
         <script src="/services/web/resources-core/core/message-hub.js"></script>
+        <script type="module" src="./main.js"></script>
 
         <link rel="stylesheet" href="./styles.css">
 
@@ -35,54 +35,6 @@
                 height: 70vh
             }
 
-        </style>
-
-        <style scoped>
-            :global(h2#card-usage ~ .example .example-showcase) {
-                background-color: var(--el-fill-color) !important;
-            }
-
-            .el-statistic {
-                --el-statistic-content-font-size: 28px;
-            }
-
-            .statistic-card {
-                height: 100%;
-                padding: 20px;
-                border-radius: 4px;
-                background-color: var(--el-bg-color-overlay);
-            }
-
-            .statistic-footer {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-                font-size: 12px;
-                color: var(--el-text-color-regular);
-                margin-top: 16px;
-            }
-
-            .statistic-footer .footer-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .statistic-footer .footer-item span:last-child {
-                display: inline-flex;
-                align-items: center;
-                margin-left: 4px;
-            }
-
-            .green {
-                color: var(--el-color-success);
-            }
-
-            .red {
-                color: var(--el-color-error);
-            }
-
             .text-large {
                 font-size: 28px;
                 margin-left: 1em;
@@ -93,131 +45,139 @@
 
     <body>
         <div id="app">
-            <div>
-                <el-container>
-                    <el-dialog v-model="dialogDetailVisible" title="Employees Details" width="70%">
-                        <iframe src="/services/web/codbex-sample-vue-element-plus/components/Form/index.html">
-                        </iframe>
-                    </el-dialog>
+            <!-- Main Dialog -->
+            <el-dialog v-model="dialogVisible" :title="dialogTitle" width="70%">
+                <iframe :src="dialogPath">
+                </iframe>
+            </el-dialog>
 
-                    <el-header>
+            <!-- Header -->
+            <el-header>
+                <el-menu mode="horizontal" :ellipsis="false" @select="handleSelect">
+                    <el-menu-item index="/services/web/codbex-sample-vue-element-plus/components/Space/">
+                        <img style="width: 100px" src="./button-logo-orange.png" alt="codbex logo" />
+                        <span class="text-large font-600 mr-3"> Hestia </span>
+                    </el-menu-item>
+                    <el-menu-item index="/services/web/inbox/">Processes</el-menu-item>
+                    <el-menu-item index="/services/web/documents/">Documents</el-menu-item>
+                    <el-sub-menu index="help">
+                        <template #title>Help</template>
+                        <el-menu-item @click="openInNewTab('https://www.dirigible.io/help/')">Help Portal</el-menu-item>
+                        <el-menu-item @click="openInNewTab('https://github.com/eclipse/dirigible/issues')">Contact
+                            Support</el-menu-item>
+                        <el-menu-item
+                            @click="openInNewTab('https://github.com/eclipse/dirigible/issues/new?assignees=&labels=&template=feature_request.md&title=[New%20Feature]')">
+                            Suggest a Feature</el-menu-item>
+                        <el-menu-item @click="openInNewTab('https://www.dirigible.io/blogs/')">What's New</el-menu-item>
+                        <el-menu-item @click="openInNewTab('https://download.dirigible.io/')">Check for Updates
+                        </el-menu-item>
+                    </el-sub-menu>
+                    <el-sub-menu index="username">
+                        <template #title>admin</template>
+                        <el-sub-menu index="change-locale">
+                            <template #title>Locale</template>
+                            <el-menu-item @click="changeLocale('en')">English</el-menu-item>
+                            <el-menu-item @click="changeLocale('bg')">Bulgarian</el-menu-item>
+                        </el-sub-menu>
+                        <el-menu-item @click="startTour">Start Guided Tour</el-menu-item>
+                        <el-menu-item @click="logout()">Logout</el-menu-item>
+                    </el-sub-menu>
+                </el-menu>
+            </el-header>
 
-                        <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false"
-                            @select="handleSelect">
-                            <el-menu-item index="0">
-                                <img style="width: 100px" src="./button-logo-orange.png" alt="codbex logo" />
-                                <span class="text-large font-600 mr-3"> Hestia </span>
+            <!-- Container -->
+            <el-container>
+                <!-- Side Navigation -->
+                <el-aside width="200">
+                    <el-menu default-active="/services/web/codbex-sample-vue-element-plus/components/Space/"
+                        @select="handleSelect" :collapse="isNavigationCollapsed">
+                        <el-menu-item @click="isNavigationCollapsed = !isNavigationCollapsed">
+                            <el-icon v-show="isNavigationCollapsed">
+                                <Expand />
+                            </el-icon>
+                            <el-icon v-show="!isNavigationCollapsed">
+                                <Fold />
+                            </el-icon>
+                        </el-menu-item>
+                        <el-menu-item index="/services/web/codbex-sample-vue-element-plus/components/Space/">
+                            <el-icon>
+                                <Document />
+                            </el-icon>
+                            <span>Dashboard</span>
+                        </el-menu-item>
+                        <el-sub-menu :index="'' + navigationIndex" v-for="(next, navigationIndex) in navigation">
+                            <template #title>
+                                <el-icon>
+                                    <Document />
+                                </el-icon>
+                                <span>{{next.name}}</span>
+                            </template>
+                            <el-menu-item v-for="menuItem in next.menuItems" :index="menuItem.path">
+                                {{menuItem.name}}
                             </el-menu-item>
-                            <el-menu-item index="1">Processes</el-menu-item>
-                            <el-menu-item index="2">Documents</el-menu-item>
-                            <el-sub-menu index="3">
-                                <template #title>Workspace</template>
-                                <el-menu-item index="3-1">item one</el-menu-item>
-                                <el-menu-item index="3-2">item two</el-menu-item>
-                                <el-menu-item index="3-3">item three</el-menu-item>
-                                <el-sub-menu index="3-4">
-                                    <template #title>item four</template>
-                                    <el-menu-item index="3-4-1">item one</el-menu-item>
-                                    <el-menu-item index="3-4-2">item two</el-menu-item>
-                                    <el-menu-item index="3-4-3">item three</el-menu-item>
-                                </el-sub-menu>
-                            </el-sub-menu>
-                            <el-menu-item index="4" disabled>Info</el-menu-item>
-                            <el-menu-item index="5">Orders</el-menu-item>
-                            <el-menu-item>
-                                <el-dropdown>
-                                    <span>
-                                        <el-icon size="30">
-                                            <Setting />
-                                        </el-icon>
-                                    </span>
-                                    <template #dropdown>
-                                        <el-dropdown-menu>
-                                            <el-dropdown-item @click="changeLocale('en')">English</el-dropdown-item>
-                                            <el-dropdown-item @click="changeLocale('bg')">Bulgarian</el-dropdown-item>
-                                            <el-dropdown-item divided="true" @click="startTour">Start Guided Tour
-                                            </el-dropdown-item>
-                                        </el-dropdown-menu>
-                                    </template>
-                                </el-dropdown>
-                            </el-menu-item>
-                        </el-menu>
-
-                    </el-header>
-                    <el-container>
-                        <el-aside width="200px">
-                            <el-menu
-                                default-active="/services/web/codbex-sample-vue-element-plus/components/Space/index.html"
-                                class="el-menu-vertical-demo" @select="handleSelect" :collapse="isCollapse">
-                                <el-menu-item @click="isCollapse = !isCollapse">
-                                    <el-icon v-show="isCollapse">
-                                        <Expand />
-                                    </el-icon>
-                                    <el-icon v-show="!isCollapse">
-                                        <Fold />
-                                    </el-icon>
-                                </el-menu-item>
-                                <el-menu-item
-                                    index="/services/web/codbex-sample-vue-element-plus/components/Space/index.html">
+                            <el-sub-menu :index="navigationIndex + '-' + subMenuIndex"
+                                v-for="(subMenu, subMenuIndex) in next.subMenus">
+                                <template #title>
                                     <el-icon>
                                         <Document />
                                     </el-icon>
-                                    <span>Dashboard</span>
+                                    <span>{{subMenu.name}}</span>
+                                </template>
+                                <el-menu-item v-for="subMenuItem in subMenu.menuItems" :index="subMenuItem.path">
+                                    {{subMenuItem.name}}
                                 </el-menu-item>
-                                <el-sub-menu :index="navigationIndex" v-for="(next, navigationIndex) in navigation">
-                                    <template #title>
-                                        <el-icon>
-                                            <Document />
-                                        </el-icon>
-                                        <span>{{next.name}}</span>
-                                    </template>
-                                    <el-menu-item v-for="menuItem in next.menuItems" :index="menuItem.path">
-                                        {{menuItem.name}}
-                                    </el-menu-item>
-                                    <el-sub-menu :index="navigationIndex + '-' + subMenuIndex"
-                                        v-for="(subMenu, subMenuIndex) in next.subMenus">
-                                        <template #title>
-                                            <el-icon>
-                                                <Document />
-                                            </el-icon>
-                                            <span>{{subMenu.name}}</span>
-                                        </template>
-                                        <el-menu-item v-for="subMenuItem in subMenu.menuItems"
-                                            :index="subMenuItem.path">
-                                            {{subMenuItem.name}}
-                                        </el-menu-item>
-                                    </el-sub-menu>
-                                </el-sub-menu>
-                            </el-menu>
-                        </el-aside>
-                        <el-container>
+                            </el-sub-menu>
+                        </el-sub-menu>
+                    </el-menu>
+                </el-aside>
 
-                            <el-main>
-
-                                <iframe :src="view" style="height: 80vh">
-                                </iframe>
-
-                            </el-main>
-
-                        </el-container>
-                    </el-container>
-                    <el-footer>
-
-                        <el-descriptions>
-                            <el-descriptions-item label="Remarks">
-                                <el-tag size="small">School</el-tag>
-                            </el-descriptions-item>
-                            <el-descriptions-item label="Address">
-                                No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-                            </el-descriptions-item>
-                        </el-descriptions>
-
-                    </el-footer>
+                <!-- Main View -->
+                <el-container>
+                    <el-main>
+                        <iframe :src="view" style="height: 80vh">
+                        </iframe>
+                    </el-main>
                 </el-container>
-            </div>
+            </el-container>
 
+            <!-- Footer -->
+            <el-footer>
+                <el-descriptions :column="3" :size="small">
+                    <el-descriptions-item>
+                        <template #label>
+                            <div>
+                                <el-icon>
+                                    <OfficeBuilding />
+                                </el-icon>Company
+                            </div>
+                        </template>
+                        codbex
+                    </el-descriptions-item>
+                    <el-descriptions-item>
+                        <template #label>
+                            <div>
+                                <el-icon>
+                                    <Location />
+                                </el-icon>
+                                Address
+                            </div>
+                        </template>
+                        10 Vihren, floor 3, office 3.3, 1618, Sofia
+                    </el-descriptions-item>
+                    <el-descriptions-item>
+                        <template #label>
+                            <div>
+                                <el-icon>
+                                    <PostCard />
+                                </el-icon>
+                                Contacts
+                            </div>
+                        </template>
+                        office@codbex.com
+                    </el-descriptions-item>
+                </el-descriptions>
+            </el-footer>
         </div>
-        <script type="module" src="./main.js"></script>
     </body>
 
 </html>
