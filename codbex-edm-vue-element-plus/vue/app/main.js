@@ -21,6 +21,7 @@ const app = createApp({
             isNavigationCollapsed: false,
             dialogVisible: false,
             dialogTitle: null,
+            dialogTopic: null,
             view: '/services/web/codbex-sample-vue-element-plus/components/Space/',
             navigation: [
                 {
@@ -90,11 +91,23 @@ const app = createApp({
             this.dialogVisible = true;
             this.dialogTitle = event.title;
             this.dialogPath = event.path;
+            this.dialogTopic = event.dialogTopic;
+
+            // TODO: Is there a better way how to handle data transfer?
+            // This is a workaround, to ensue that the messageHub is loaded in the target dialog (iframe)
+            setTimeout(() => {
+                this.$messageHub.post({ data: event.dialogData }, event.dialogTopic);
+            }, 500);
         },
         closeDialog() {
             this.dialogVisible = false;
             this.dialogTitle = null;
             this.dialogPath = null;
+            this.dialogTopic = null;
+        },
+        confirmDialog() {
+            debugger
+            this.$messageHub.post({}, `${this.dialogTopic}.confirm`);
         },
         showMessage(event) {
             ElMessage(event);
@@ -122,7 +135,6 @@ const app = createApp({
         }
     },
 });
-
 
 Object.keys(icons).forEach(iconName => app.component(iconName.toLowerCase(), icons[iconName]));
 

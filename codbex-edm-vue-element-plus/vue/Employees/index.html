@@ -48,42 +48,6 @@
                 </el-table-column>
             </el-table>
 
-            <el-dialog v-model="dialogDetailVisible" title="Employees Details" width="500">
-                <el-form>
-                    <el-form-item label="Name" label-width="100">
-                        <el-input v-model="selectedEntity.Name" disabled></el-input>
-                    </el-form-item>
-                </el-form>
-            </el-dialog>
-
-            <el-dialog v-model="dialogEditVisible" title="Update Employees" width="500">
-                <el-form>
-                    <el-form-item label="Name" label-width="100">
-                        <el-input maxlength="20" v-model="selectedEntity.Name" show-word-limit></el-input>
-                    </el-form-item>
-                </el-form>
-                <template #footer>
-                    <div class="dialog-footer">
-                        <el-button @click="cancelChanges()">Cancel</el-button>
-                        <el-button type="primary" @click="saveChanges()">Update</el-button>
-                    </div>
-                </template>
-            </el-dialog>
-
-            <el-dialog v-model="dialogCreateVisible" title="Create Employees" width="500">
-                <el-form>
-                    <el-form-item label="Name" label-width="100">
-                        <el-input maxlength="20" v-model="selectedEntity.Name" show-word-limit></el-input>
-                    </el-form-item>
-                </el-form>
-                <template #footer>
-                    <div class="dialog-footer">
-                        <el-button @click="cancelCreate()">Cancel</el-button>
-                        <el-button type="primary" @click="saveCreate()">Create</el-button>
-                    </div>
-                </template>
-            </el-dialog>
-
             <el-tour v-model="startTour">
                 <el-tour-step :target="tourEditButton?.$el" :title="$t('editButton')"
                     :description="$t('editButtonDescription')">

@@ -28,6 +28,7 @@ const app = createApp({
         this.$messageHub.subscribe(this.start, 'app.startTour');
         this.$messageHub.subscribe(this.changeLocale, 'app.changeLocale');
         this.$messageHub.subscribe(this.confirmDelete, 'app.Employees.confirmDelete');
+        this.$messageHub.subscribe(this.refreshData, 'app.Employees.refreshData');
     },
     data: function () {
         return {
@@ -50,73 +51,26 @@ const app = createApp({
             this.selectedEntity = entity;
         },
         handleEdit: function (index, entity) {
-            this.dialogEditVisible = true;
-            this.selectedEntity = { ...entity };
-            this.selectedEntityIndex = index;
-        },
-        saveChanges: async function () {
-            try {
-                const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify(this.selectedEntity)
-                });
-                if (response.status === 200) {
-                    const updatedEntity = await response.json();
-                    this.tableData[this.selectedEntityIndex] = updatedEntity;
-                    this.$messageHub.post({
-                        message: `Employees successfully updated.`,
-                        type: 'success',
-                    }, 'app.showMessage');
-                } else {
-                    const error = await response.json();
-                    this.showErrorMessage('Failed to edit Employees', `Error message: ${error.message}`);
-                }
-            } catch (e) {
-                const message = `Error message: ${e.message}`;
-                console.error(message, e);
-                this.showErrorMessage('Failed to edit Employees', message);
-            }
-            this.dialogEditVisible = false;
-        },
-        cancelChanges: function () {
-            this.selectedEntity = null;
-            this.selectedEntityIndex = null;
-            this.dialogEditVisible = false;
-        },
-        handleCreate: function () {
-            this.selectedEntity = {};
+            debugger
             this.$messageHub.post({
-                title: 'Demo Title',
-                path: '/services/web/codbex-edm-vue-element-plus/vue/app/index.html'
+                title: 'Update Employee',
+                path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
+                dialogTopic: 'app.Employees.openDialog',
+                dialogData: {
+                    isUpdate: true,
+                    entity: JSON.parse(JSON.stringify(entity))
+                },
             }, 'app.openDialog');
         },
-        saveCreate: async function () {
-            try {
-                const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts', {
-                    method: 'POST',
-                    body: JSON.stringify(this.selectedEntity)
-                });
-                if (response.status === 201) {
-                    const newEntity = await response.json();
-                    this.tableData.push(newEntity);
-                    this.$messageHub.post({
-                        message: `Employees successfully created.`,
-                        type: 'success',
-                    }, 'app.showMessage');
-                } else {
-                    const error = await response.json();
-                    this.showErrorMessage('Failed to create Employees', `Error message: ${error.message}`);
-                }
-            } catch (e) {
-                const message = `Error message: ${e.message}`;
-                console.error(message, e);
-                this.showErrorMessage('Failed to create Employees', message);
-            }
-            this.dialogCreateVisible = false;
-        },
-        cancelCreate: function () {
-            this.selectedEntity = null;
-            this.dialogCreateVisible = false;
+        handleCreate: function () {
+            this.$messageHub.post({
+                title: 'Create Employee',
+                path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
+                dialogTopic: 'app.Employees.openDialog',
+                dialogData: {
+                    isCreate: true,
+                },
+            }, 'app.openDialog');
         },
         showErrorMessage: function (title, message) {
             this.$messageHub.post({
@@ -166,18 +120,22 @@ const app = createApp({
         },
         changeLocale: function (event) {
             i18n.global.locale = event.data;
+        },
+        refreshData: async function () {
+            this.loading = true;
+            const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts');
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+
+            setTimeout(async function (context) {
+                context.loading = false
+                context.tableData = await response.json();
+            }, 1000, this);
         }
     },
     mounted: async function () {
-        const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts');
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        setTimeout(async function (context) {
-            context.loading = false
-            context.tableData = await response.json();
-        }, 1000, this);
+        await this.refreshData();
     }
 });
 

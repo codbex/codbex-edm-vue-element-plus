@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Element Plus with ESM Import Map</title>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://unpkg.com/vue@3.2.45/dist/vue.esm-browser.js",
+                    "vue-i18n": "https://unpkg.com/vue-i18n@9/dist/vue-i18n.esm-browser.js",
+                    "element-plus": "https://cdn.jsdelivr.net/npm/element-plus@latest/dist/index.full.min.mjs",
+                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/",
+                    "@element-plus/icons-vue": "https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2/dist/index.min.js"
+                }
+            }
+        </script>
+
+        <script src="/services/web/resources-core/core/message-hub.js"></script>
+
+        <link rel="stylesheet" href="./styles.css">
+    </head>
+
+    <body>
+        <div id="app">
+
+            <el-form>
+                <el-form-item label="Name" label-width="100">
+                    <el-input v-model="entity.Name" maxlength="20" show-word-limit></el-input>
+                </el-form-item>
+            </el-form>
+
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
+
+</html>
