@@ -28,7 +28,8 @@
 
             <el-form>
                 <el-form-item label="Name" label-width="100">
-                    <el-input v-model="entity.Name" maxlength="20" show-word-limit></el-input>
+                    <el-input v-model="entity.Name" maxlength="20" show-word-limit v-show="!isPreview"></el-input>
+                    <el-input v-model="entity.Name" disabled v-show="isPreview"></el-input>
                 </el-form-item>
             </el-form>
 

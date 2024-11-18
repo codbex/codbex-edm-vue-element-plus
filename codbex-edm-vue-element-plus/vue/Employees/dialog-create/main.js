@@ -20,6 +20,7 @@ const app = createApp({
         return {
             isCreate: false,
             isUpdate: false,
+            isPreview: false,
             Plus: Plus,
         }
     },
@@ -35,15 +36,23 @@ const app = createApp({
     methods: {
         onOpenDialog: function (event) {
             if (event.data.isCreate) {
-                this.entity = {};
                 this.isCreate = true;
+                this.isUpdate = false;
+                this.isPreview = false;
+                this.entity = {};
             } else if (event.data.isUpdate) {
-                this.entity = event.data.entity;
+                this.isCreate = false;
                 this.isUpdate = true;
+                this.isPreview = false;
+                this.entity = event.data.entity;
+            } else {
+                this.isCreate = false;
+                this.isUpdate = false;
+                this.isPreview = true;
+                this.entity = event.data.entity;
             }
         },
         onConfirmDialog: async function (event) {
-            debugger
             if (this.isCreate) {
                 try {
                     const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts', {

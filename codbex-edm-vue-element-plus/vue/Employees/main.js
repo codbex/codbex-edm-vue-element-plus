@@ -47,11 +47,17 @@ const app = createApp({
             this.startTour = true;
         },
         showDetail: function (_index, entity) {
-            this.dialogDetailVisible = true;
-            this.selectedEntity = entity;
+            this.$messageHub.post({
+                title: 'Employee Details',
+                path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
+                dialogTopic: 'app.Employees.openDialog',
+                dialogData: {
+                    isPreview: true,
+                    entity: JSON.parse(JSON.stringify(entity))
+                },
+            }, 'app.openDialog');
         },
         handleEdit: function (index, entity) {
-            debugger
             this.$messageHub.post({
                 title: 'Update Employee',
                 path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
