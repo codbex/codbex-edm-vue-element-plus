@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
-import { ElMessage, ElNotification, ElMessageBox } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import { createI18n } from 'vue-i18n'
 
@@ -28,6 +27,7 @@ const app = createApp({
     created() {
         this.$messageHub.subscribe(this.start, 'app.startTour');
         this.$messageHub.subscribe(this.changeLocale, 'app.changeLocale');
+        this.$messageHub.subscribe(this.confirmDelete, 'app.Employees.confirmDelete');
     },
     data: function () {
         return {
@@ -62,18 +62,18 @@ const app = createApp({
             if (response.status === 200) {
                 const updatedEntity = await response.json();
                 this.tableData[this.selectedEntityIndex] = updatedEntity;
-                ElMessage({
+                this.$messageHub.post({
                     message: `Employees successfully updated.`,
                     type: 'success',
-                });
+                }, 'app.showMessage');
             } else {
                 const error = await response.json();
-                ElNotification({
+                this.$messageHub.post({
                     title: 'Failed to edit Employees',
                     message: `Error message: ${error.message}`,
                     type: 'error',
                     duration: 0,
-                });
+                }, 'app.showNotification');
             }
             this.dialogEditVisible = false;
         },
@@ -83,7 +83,6 @@ const app = createApp({
             this.dialogEditVisible = false;
         },
         handleCreate: function () {
-            // this.dialogCreateVisible = true;
             this.selectedEntity = {};
             this.$messageHub.post({
                 title: 'Demo Title',
@@ -98,18 +97,18 @@ const app = createApp({
             if (response.status === 201) {
                 const newEntity = await response.json();
                 this.tableData.push(newEntity);
-                ElMessage({
+                this.$messageHub.post({
                     message: `Employees successfully created.`,
                     type: 'success',
-                });
+                }, 'app.showMessage');
             } else {
                 const error = await response.json();
-                ElNotification({
+                this.$messageHub.post({
                     title: 'Failed to create Employees',
                     message: `Error message: ${error.message}`,
                     type: 'error',
                     duration: 0,
-                });
+                }, 'app.showNotification');
             }
             this.dialogCreateVisible = false;
         },
@@ -117,30 +116,42 @@ const app = createApp({
             this.selectedEntity = null;
             this.dialogCreateVisible = false;
         },
-        handleDelete: async function (index, entity) {
-            ElMessageBox.confirm('Are you sure you want to delete Employees? This action cannot be undone.', 'Delete Employees?', {
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-                type: 'warning',
-            }).then(async () => {
-                const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${entity.Id}`, { method: 'DELETE' })
+        confirmDelete: async function (event) {
+            if (event.isConfirmed) {
+                const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
                 if (response.status === 204) {
-                    this.tableData.splice(index, 1);
-                    ElMessage({
+                    this.tableData.splice(this.selectedIndex, 1);
+                    this.$messageHub.post({
                         message: `Entity was deleted successfully.`,
                         type: 'success',
-                    });
+                    }, 'app.showMessage');
                 } else {
                     const error = await response.json();
-                    ElNotification({
+                    this.$messageHub.post({
                         title: 'Failed to delete Employees',
                         message: `Error message: ${error.message}`,
                         type: 'error',
                         duration: 0,
-                    });
+                    }, 'app.showNotification');
                 }
-            });
-
+            }
+            this.selectedIndex = undefined;
+            this.selectedEntity = undefined;
+        },
+        handleDelete: async function (index, entity) {
+            this.selectedIndex = index;
+            this.selectedEntity = entity;
+            const event = {
+                title: 'Delete Employees?',
+                description: 'Are you sure you want to delete Employees? This action cannot be undone.',
+                options: {
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                    type: 'warning',
+                },
+                confirmTopic: 'app.Employees.confirmDelete',
+            }
+            this.$messageHub.post(event, 'app.showConfirm');
         },
         changeLocale: function (event) {
             i18n.global.locale = event.data;

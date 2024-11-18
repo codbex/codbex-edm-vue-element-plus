@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
+import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
 import * as icons from '@element-plus/icons-vue'
 
 const app = createApp({
@@ -11,6 +12,9 @@ const app = createApp({
     created() {
         this.$messageHub.subscribe(this.openDialog, 'app.openDialog');
         this.$messageHub.subscribe(this.closeDialog, 'app.closeDialog');
+        this.$messageHub.subscribe(this.showMessage, 'app.showMessage');
+        this.$messageHub.subscribe(this.showNotification, 'app.showNotification');
+        this.$messageHub.subscribe(this.showConfirm, 'app.showConfirm');
     },
     data: function () {
         return {
@@ -83,7 +87,6 @@ const app = createApp({
             this.$messageHub.post({}, 'app.startTour');
         },
         openDialog(event) {
-            debugger
             this.dialogVisible = true;
             this.dialogTitle = event.title;
             this.dialogPath = event.path;
@@ -92,6 +95,20 @@ const app = createApp({
             this.dialogVisible = false;
             this.dialogTitle = null;
             this.dialogPath = null;
+        },
+        showMessage(event) {
+            ElMessage(event);
+        },
+        showNotification(event) {
+            ElNotification(event);
+        },
+        async showConfirm(event) {
+            try {
+                await ElMessageBox.confirm(event.description, event.title, event.options);
+                this.$messageHub.post({ isConfirmed: true }, event.confirmTopic);
+            } catch (e) {
+                this.$messageHub.post({ isConfirmed: false }, event.confirmTopic);
+            }
         },
         handleSelect(key, keyPath) {
             this.view = key;
