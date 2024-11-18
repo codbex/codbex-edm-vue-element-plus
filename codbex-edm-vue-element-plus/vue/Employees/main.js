@@ -55,25 +55,26 @@ const app = createApp({
             this.selectedEntityIndex = index;
         },
         saveChanges: async function () {
-            const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, {
-                method: 'PUT',
-                body: JSON.stringify(this.selectedEntity)
-            });
-            if (response.status === 200) {
-                const updatedEntity = await response.json();
-                this.tableData[this.selectedEntityIndex] = updatedEntity;
-                this.$messageHub.post({
-                    message: `Employees successfully updated.`,
-                    type: 'success',
-                }, 'app.showMessage');
-            } else {
-                const error = await response.json();
-                this.$messageHub.post({
-                    title: 'Failed to edit Employees',
-                    message: `Error message: ${error.message}`,
-                    type: 'error',
-                    duration: 0,
-                }, 'app.showNotification');
+            try {
+                const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(this.selectedEntity)
+                });
+                if (response.status === 200) {
+                    const updatedEntity = await response.json();
+                    this.tableData[this.selectedEntityIndex] = updatedEntity;
+                    this.$messageHub.post({
+                        message: `Employees successfully updated.`,
+                        type: 'success',
+                    }, 'app.showMessage');
+                } else {
+                    const error = await response.json();
+                    this.showErrorMessage('Failed to edit Employees', `Error message: ${error.message}`);
+                }
+            } catch (e) {
+                const message = `Error message: ${e.message}`;
+                console.error(message, e);
+                this.showErrorMessage('Failed to edit Employees', message);
             }
             this.dialogEditVisible = false;
         },
@@ -90,25 +91,26 @@ const app = createApp({
             }, 'app.openDialog');
         },
         saveCreate: async function () {
-            const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts', {
-                method: 'POST',
-                body: JSON.stringify(this.selectedEntity)
-            });
-            if (response.status === 201) {
-                const newEntity = await response.json();
-                this.tableData.push(newEntity);
-                this.$messageHub.post({
-                    message: `Employees successfully created.`,
-                    type: 'success',
-                }, 'app.showMessage');
-            } else {
-                const error = await response.json();
-                this.$messageHub.post({
-                    title: 'Failed to create Employees',
-                    message: `Error message: ${error.message}`,
-                    type: 'error',
-                    duration: 0,
-                }, 'app.showNotification');
+            try {
+                const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts', {
+                    method: 'POST',
+                    body: JSON.stringify(this.selectedEntity)
+                });
+                if (response.status === 201) {
+                    const newEntity = await response.json();
+                    this.tableData.push(newEntity);
+                    this.$messageHub.post({
+                        message: `Employees successfully created.`,
+                        type: 'success',
+                    }, 'app.showMessage');
+                } else {
+                    const error = await response.json();
+                    this.showErrorMessage('Failed to create Employees', `Error message: ${error.message}`);
+                }
+            } catch (e) {
+                const message = `Error message: ${e.message}`;
+                console.error(message, e);
+                this.showErrorMessage('Failed to create Employees', message);
             }
             this.dialogCreateVisible = false;
         },
@@ -116,27 +118,13 @@ const app = createApp({
             this.selectedEntity = null;
             this.dialogCreateVisible = false;
         },
-        confirmDelete: async function (event) {
-            if (event.isConfirmed) {
-                const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
-                if (response.status === 204) {
-                    this.tableData.splice(this.selectedIndex, 1);
-                    this.$messageHub.post({
-                        message: `Entity was deleted successfully.`,
-                        type: 'success',
-                    }, 'app.showMessage');
-                } else {
-                    const error = await response.json();
-                    this.$messageHub.post({
-                        title: 'Failed to delete Employees',
-                        message: `Error message: ${error.message}`,
-                        type: 'error',
-                        duration: 0,
-                    }, 'app.showNotification');
-                }
-            }
-            this.selectedIndex = undefined;
-            this.selectedEntity = undefined;
+        showErrorMessage: function (title, message) {
+            this.$messageHub.post({
+                title: title,
+                message: message,
+                type: 'error',
+                duration: 0,
+            }, 'app.showNotification');
         },
         handleDelete: async function (index, entity) {
             this.selectedIndex = index;
@@ -152,6 +140,29 @@ const app = createApp({
                 confirmTopic: 'app.Employees.confirmDelete',
             }
             this.$messageHub.post(event, 'app.showConfirm');
+        },
+        confirmDelete: async function (event) {
+            if (event.isConfirmed) {
+                try {
+                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
+                    if (response.status === 204) {
+                        this.tableData.splice(this.selectedIndex, 1);
+                        this.$messageHub.post({
+                            message: `Entity was deleted successfully.`,
+                            type: 'success',
+                        }, 'app.showMessage');
+                    } else {
+                        const error = await response.json();
+                        this.showErrorMessage('Failed to delete Employees', `Error message: ${error.message}`);
+                    }
+                } catch (e) {
+                    const message = `Error message: ${e.message}`;
+                    console.error(message, e);
+                    this.showErrorMessage('Failed to delete Employees', message);
+                }
+            }
+            this.selectedIndex = undefined;
+            this.selectedEntity = undefined;
         },
         changeLocale: function (event) {
             i18n.global.locale = event.data;
