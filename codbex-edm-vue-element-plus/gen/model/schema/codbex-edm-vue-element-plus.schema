@@ -2,7 +2,7 @@
     "schema": {
         "structures": [
             {
-                "name": "EMPLOYEES",
+                "name": "DEMO_EMPLOYEE",
                 "type": "TABLE",
                 "columns": [
                     {
@@ -10,15 +10,356 @@
                         "primaryKey": true,
                         "identity": true,
                         "nullable": true,
-                        "name": "EMPLOYEES_ID"
+                        "name": "EMPLOYEE_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 64,
+                        "nullable": true,
+                        "name": "EMPLOYEE_FULLNAME"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 32,
+                        "nullable": true,
+                        "name": "EMPLOYEE_EMAIL"
                     },
                     {
                         "type": "VARCHAR",
                         "length": 20,
                         "nullable": true,
-                        "name": "EMPLOYEES_NAME"
+                        "name": "EMPLOYEE_PHONENUMBER"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "EMPLOYEE_DATEOFJOINING"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "EMPLOYEE_DEPARTMENT"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "nullable": true,
+                        "name": "EMPLOYEE_STATUS"
                     }
                 ]
+            },
+            {
+                "name": "DEMO_DEPARTMENT",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "DEPARTMENT_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "nullable": true,
+                        "name": "DEPARTMENT_NAME"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_EMPLOYMENTCONTRACT",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 64,
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_EMPLOYEENAME"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_CONTRACTSTART"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_CONTRACTEND"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_SALARY"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_CONTRACTTYPE"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "EMPLOYMENTCONTRACT_RENEWALNOTICEPERIOD"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_CONTRACTTYPE",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "CONTRACTTYPE_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "nullable": true,
+                        "name": "CONTRACTTYPE_NAME"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_JOBPOSTING",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "JOBPOSTING_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 64,
+                        "nullable": true,
+                        "name": "JOBPOSTING_JOBTITLE"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 4096,
+                        "nullable": true,
+                        "name": "JOBPOSTING_JOBDESCRIPTION"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "JOBPOSTING_DEPARTMENT"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "JOBPOSTING_POSTINGDATE"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "JOBPOSTING_APPLICATIONDEADLINE"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "nullable": true,
+                        "name": "JOBPOSTING_REMOTEOPTION"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_CANDIDATEAPPLICATION",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 64,
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_CANDIDATENAME"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 32,
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_EMAIL"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 256,
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_RESUMELINK"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_PHONENUMBER"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_PREFERREDSTARTDATE"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "CANDIDATEAPPLICATION_EXPECTEDSALARY"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_PERFORMANCEREVIEW",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "PERFORMANCEREVIEW_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 64,
+                        "nullable": true,
+                        "name": "PERFORMANCEREVIEW_EMPLOYEENAME"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "PERFORMANCEREVIEW_REVIEWPERIOD"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "PERFORMANCEREVIEW_REVIEWDATE"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "PERFORMANCEREVIEW_RATING"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 256,
+                        "nullable": true,
+                        "name": "PERFORMANCEREVIEW_COMMENTS"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_ATTENDANCERECORD",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 64,
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_EMPLOYEENAME"
+                    },
+                    {
+                        "type": "DATE",
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_DATE"
+                    },
+                    {
+                        "type": "TIME",
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_CHECKINTIME"
+                    },
+                    {
+                        "type": "TIME",
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_CHECKOUTTIME"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_ATTENDANCESTATUS"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 256,
+                        "nullable": true,
+                        "name": "ATTENDANCERECORD_NOTES"
+                    }
+                ]
+            },
+            {
+                "name": "DEMO_ATTENDANCESTATUS",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "ATTENDANCESTATUS_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "nullable": true,
+                        "name": "ATTENDANCESTATUS_NAME"
+                    }
+                ]
+            },
+            {
+                "name": "Employee_Department",
+                "type": "foreignKey",
+                "table": "DEMO_EMPLOYEE",
+                "constraintName": "Employee_Department",
+                "columns": "EMPLOYEE_DEPARTMENT",
+                "referencedTable": "DEMO_DEPARTMENT",
+                "referencedColumns": "DEPARTMENT_ID"
+            },
+            {
+                "name": "EmploymentContract_ContractType",
+                "type": "foreignKey",
+                "table": "DEMO_EMPLOYMENTCONTRACT",
+                "constraintName": "EmploymentContract_ContractType",
+                "columns": "EMPLOYMENTCONTRACT_CONTRACTTYPE",
+                "referencedTable": "DEMO_CONTRACTTYPE",
+                "referencedColumns": "CONTRACTTYPE_ID"
+            },
+            {
+                "name": "JobPosting_Department",
+                "type": "foreignKey",
+                "table": "DEMO_JOBPOSTING",
+                "constraintName": "JobPosting_Department",
+                "columns": "JOBPOSTING_DEPARTMENT",
+                "referencedTable": "DEMO_DEPARTMENT",
+                "referencedColumns": "DEPARTMENT_ID"
+            },
+            {
+                "name": "AttendanceRecord_AttendanceStatus",
+                "type": "foreignKey",
+                "table": "DEMO_ATTENDANCERECORD",
+                "constraintName": "AttendanceRecord_AttendanceStatus",
+                "columns": "ATTENDANCERECORD_ATTENDANCESTATUS",
+                "referencedTable": "DEMO_ATTENDANCESTATUS",
+                "referencedColumns": "ATTENDANCESTATUS_ID"
             }
         ]
     },

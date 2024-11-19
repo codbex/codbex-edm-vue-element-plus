@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="page" ng-controller="PageController">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=" dg-brand-icon />
+        <title dg-brand-title></title>
+        <theme></theme>
+        <script type="text/javascript"
+            src="/services/js/resources-core/services/loader.js?id=application-view-js"></script>
+        <link type="text/css" rel="stylesheet"
+            href="/services/js/resources-core/services/loader.js?id=application-view-css" />
+
+        <script type="text/javascript" src="controller.js"></script>
+    </head>
+
+    <body class="dg-vbox">
+        <fd-scrollbar class="dg-full-height">
+            <div class="fd-margin--md fd-message-strip fd-message-strip--error fd-message-strip--dismissible"
+                role="alert" ng-show="errorMessage">
+                <p class="fd-message-strip__text">{{ errorMessage }}</p>
+                <fd-button glyph="sap-icon--decline" compact="true" dg-type="transparent" aria-label="Close" in-msg-strip="true" ng-click="clearErrorMessage()">
+		        </fd-button>
+            </div>
+
+            <fd-fieldset ng-form="forms.details">
+                <fd-form-group dg-header="{{formHeaders[action]}}" name="entityForm" class="fd-container fd-form-layout-grid-container">
+                    <fd-form-item class="fd-row">
+                    	<div class="fd-col fd-col-md--2">
+                        	<fd-form-label for="idEmployeeName" dg-required="false" dg-colon="true">EmployeeName</fd-form-label>
+                        </div>
+                        <div class="fd-col  fd-col-md--8 ">
+	                        <fd-form-input-message-group dg-inactive="{{ forms.details['EmployeeName'].$valid }}">
+	                            <fd-input id="idEmployeeName"
+	                                name="EmployeeName"
+	                                state="{{ forms.details['EmployeeName'].$valid ? '' : 'error' }}"
+									ng-required="false"
+	                                ng-model="entity.EmployeeName"
+	                                ng-readonly="action === 'select'"
+	                                ng-minlength="0.0 || 0"
+	                                ng-maxlength="20.0 || -1"
+	                                dg-input-rules="{ patterns: [''] }"
+	                                type="text"
+	                                placeholder="Enter EmployeeName">
+	                            </fd-input>
+	                            <fd-form-message dg-type="error">The value doesn't match the required pattern ''</fd-form-message>
+	                        </fd-form-input-message-group>
+	                        <i class="sap-icon--information" role="presentation" onclick="javascript:alert('')"></i>
+	                    </div>
+                    </fd-form-item>
+                    <fd-form-item class="fd-row">
+                    	<div class="fd-col fd-col-md--2">
+                        	<fd-form-label for="idContractStart" dg-required="false" dg-colon="true">ContractStart</fd-form-label>
+                        </div>
+                        <div class="fd-col  fd-col-md--2 ">
+	                        <fd-form-input-message-group dg-inactive="{{ forms.details['ContractStart'].$valid }}">
+	                            <fd-input id="idContractStart"
+	                                name="ContractStart"
+	                                state="{{ forms.details['ContractStart'].$valid ? '' : 'error' }}"
+									ng-required="false"
+	                                ng-model="entity.ContractStart"
+	                                ng-readonly="action === 'select'"
+	                                type="date">
+	                            </fd-input>
+	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
+	                        </fd-form-input-message-group>
+	                        <i class="sap-icon--information" role="presentation" onclick="javascript:alert('')"></i>
+	                    </div>
+                    </fd-form-item>
+                    <fd-form-item class="fd-row">
+                    	<div class="fd-col fd-col-md--2">
+                        	<fd-form-label for="idContractEnd" dg-required="false" dg-colon="true">ContractEnd</fd-form-label>
+                        </div>
+                        <div class="fd-col  fd-col-md--2 ">
+	                        <fd-form-input-message-group dg-inactive="{{ forms.details['ContractEnd'].$valid }}">
+	                            <fd-input id="idContractEnd"
+	                                name="ContractEnd"
+	                                state="{{ forms.details['ContractEnd'].$valid ? '' : 'error' }}"
+									ng-required="false"
+	                                ng-model="entity.ContractEnd"
+	                                ng-readonly="action === 'select'"
+	                                type="date">
+	                            </fd-input>
+	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
+	                        </fd-form-input-message-group>
+	                        <i class="sap-icon--information" role="presentation" onclick="javascript:alert('')"></i>
+	                    </div>
+                    </fd-form-item>
+                    <fd-form-item class="fd-row">
+                    	<div class="fd-col fd-col-md--2">
+                        	<fd-form-label for="idSalary" dg-required="false" dg-colon="true">Salary</fd-form-label>
+                        </div>
+                        <div class="fd-col  fd-col-md--4 ">
+	                        <fd-step-input dg-id="idSalary"
+								name="Salary"
+								state="{{ forms.details['Salary'].$valid ? '' : 'error' }}"
+								dg-required="false"
+								ng-model="entity.Salary"
+								is-readonly="action === 'select'"
+								placeholder="Enter Salary"
+								>
+							</fd-step-input>
+							<i class="sap-icon--information" role="presentation" onclick="javascript:alert('')"></i>
+	                    </div>
+                    </fd-form-item>
+                    <fd-form-item class="fd-row">
+                    	<div class="fd-col fd-col-md--2">
+                        	<fd-form-label for="idContractType" dg-required="false" dg-colon="true">ContractType</fd-form-label>
+                        </div>
+                        <div class="fd-col  fd-col-md--8 ">
+	                        <fd-combobox-input id="idContractType"
+	                            name="ContractType"
+	                            state="{{ forms.details['ContractType'].$valid ? '' : 'error' }}"
+	                            ng-required="false"
+	                            ng-model="entity.ContractType"
+	                            dg-disabled="action === 'select'"
+	                            dropdown-items="optionsContractType"
+	                            dg-placeholder="Search ContractType ...">
+	                        </fd-combobox-input>
+	                        <i class="sap-icon--information" role="presentation" onclick="javascript:alert('')"></i>
+	                    </div>
+                    </fd-form-item>
+                    <fd-form-item class="fd-row">
+                    	<div class="fd-col fd-col-md--2">
+                        	<fd-form-label for="idRenewalNoticePeriod" dg-required="false" dg-colon="true">RenewalNoticePeriod</fd-form-label>
+                        </div>
+                        <div class="fd-col  fd-col-md--8 ">
+	                        <fd-form-input-message-group dg-inactive="{{ forms.details['RenewalNoticePeriod'].$valid }}">
+	                            <fd-input id="idRenewalNoticePeriod"
+	                                name="RenewalNoticePeriod"
+	                                state="{{ forms.details['RenewalNoticePeriod'].$valid ? '' : 'error' }}"
+									ng-required="false"
+	                                ng-model="entity.RenewalNoticePeriod"
+	                                ng-readonly="action === 'select'"
+	                                ng-minlength="${property.minLength} || 0"
+	                                ng-maxlength="${property.maxLength} || -1"
+	                                dg-input-rules="{ patterns: [''] }"
+	                                type="text"
+	                                placeholder="Enter RenewalNoticePeriod">
+	                            </fd-input>
+	                            <fd-form-message dg-type="error">The value doesn't match the required pattern ''</fd-form-message>
+	                        </fd-form-input-message-group>
+	                        <i class="sap-icon--information" role="presentation" onclick="javascript:alert('')"></i>
+	                    </div>
+                    </fd-form-item>
+                </fd-form-group>
+            </fd-fieldset>
+        </fd-scrollbar>
+
+		<fd-bar bar-design="footer" compact="true" ng-show="action !== 'select'">
+			<fd-bar-right>
+				<fd-bar-element>
+					<fd-button dg-label="{{action === 'create' ? 'Create' : 'Update'}}" dg-type="emphasized" ng-click="action === 'create' ? create() : update()" state="{{ forms.details.$valid ? '' : 'disabled' }}"></fd-button>
+				</fd-bar-element>
+				<fd-bar-element>
+					<fd-button dg-label="Cancel" ng-click="cancel()"></fd-button>
+				</fd-bar-element>
+			</fd-bar-right>
+		</fd-bar>
+
+    </body>
+
+</html>

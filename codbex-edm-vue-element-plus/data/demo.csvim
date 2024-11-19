@@ -1,0 +1,103 @@
+{
+  "files": [
+    {
+      "table": "DEMO_CONTRACTTYPE",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/contractType.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_DEPARTMENT",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/department.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_ATTENDANCESTATUS",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/attendanceStatus.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.1"
+    },
+    {
+      "table": "DEMO_EMPLOYEE",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/employee.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_EMPLOYMENTCONTRACT",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/employmentContract.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_JOBPOSTING",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/jobPosting.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_CANDIDATEAPPLICATION",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/candidateApplication.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_ATTENDANCERECORD",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/attendanceRecord.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    },
+    {
+      "table": "DEMO_PERFORMANCEREVIEW",
+      "schema": "PUBLIC",
+      "file": "/codbex-edm-vue-element-plus/data/performanceReview.csv",
+      "header": true,
+      "useHeaderNames": true,
+      "delimField": ",",
+      "delimEnclosing": "\"",
+      "distinguishEmptyFromNull": true,
+      "version": "1.0"
+    }
+  ]
+}
