@@ -29,7 +29,7 @@ const app = createApp({
                     menuItems: [
                         {
                             name: 'Employees',
-                            path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/'
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/'
                         }, {
                             name: 'Organizations',
                             path: '/services/web/codbex-sample-vue-element-plus/components/Button/'
@@ -106,7 +106,6 @@ const app = createApp({
             this.dialogTopic = null;
         },
         confirmDialog() {
-            debugger
             this.$messageHub.post({}, `${this.dialogTopic}.confirm`);
         },
         showMessage(event) {

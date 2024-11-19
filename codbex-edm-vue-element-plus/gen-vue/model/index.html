@@ -19,7 +19,7 @@
         <script src="/services/web/resources-core/core/message-hub.js"></script>
         <script type="module" src="./main.js"></script>
 
-        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="ui/styles.css">
 
         <style>
             iframe {
@@ -61,7 +61,7 @@
             <el-header>
                 <el-menu mode="horizontal" :ellipsis="false" @select="handleSelect">
                     <el-menu-item index="/services/web/codbex-sample-vue-element-plus/components/Space/">
-                        <img style="width: 100px" src="./button-logo-orange.png" alt="codbex logo" />
+                        <img style="width: 100px" src="ui/button-logo-orange.png" alt="codbex logo" />
                         <span class="text-large font-600 mr-3"> Hestia </span>
                     </el-menu-item>
                     <el-menu-item index="/services/web/inbox/">Processes</el-menu-item>
@@ -75,7 +75,7 @@
                             @click="openInNewTab('https://github.com/eclipse/dirigible/issues/new?assignees=&labels=&template=feature_request.md&title=[New%20Feature]')">
                             Suggest a Feature</el-menu-item>
                         <el-menu-item @click="openInNewTab('https://www.dirigible.io/blogs/')">What's New</el-menu-item>
-                        <el-menu-item @click="openInNewTab('https://download.dirigible.io/')">Check for Updates
+                        <el-menu-item @click=" openInNewTab('https://download.dirigible.io/')">Check for Updates
                         </el-menu-item>
                     </el-sub-menu>
                     <el-sub-menu index="username">

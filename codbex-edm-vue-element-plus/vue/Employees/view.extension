@@ -1,5 +1,0 @@
-{
-    "module": "codbex-edm-vue-element-plus/vue/Employees/view.js",
-    "extensionPoint": "codbex-edm-vue-element-plus-view",
-    "description": "codbex-edm-vue-element-plus - Application View"
-}

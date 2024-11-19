@@ -32,6 +32,9 @@ const app = createApp({
     },
     data: function () {
         return {
+            currentPage: 1,
+            pageSize: 10,
+            total: 0,
             startTour: false,
             loading: true,
             tableData: [],
@@ -49,7 +52,7 @@ const app = createApp({
         showDetail: function (_index, entity) {
             this.$messageHub.post({
                 title: 'Employee Details',
-                path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/dialog/index.html',
                 dialogTopic: 'app.Employees.openDialog',
                 dialogData: {
                     isPreview: true,
@@ -60,7 +63,7 @@ const app = createApp({
         handleEdit: function (index, entity) {
             this.$messageHub.post({
                 title: 'Update Employee',
-                path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/dialog/index.html',
                 dialogTopic: 'app.Employees.openDialog',
                 dialogData: {
                     isUpdate: true,
@@ -71,7 +74,7 @@ const app = createApp({
         handleCreate: function () {
             this.$messageHub.post({
                 title: 'Create Employee',
-                path: '/services/web/codbex-edm-vue-element-plus/vue/Employees/dialog-create/index.html',
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/dialog/index.html',
                 dialogTopic: 'app.Employees.openDialog',
                 dialogData: {
                     isCreate: true,
@@ -90,8 +93,8 @@ const app = createApp({
             this.selectedIndex = index;
             this.selectedEntity = entity;
             const event = {
-                title: 'Delete Employees?',
-                description: 'Are you sure you want to delete Employees? This action cannot be undone.',
+                title: 'Delete Employee?',
+                description: 'Are you sure you want to delete Employee? This action cannot be undone.',
                 options: {
                     confirmButtonText: 'Yes',
                     cancelButtonText: 'No',
@@ -113,12 +116,12 @@ const app = createApp({
                         }, 'app.showMessage');
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to delete Employees', `Error message: ${error.message}`);
+                        this.showErrorMessage('Failed to delete Employee', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to delete Employees', message);
+                    this.showErrorMessage('Failed to delete Employee', message);
                 }
             }
             this.selectedIndex = undefined;
@@ -129,8 +132,23 @@ const app = createApp({
         },
         refreshData: async function () {
             this.loading = true;
-            const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts');
+
+            const responseCount = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/count');
+            if (!responseCount.ok) {
+                const error = await responseCount.json();
+                this.showErrorMessage('Failed to get Employees count', `Error message: ${error.message}`);
+                throw new Error(`Response status: ${responseCount.status}`);
+            }
+
+            this.total = parseInt(await responseCount.text());
+
+            const offset = (this.currentPage - 1) * this.pageSize;
+            const limit = this.pageSize;
+
+            const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts?$offset=${offset}&$limit=${limit}`);
             if (!response.ok) {
+                const error = await response.json();
+                this.showErrorMessage('Failed to load Employees', `Error message: ${error.message}`);
                 throw new Error(`Response status: ${response.status}`);
             }
 
@@ -138,6 +156,12 @@ const app = createApp({
                 context.loading = false
                 context.tableData = await response.json();
             }, 1000, this);
+        },
+        handlePageChange: async function (currentPage, pageSize) {
+            this.currentPage = currentPage;
+            this.pageSize = pageSize;
+
+            await this.refreshData();
         }
     },
     mounted: async function () {

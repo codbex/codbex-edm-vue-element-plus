@@ -12,38 +12,32 @@
                     "vue": "https://unpkg.com/vue@3.2.45/dist/vue.esm-browser.js",
                     "vue-i18n": "https://unpkg.com/vue-i18n@9/dist/vue-i18n.esm-browser.js",
                     "element-plus": "https://cdn.jsdelivr.net/npm/element-plus@latest/dist/index.full.min.mjs",
-                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/"
+                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/",
+                    "@element-plus/icons-vue": "https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2/dist/index.min.js"
                 }
             }
         </script>
 
-        <link rel="stylesheet" href="./styles.css">
+        <script src="/services/web/resources-core/core/message-hub.js"></script>
+
+        <link rel="stylesheet" href="../../styles.css">
     </head>
 
     <body>
         <div id="app">
-            <el-select @change="changeLocale()" v-model="selectedLocale" placeholder="Language" size="large"
-                style="width: 240px">
-                <el-option key="en" label="English" value="en"></el-option>
-                <el-option key="bg" label="Bulgarian" value="bg"></el-option>
-            </el-select>
 
-            <el-divider></el-divider>
-
-            <el-button type="primary" @click="startTour = true">{{ $t('startTourButton') }}</el-button>
-
-            <el-divider></el-divider>
-
-            <el-table v-loading="loading" :data="filterTableData" style="width: 100%">
-                <el-table-column :label="$t('idColumn')" sortable prop="Id"></el-table-column>
+            <el-table v-loading="loading" :data="tableData" style="width: 100%">
                 <el-table-column :label="$t('nameColumn')" sortable prop="Name"></el-table-column>
                 <el-table-column align="right">
                     <template #header>
-                        <el-input v-model="search" size="small" :placeholder="$t('searchPlaceholder')"
-                            ref="tourSearchInput" />
+                        <el-button type="primary" size="small" @click="handleCreate()" :icon="Plus">Create</el-button>
                     </template>
                     <template #default="scope">
-                        <el-button size="small" @click="handleEdit(scope.$index, scope.row)" ref="tourEditButton">
+                        <el-button link type="primary" size="small" @click="showDetail(scope.$index, scope.row)">
+                            {{ $t('detailButton') }}
+                        </el-button>
+                        <el-button link type="primary" size="small" @click="handleEdit(scope.$index, scope.row)"
+                            ref="tourEditButton">
                             {{ $t('editButton') }}
                         </el-button>
                         <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
@@ -54,9 +48,11 @@
                 </el-table-column>
             </el-table>
 
+            <el-pagination class="pagination-center" layout="sizes, prev, pager, next, total" :total="total"
+                :page-sizes="[10, 20, 50]" @change="handlePageChange">
+            </el-pagination>
+
             <el-tour v-model="startTour">
-                <el-tour-step :target="tourSearchInput?.$el" :title="$t('searchPlaceholder')"
-                    :description="$t('searchDescription')" placement="left"></el-tour-step>
                 <el-tour-step :target="tourEditButton?.$el" :title="$t('editButton')"
                     :description="$t('editButtonDescription')">
                 </el-tour-step>
