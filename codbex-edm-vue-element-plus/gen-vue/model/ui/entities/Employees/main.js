@@ -107,7 +107,7 @@ const app = createApp({
         confirmDelete: async function (event) {
             if (event.isConfirmed) {
                 try {
-                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
+                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/EmployeeService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
                     if (response.status === 204) {
                         this.tableData.splice(this.selectedIndex, 1);
                         this.$messageHub.post({
@@ -133,7 +133,7 @@ const app = createApp({
         refreshData: async function () {
             this.loading = true;
 
-            const responseCount = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/count');
+            const responseCount = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/EmployeeService.ts/count');
             if (!responseCount.ok) {
                 const error = await responseCount.json();
                 this.showErrorMessage('Failed to get Employees count', `Error message: ${error.message}`);
@@ -145,7 +145,7 @@ const app = createApp({
             const offset = (this.currentPage - 1) * this.pageSize;
             const limit = this.pageSize;
 
-            const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts?$offset=${offset}&$limit=${limit}`);
+            const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/EmployeeService.ts?$offset=${offset}&$limit=${limit}`);
             if (!response.ok) {
                 const error = await response.json();
                 this.showErrorMessage('Failed to load Employees', `Error message: ${error.message}`);
