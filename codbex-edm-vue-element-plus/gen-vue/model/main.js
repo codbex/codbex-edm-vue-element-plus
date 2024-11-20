@@ -10,22 +10,29 @@ const app = createApp({
         }
     },
     created() {
-        this.$messageHub.subscribe(this.openDialog, 'app.openDialog');
-        this.$messageHub.subscribe(this.closeDialog, 'app.closeDialog');
-        this.$messageHub.subscribe(this.showMessage, 'app.showMessage');
-        this.$messageHub.subscribe(this.showNotification, 'app.showNotification');
-        this.$messageHub.subscribe(this.showConfirm, 'app.showConfirm');
+        this.$messageHub.subscribe(this.onOpenDialog, 'app.openDialog');
+        this.$messageHub.subscribe(this.onCloseDialog, 'app.closeDialog');
+        this.$messageHub.subscribe(this.onShowMessage, 'app.showMessage');
+        this.$messageHub.subscribe(this.onShowNotification, 'app.showNotification');
+        this.$messageHub.subscribe(this.onShowConfirm, 'app.showConfirm');
+        this.view = this.navigationSingleView[0].path;
     },
-    data: function () {
+    data() {
         return {
             isNavigationCollapsed: false,
-            dialogVisible: false,
+            isDialogVisible: false,
             dialogTitle: null,
             dialogTopic: null,
-            view: '/services/web/codbex-sample-vue-element-plus/components/Space/',
-            navigation: [
+            view: null,
+            perspectives: [
+                {
+                    name: 'Home',
+                    icon: 'House',
+                    path: '/services/web/codbex-edm-vue-element-plus/gen/model/ui/launchpad/Home/index.html'
+                },
                 {
                     name: 'Employee Management',
+                    icon: 'User',
                     menuItems: [
                         {
                             name: 'Employee',
@@ -39,59 +46,38 @@ const app = createApp({
                         }
                     ]
                 },
-                {
-                    name: 'Documents',
-                    subMenus: [
-                        {
-                            name: 'Purchasing',
-                            menuItems: [
-                                {
-                                    name: 'Purchase Orders',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Checkbox/'
-                                }, {
-                                    name: 'Purchase Invoices',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/ColorPicker/'
-                                }, {
-                                    name: 'Supplier Payments',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/DatePicker/'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'Sales',
-                            menuItems: [
-                                {
-                                    name: 'Sales Orders',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/DateTimePicker/'
-                                }, {
-                                    name: 'Sales Invoices',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Dialog/'
-                                }, {
-                                    name: 'Customer Payments',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Form/'
-                                }, {
-                                    name: 'Debit Note',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/LayoutContainer/'
-                                }, {
-                                    name: 'Credit Note',
-                                    path: '/services/web/codbex-sample-vue-element-plus/components/Link/'
-                                }
-                            ]
-                        }
-                    ]
-                }
             ]
         };
     },
+    computed: {
+        navigationSingleView() {
+            return this.perspectives.filter(e => e.path);
+        },
+        navigationMenu() {
+            return this.perspectives.filter(e => e.path === undefined);
+        },
+    },
     methods: {
+        getIcon(iconName) {
+            return icons[iconName] ?? icons['Document'];
+        },
         changeLocale(locale) {
             this.$messageHub.post(locale, 'app.changeLocale');
         },
         startTour() {
             this.$messageHub.post({}, 'app.startTour');
         },
-        openDialog(event) {
-            this.dialogVisible = true;
+        handleSelect(key, keyPath) {
+            this.view = key;
+        },
+        openInNewTab(url) {
+            window.open(url);
+        },
+        logout() {
+            location.replace('/logout');
+        },
+        onOpenDialog(event) {
+            this.isDialogVisible = true;
             this.dialogTitle = event.title;
             this.dialogPath = event.path;
             this.dialogTopic = event.dialogTopic;
@@ -102,38 +88,28 @@ const app = createApp({
                 this.$messageHub.post({ data: event.dialogData }, event.dialogTopic);
             }, 500);
         },
-        closeDialog() {
-            this.dialogVisible = false;
+        onCloseDialog() {
+            this.isDialogVisible = false;
             this.dialogTitle = null;
             this.dialogPath = null;
             this.dialogTopic = null;
         },
+        onShowMessage(event) {
+            ElMessage(event);
+        },
         confirmDialog() {
             this.$messageHub.post({}, `${this.dialogTopic}.confirm`);
         },
-        showMessage(event) {
-            ElMessage(event);
-        },
-        showNotification(event) {
+        onShowNotification(event) {
             ElNotification(event);
         },
-        async showConfirm(event) {
+        async onShowConfirm(event) {
             try {
                 await ElMessageBox.confirm(event.description, event.title, event.options);
                 this.$messageHub.post({ isConfirmed: true }, event.confirmTopic);
             } catch (e) {
                 this.$messageHub.post({ isConfirmed: false }, event.confirmTopic);
             }
-        },
-        handleSelect(key, keyPath) {
-            this.view = key;
-            console.log(key, keyPath)
-        },
-        openInNewTab(url) {
-            window.open(url);
-        },
-        logout() {
-            location.replace('/logout');
         }
     },
 });

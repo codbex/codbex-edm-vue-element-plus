@@ -46,7 +46,7 @@
     <body>
         <div id="app">
             <!-- Main Dialog -->
-            <el-dialog v-model="dialogVisible" :title="dialogTitle" width="70%">
+            <el-dialog v-model="isDialogVisible" :title="dialogTitle" width="70%">
                 <iframe :src="dialogPath">
                 </iframe>
                 <template #footer>
@@ -95,8 +95,8 @@
             <el-container>
                 <!-- Side Navigation -->
                 <el-aside width="200">
-                    <el-menu default-active="/services/web/codbex-sample-vue-element-plus/components/Space/"
-                        @select="handleSelect" :collapse="isNavigationCollapsed">
+                    <el-menu :default-active="navigationSingleView[0].path" @select="handleSelect"
+                        :collapse="isNavigationCollapsed">
                         <el-menu-item @click="isNavigationCollapsed = !isNavigationCollapsed">
                             <el-icon v-show="isNavigationCollapsed">
                                 <Expand />
@@ -105,27 +105,27 @@
                                 <Fold />
                             </el-icon>
                         </el-menu-item>
-                        <el-menu-item index="/services/web/codbex-sample-vue-element-plus/components/Space/">
+                        <el-menu-item :index="next.path" v-for="(next) in navigationSingleView">
                             <el-icon>
-                                <Document />
+                                <component :is="getIcon(next.icon)"></component>
                             </el-icon>
-                            <span>Dashboard</span>
+                            <span>{{next.name}}</span>
                         </el-menu-item>
-                        <el-sub-menu :index="'' + navigationIndex" v-for="(next, navigationIndex) in navigation">
+                        <el-sub-menu :index="'' + menuIndex" v-for="(next, menuIndex) in navigationMenu">
                             <template #title>
                                 <el-icon>
-                                    <Document />
+                                    <component :is="getIcon(next.icon)"></component>
                                 </el-icon>
                                 <span>{{next.name}}</span>
                             </template>
                             <el-menu-item v-for="menuItem in next.menuItems" :index="menuItem.path">
                                 {{menuItem.name}}
                             </el-menu-item>
-                            <el-sub-menu :index="navigationIndex + '-' + subMenuIndex"
+                            <el-sub-menu :index="menuIndex + '-' + subMenuIndex"
                                 v-for="(subMenu, subMenuIndex) in next.subMenus">
                                 <template #title>
                                     <el-icon>
-                                        <Document />
+                                        <component :is="getIcon(next.icon)"></component>
                                     </el-icon>
                                     <span>{{subMenu.name}}</span>
                                 </template>
