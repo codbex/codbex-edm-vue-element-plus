@@ -29,7 +29,7 @@
                 <fd-form-group dg-header="CandidateApplication Filter" name="entityForm" class="fd-container fd-form-layout-grid-container">
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idCandidateName" dg-colon="true">CandidateName</fd-form-label>
+                        	<fd-form-label for="idCandidateName" dg-colon="true">Candidate Name</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--8">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['CandidateName'].$valid }}">
@@ -40,7 +40,7 @@
 	                                ng-minlength="0.0 || 0"
 	                                ng-maxlength="64.0 || -1"
 	                                type="text"
-	                                placeholder="Enter CandidateName">
+	                                placeholder="Enter Candidate Name">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -67,7 +67,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idResumeLink" dg-colon="true">ResumeLink</fd-form-label>
+                        	<fd-form-label for="idResumeLink" dg-colon="true">Resume Link</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--8">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['ResumeLink'].$valid }}">
@@ -78,7 +78,7 @@
 	                                ng-minlength="0.0 || 0"
 	                                ng-maxlength="256.0 || -1"
 	                                type="url"
-	                                placeholder="Enter ResumeLink">
+	                                placeholder="Enter Resume Link">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -86,7 +86,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idPhoneNumber" dg-colon="true">PhoneNumber</fd-form-label>
+                        	<fd-form-label for="idPhoneNumber" dg-colon="true">Phone Number</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--4">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['PhoneNumber'].$valid }}">
@@ -97,7 +97,7 @@
 	                                ng-minlength="0.0 || 0"
 	                                ng-maxlength="20.0 || -1"
 	                                type="tel"
-	                                placeholder="Enter PhoneNumber">
+	                                placeholder="Enter Phone Number">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -105,7 +105,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idPreferredStartDateFrom" dg-colon="true">From PreferredStartDate</fd-form-label>
+                        	<fd-form-label for="idPreferredStartDateFrom" dg-colon="true">From Preferred Start Date</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--2">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['PreferredStartDate'].$valid }}">
@@ -119,7 +119,7 @@
 	                        </fd-form-input-message-group>
 	                    </div>
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idPreferredStartDateTo" dg-colon="true">To PreferredStartDate</fd-form-label>
+                        	<fd-form-label for="idPreferredStartDateTo" dg-colon="true">To Preferred Start Date</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--2">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['PreferredStartDate'].$valid }}">
@@ -135,14 +135,14 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idExpectedSalary" dg-colon="true">ExpectedSalary</fd-form-label>
+                        	<fd-form-label for="idExpectedSalary" dg-colon="true">Expected Salary</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--4">
 	                        <fd-step-input dg-id="idExpectedSalary"
 								name="ExpectedSalary"
 								state="{{ forms.details['ExpectedSalary'].$valid ? '' : 'error' }}"
 								ng-model="entity.ExpectedSalary"
-								placeholder="Enter ExpectedSalary"
+								placeholder="Enter Expected Salary"
 								>
 							</fd-step-input>
 	                    </div>

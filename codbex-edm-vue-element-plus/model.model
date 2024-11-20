@@ -26,6 +26,7 @@
                         "name": "FullName",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Full Name",
                         "widgetLength": "64",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
@@ -52,6 +53,7 @@
                         "name": "PhoneNumber",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Phone Number",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "TEL"
@@ -64,6 +66,7 @@
                         "name": "DateOfJoining",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Date of Joining",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -139,7 +142,7 @@
                         "widgetType": "TEXTBOX"
                     },
                     {
-                        "dataLength": "20",
+                        "dataLength": "32",
                         "dataName": "DEPARTMENT_NAME",
                         "dataNullable": "true",
                         "dataType": "VARCHAR",
@@ -147,7 +150,7 @@
                         "name": "Name",
                         "tooltip": "",
                         "widgetIsMajor": "true",
-                        "widgetLength": "20",
+                        "widgetLength": "32",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
                     }
@@ -200,6 +203,7 @@
                         "name": "EmployeeName",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Employee Name",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
@@ -212,6 +216,7 @@
                         "name": "ContractStart",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Contract Start",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -224,6 +229,7 @@
                         "name": "ContractEnd",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Contract End",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -250,6 +256,7 @@
                         "widgetDropDownKey": "Id",
                         "widgetDropDownValue": "Name",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Contract Type",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DROPDOWN",
@@ -266,6 +273,7 @@
                         "name": "RenewalNoticePeriod",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Renewal Notice Period",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "RANGE"
@@ -371,6 +379,7 @@
                         "name": "JobTitle",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Job Title",
                         "widgetLength": "64",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
@@ -383,7 +392,8 @@
                         "description": "",
                         "name": "JobDescription",
                         "tooltip": "",
-                        "widgetIsMajor": "true",
+                        "widgetIsMajor": "false",
+                        "widgetLabel": "Job Description",
                         "widgetLength": "4096",
                         "widgetSize": "",
                         "widgetType": "TEXTAREA"
@@ -414,6 +424,7 @@
                         "name": "PostingDate",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Posting Date",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -426,6 +437,7 @@
                         "name": "ApplicationDeadline",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Application Deadline",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -438,6 +450,7 @@
                         "name": "RemoteOption",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Remote Option",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "CHECKBOX"
@@ -462,8 +475,8 @@
                 "perspectiveName": "RecruitmentAndOnboarding",
                 "perspectiveOrder": "20",
                 "perspectiveRole": "",
-                "title": "JobPosting",
-                "tooltip": "JobPosting",
+                "title": "Job Posting",
+                "tooltip": "Job Posting",
                 "type": "PRIMARY"
             },
             {
@@ -491,6 +504,7 @@
                         "name": "CandidateName",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Candidate Name",
                         "widgetLength": "64",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
@@ -517,6 +531,7 @@
                         "name": "ResumeLink",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Resume Link",
                         "widgetLength": "256",
                         "widgetSize": "",
                         "widgetType": "URL"
@@ -530,6 +545,7 @@
                         "name": "PhoneNumber",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Phone Number",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "TEL"
@@ -542,6 +558,7 @@
                         "name": "PreferredStartDate",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Preferred Start Date",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -554,6 +571,7 @@
                         "name": "ExpectedSalary",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Expected Salary",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "NUMBER"
@@ -607,6 +625,7 @@
                         "name": "EmployeeName",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Employee Name",
                         "widgetLength": "64",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
@@ -619,6 +638,7 @@
                         "name": "ReviewPeriod",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Review Period",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "MONTH"
@@ -631,6 +651,7 @@
                         "name": "ReviewDate",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Review Date",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DATE"
@@ -709,6 +730,7 @@
                         "name": "EmployeeName",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Employee Name",
                         "widgetLength": "64",
                         "widgetSize": "",
                         "widgetType": "TEXTBOX"
@@ -733,6 +755,7 @@
                         "name": "CheckInTime",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Check-in Time",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "TIME"
@@ -745,6 +768,7 @@
                         "name": "CheckOutTime",
                         "tooltip": "",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Check-out Time",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "TIME"
@@ -759,6 +783,7 @@
                         "widgetDropDownKey": "Id",
                         "widgetDropDownValue": "Name",
                         "widgetIsMajor": "true",
+                        "widgetLabel": "Attendance Status",
                         "widgetLength": "20",
                         "widgetSize": "",
                         "widgetType": "DROPDOWN",

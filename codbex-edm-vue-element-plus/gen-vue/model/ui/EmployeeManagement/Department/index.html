@@ -27,7 +27,7 @@
         <div id="app">
 
             <el-table v-loading="loading" :data="tableData" style="width: 100%">
-                <el-table-column :label="$t('nameColumn')" sortable prop="FullName"></el-table-column>
+                <el-table-column :label="$t('nameColumn')" sortable prop="Name"></el-table-column>
                 <el-table-column align="right">
                     <template #header>
                         <el-button type="primary" size="small" @click="handleCreate()" :icon="Plus">Create</el-button>

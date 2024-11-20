@@ -29,7 +29,7 @@
                 <fd-form-group dg-header="{{formHeaders[action]}}" name="entityForm" class="fd-container fd-form-layout-grid-container">
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idJobTitle" dg-required="false" dg-colon="true">JobTitle</fd-form-label>
+                        	<fd-form-label for="idJobTitle" dg-required="false" dg-colon="true">Job Title</fd-form-label>
                         </div>
                         <div class="fd-col  fd-col-md--8 ">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['JobTitle'].$valid }}">
@@ -43,7 +43,7 @@
 	                                ng-maxlength="64.0 || -1"
 	                                dg-input-rules="{ patterns: [''] }"
 	                                type="text"
-	                                placeholder="Enter JobTitle">
+	                                placeholder="Enter Job Title">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">The value doesn't match the required pattern ''</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -52,7 +52,7 @@
                     </fd-form-item>
 					<fd-form-item class="fd-row">
 						<div class="fd-col fd-col-md--2">
-							<fd-form-label for="idJobDescription" dg-required="false" dg-colon="true">JobDescription</fd-form-label>
+							<fd-form-label for="idJobDescription" dg-required="false" dg-colon="true">Job Description</fd-form-label>
 						</div>
 						<div class="fd-col  fd-col-md--8 ">
 							<fd-textarea id="idJobDescription"
@@ -64,7 +64,7 @@
 								ng-minlength="0.0 || 0"
 								ng-maxlength="4096.0 || -1"
 								dg-input-rules="{ patterns: [''] }"
-								placeholder="Enter JobDescription">
+								placeholder="Enter Job Description">
 							</fd-textarea>
 							<fd-form-message dg-type="error" ng-show="!forms.details['JobDescription'].$valid">The value doesn't match the required pattern ''</fd-form-message>
 						</div>
@@ -92,7 +92,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idPostingDate" dg-required="false" dg-colon="true">PostingDate</fd-form-label>
+                        	<fd-form-label for="idPostingDate" dg-required="false" dg-colon="true">Posting Date</fd-form-label>
                         </div>
                         <div class="fd-col  fd-col-md--2 ">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['PostingDate'].$valid }}">
@@ -111,7 +111,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idApplicationDeadline" dg-required="false" dg-colon="true">ApplicationDeadline</fd-form-label>
+                        	<fd-form-label for="idApplicationDeadline" dg-required="false" dg-colon="true">Application Deadline</fd-form-label>
                         </div>
                         <div class="fd-col  fd-col-md--2 ">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['ApplicationDeadline'].$valid }}">
@@ -137,7 +137,7 @@
 	                            ng-disabled="action === 'select'"
 	                            ng-model="entity.RemoteOption">
 	                        </fd-checkbox>
-                        	<fd-checkbox-label for="idRemoteOption" dg-required="false">RemoteOption</fd-checkbox-label>
+                        	<fd-checkbox-label for="idRemoteOption" dg-required="false">Remote Option</fd-checkbox-label>
                         </div>
                         <div class="fd-col fd-col-md--1">
 							<i class="sap-icon--information" role="presentation"

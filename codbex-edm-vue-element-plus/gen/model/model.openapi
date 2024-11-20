@@ -3943,7 +3943,7 @@ components:
         Name:
           type: string
           minLength: 0
-          maxLength: 20
+          maxLength: 32
     DepartmentFilterOptions:
       type: object
       properties:
@@ -3965,13 +3965,13 @@ components:
                   oneOf:
                     - type: string
                       minLength: 0
-                      maxLength: 20
+                      maxLength: 32
                     - type: array
                       items:
                         type: string
                         format: double
                         minLength: 0
-                        maxLength: 20
+                        maxLength: 32
             notEquals:
               type: object
               properties:
@@ -3987,13 +3987,13 @@ components:
                   oneOf:
                     - type: string
                       minLength: 0
-                      maxLength: 20
+                      maxLength: 32
                     - type: array
                       items:
                         type: string
                         format: double
                         minLength: 0
-                        maxLength: 20
+                        maxLength: 32
             contains:
               type: object
               properties:
@@ -4001,7 +4001,7 @@ components:
                 Name:
                   type: string
                   minLength: 0
-                  maxLength: 20
+                  maxLength: 32
             greaterThan:
               type: object
               properties:
@@ -4011,7 +4011,7 @@ components:
                 Name:
                   type: string
                   minLength: 0
-                  maxLength: 20
+                  maxLength: 32
             greaterThanOrEqual:
               type: object
               properties:
@@ -4021,7 +4021,7 @@ components:
                 Name:
                   type: string
                   minLength: 0
-                  maxLength: 20
+                  maxLength: 32
             lessThan:
               type: object
               properties:
@@ -4031,7 +4031,7 @@ components:
                 Name:
                   type: string
                   minLength: 0
-                  maxLength: 20
+                  maxLength: 32
             lessThanOrEqual:
               type: object
               properties:
@@ -4041,7 +4041,7 @@ components:
                 Name:
                   type: string
                   minLength: 0
-                  maxLength: 20
+                  maxLength: 32
         $select:
           type: array
           example: ["Id", "Name"]

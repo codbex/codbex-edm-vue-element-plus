@@ -28,12 +28,11 @@
 			<table fd-table display-mode="compact" inner-borders="top" outer-borders="none">
 				<thead fd-table-header sticky="true">
 					<tr fd-table-row>
-						<th fd-table-header-cell>JobTitle</th>
-						<th fd-table-header-cell>JobDescription</th>
+						<th fd-table-header-cell>Job Title</th>
 						<th fd-table-header-cell>Department</th>
-						<th fd-table-header-cell>PostingDate</th>
-						<th fd-table-header-cell>ApplicationDeadline</th>
-						<th fd-table-header-cell>RemoteOption</th>
+						<th fd-table-header-cell>Posting Date</th>
+						<th fd-table-header-cell>Application Deadline</th>
+						<th fd-table-header-cell>Remote Option</th>
 						<th fd-table-header-cell></th>
 					</tr>
 				</thead>
@@ -44,7 +43,6 @@
 					<tr fd-table-row hoverable="true" ng-repeat="next in data"
 						dg-selected="next.Id === selectedEntity.Id" ng-click="selectEntity(next)">
 						<td fd-table-cell ng-click="openDetails(next)" hoverable="true" activable="true">{{next.JobTitle}}</td>
-						<td fd-table-cell ng-click="openDetails(next)" hoverable="true" activable="true">{{next.JobDescription}}</td>
 						<td fd-table-cell ng-click="openDetails(next)" hoverable="true" activable="true">
 							{{optionsDepartmentValue(next.Department)}}
 						</td>

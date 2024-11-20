@@ -29,7 +29,7 @@
                 <fd-form-group dg-header="{{formHeaders[action]}}" name="entityForm" class="fd-container fd-form-layout-grid-container">
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idFullName" dg-required="false" dg-colon="true">FullName</fd-form-label>
+                        	<fd-form-label for="idFullName" dg-required="false" dg-colon="true">Full Name</fd-form-label>
                         </div>
                         <div class="fd-col  fd-col-md--8 ">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['FullName'].$valid }}">
@@ -43,7 +43,7 @@
 	                                ng-maxlength="64.0 || -1"
 	                                dg-input-rules="{ patterns: [''] }"
 	                                type="text"
-	                                placeholder="Enter FullName">
+	                                placeholder="Enter Full Name">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">The value doesn't match the required pattern ''</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -78,7 +78,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idPhoneNumber" dg-required="false" dg-colon="true">PhoneNumber</fd-form-label>
+                        	<fd-form-label for="idPhoneNumber" dg-required="false" dg-colon="true">Phone Number</fd-form-label>
                         </div>
 						<div ng-show="action === 'select'" style="margin: 4px 0px; padding: 0px 10px" class="fd-col  fd-col-md--4 ">
 							<a href="tel:{{entity.PhoneNumber}}" class="fd-link">{{entity.PhoneNumber}}</a>
@@ -95,7 +95,7 @@
 	                                ng-maxlength="20.0 || -1"
 	                                dg-input-rules="{ patterns:['^[0-9]{0,14}$'] }"
 	                                type="tel"
-	                                placeholder="Enter PhoneNumber">
+	                                placeholder="Enter Phone Number">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">The value doesn't match the required pattern ''</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -104,7 +104,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idDateOfJoining" dg-required="false" dg-colon="true">DateOfJoining</fd-form-label>
+                        	<fd-form-label for="idDateOfJoining" dg-required="false" dg-colon="true">Date of Joining</fd-form-label>
                         </div>
                         <div class="fd-col  fd-col-md--2 ">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['DateOfJoining'].$valid }}">

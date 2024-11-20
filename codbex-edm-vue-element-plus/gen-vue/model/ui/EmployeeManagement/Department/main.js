@@ -27,8 +27,8 @@ const app = createApp({
     created() {
         this.$messageHub.subscribe(this.start, 'app.startTour');
         this.$messageHub.subscribe(this.changeLocale, 'app.changeLocale');
-        this.$messageHub.subscribe(this.confirmDelete, 'app.Employees.confirmDelete');
-        this.$messageHub.subscribe(this.refreshData, 'app.Employees.refreshData');
+        this.$messageHub.subscribe(this.confirmDelete, 'app.EmployeeManagement.Department.confirmDelete');
+        this.$messageHub.subscribe(this.refreshData, 'app.EmployeeManagement.Department.refreshData');
     },
     data: function () {
         return {
@@ -50,10 +50,11 @@ const app = createApp({
             this.startTour = true;
         },
         showDetail: function (_index, entity) {
+            debugger
             this.$messageHub.post({
-                title: 'Employee Details',
-                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/dialog/index.html',
-                dialogTopic: 'app.Employees.openDialog',
+                title: 'Department Details',
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
+                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
                 dialogData: {
                     isPreview: true,
                     entity: JSON.parse(JSON.stringify(entity))
@@ -62,9 +63,9 @@ const app = createApp({
         },
         handleEdit: function (index, entity) {
             this.$messageHub.post({
-                title: 'Update Employee',
-                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/dialog/index.html',
-                dialogTopic: 'app.Employees.openDialog',
+                title: 'Update Department',
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
+                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
                 dialogData: {
                     isUpdate: true,
                     entity: JSON.parse(JSON.stringify(entity))
@@ -73,9 +74,9 @@ const app = createApp({
         },
         handleCreate: function () {
             this.$messageHub.post({
-                title: 'Create Employee',
-                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/dialog/index.html',
-                dialogTopic: 'app.Employees.openDialog',
+                title: 'Create Department',
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
+                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
                 dialogData: {
                     isCreate: true,
                 },
@@ -93,35 +94,35 @@ const app = createApp({
             this.selectedIndex = index;
             this.selectedEntity = entity;
             const event = {
-                title: 'Delete Employee?',
-                description: 'Are you sure you want to delete Employee? This action cannot be undone.',
+                title: 'Delete Department?',
+                description: 'Are you sure you want to delete Department? This action cannot be undone.',
                 options: {
                     confirmButtonText: 'Yes',
                     cancelButtonText: 'No',
                     type: 'warning',
                 },
-                confirmTopic: 'app.Employees.confirmDelete',
+                confirmTopic: 'app.EmployeeManagement.Department.confirmDelete',
             }
             this.$messageHub.post(event, 'app.showConfirm');
         },
         confirmDelete: async function (event) {
             if (event.isConfirmed) {
                 try {
-                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/EmployeeService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
+                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
                     if (response.status === 204) {
                         this.tableData.splice(this.selectedIndex, 1);
                         this.$messageHub.post({
-                            message: `Entity was deleted successfully.`,
+                            message: `Department was deleted successfully.`,
                             type: 'success',
                         }, 'app.showMessage');
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to delete Employee', `Error message: ${error.message}`);
+                        this.showErrorMessage('Failed to delete Department', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to delete Employee', message);
+                    this.showErrorMessage('Failed to delete Department', message);
                 }
             }
             this.selectedIndex = undefined;
@@ -133,10 +134,10 @@ const app = createApp({
         refreshData: async function () {
             this.loading = true;
 
-            const responseCount = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/EmployeeService.ts/count');
+            const responseCount = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts/count');
             if (!responseCount.ok) {
                 const error = await responseCount.json();
-                this.showErrorMessage('Failed to get Employees count', `Error message: ${error.message}`);
+                this.showErrorMessage('Failed to get Department count', `Error message: ${error.message}`);
                 throw new Error(`Response status: ${responseCount.status}`);
             }
 
@@ -145,10 +146,10 @@ const app = createApp({
             const offset = (this.currentPage - 1) * this.pageSize;
             const limit = this.pageSize;
 
-            const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/EmployeeService.ts?$offset=${offset}&$limit=${limit}`);
+            const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts?$offset=${offset}&$limit=${limit}`);
             if (!response.ok) {
                 const error = await response.json();
-                this.showErrorMessage('Failed to load Employees', `Error message: ${error.message}`);
+                this.showErrorMessage('Failed to load Department', `Error message: ${error.message}`);
                 throw new Error(`Response status: ${response.status}`);
             }
 

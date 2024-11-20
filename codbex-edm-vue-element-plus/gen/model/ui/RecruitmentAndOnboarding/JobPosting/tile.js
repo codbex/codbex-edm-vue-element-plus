@@ -8,7 +8,7 @@ exports.getTile = function () {
         group: "codbex-edm-vue-element-plus",
         name: "JobPosting",
         caption: "admin",
-        tooltip: "JobPosting",
+        tooltip: "Job Posting",
         type: "PRIMARY",
         report: "false",
         icon: "/services/web/resources/unicons/file.svg",

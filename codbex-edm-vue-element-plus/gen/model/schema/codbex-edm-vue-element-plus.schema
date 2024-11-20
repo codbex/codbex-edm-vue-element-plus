@@ -60,7 +60,7 @@
                     },
                     {
                         "type": "VARCHAR",
-                        "length": 20,
+                        "length": 32,
                         "nullable": true,
                         "name": "DEPARTMENT_NAME"
                     }

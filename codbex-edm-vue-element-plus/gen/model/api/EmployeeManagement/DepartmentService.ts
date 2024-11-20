@@ -119,8 +119,8 @@ class DepartmentService {
     }
 
     private validateEntity(entity: any): void {
-        if (entity.Name?.length > 20) {
-            throw new ValidationError(`The 'Name' exceeds the maximum length of [20] characters`);
+        if (entity.Name?.length > 32) {
+            throw new ValidationError(`The 'Name' exceeds the maximum length of [32] characters`);
         }
         for (const next of validationModules) {
             next.validate(entity);

@@ -25,8 +25,8 @@ const app = createApp({
         }
     },
     created() {
-        this.$messageHub.subscribe(this.onOpenDialog, 'app.Employees.openDialog');
-        this.$messageHub.subscribe(this.onConfirmDialog, 'app.Employees.openDialog.confirm');
+        this.$messageHub.subscribe(this.onOpenDialog, 'app.EmployeeManagement.Department.openDialog');
+        this.$messageHub.subscribe(this.onConfirmDialog, 'app.EmployeeManagement.Department.openDialog.confirm');
     },
     data: function () {
         return {
@@ -55,12 +55,12 @@ const app = createApp({
         onConfirmDialog: async function (event) {
             if (this.isCreate) {
                 try {
-                    const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts', {
+                    const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts', {
                         method: 'POST',
                         body: JSON.stringify(this.entity)
                     });
                     if (response.status === 201) {
-                        this.$messageHub.post({}, 'app.Employees.refreshData');
+                        this.$messageHub.post({}, 'app.EmployeeManagement.Department.refreshData');
                         this.$messageHub.post({
                             message: `Employees successfully created.`,
                             type: 'success',
@@ -76,12 +76,12 @@ const app = createApp({
                 }
             } else if (this.isUpdate) {
                 try {
-                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/entities/EmployeesService.ts/${this.entity.Id}`, {
+                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts/${this.entity.Id}`, {
                         method: 'PUT',
                         body: JSON.stringify(this.entity)
                     });
                     if (response.status === 200) {
-                        this.$messageHub.post({}, 'app.Employees.refreshData');
+                        this.$messageHub.post({}, 'app.EmployeeManagement.Department.refreshData');
                         this.$messageHub.post({
                             message: `Employees successfully updated.`,
                             type: 'success',

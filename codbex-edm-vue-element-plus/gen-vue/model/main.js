@@ -25,14 +25,17 @@ const app = createApp({
             view: '/services/web/codbex-sample-vue-element-plus/components/Space/',
             navigation: [
                 {
-                    name: 'Employees',
+                    name: 'Employee Management',
                     menuItems: [
                         {
-                            name: 'Employees',
-                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/entities/Employees/'
+                            name: 'Employee',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Employee/index.html'
                         }, {
-                            name: 'Organizations',
-                            path: '/services/web/codbex-sample-vue-element-plus/components/Button/'
+                            name: 'Employment Contract',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/EmploymentContract/index.html'
+                        }, {
+                            name: 'Department',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/index.html'
                         }
                     ]
                 },

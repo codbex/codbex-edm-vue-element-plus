@@ -29,7 +29,7 @@
                 <fd-form-group dg-header="AttendanceRecord Filter" name="entityForm" class="fd-container fd-form-layout-grid-container">
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idEmployeeName" dg-colon="true">EmployeeName</fd-form-label>
+                        	<fd-form-label for="idEmployeeName" dg-colon="true">Employee Name</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--8">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['EmployeeName'].$valid }}">
@@ -40,7 +40,7 @@
 	                                ng-minlength="0.0 || 0"
 	                                ng-maxlength="64.0 || -1"
 	                                type="text"
-	                                placeholder="Enter EmployeeName">
+	                                placeholder="Enter Employee Name">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
 	                        </fd-form-input-message-group>
@@ -78,7 +78,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idCheckInTime" dg-colon="true">CheckInTime</fd-form-label>
+                        	<fd-form-label for="idCheckInTime" dg-colon="true">Check-in Time</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--2">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['CheckInTime'].$valid }}">
@@ -94,7 +94,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idCheckOutTime" dg-colon="true">CheckOutTime</fd-form-label>
+                        	<fd-form-label for="idCheckOutTime" dg-colon="true">Check-out Time</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--2">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['CheckOutTime'].$valid }}">
@@ -110,7 +110,7 @@
                     </fd-form-item>
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idAttendanceStatus" dg-colon="true">AttendanceStatus</fd-form-label>
+                        	<fd-form-label for="idAttendanceStatus" dg-colon="true">Attendance Status</fd-form-label>
                         </div>
                         <div class="fd-col fd-col-md--8">
 	                        <fd-combobox-input id="idAttendanceStatus"
@@ -118,7 +118,7 @@
 	                            state="{{ forms.details['AttendanceStatus'].$valid ? '' : 'error' }}"
 	                            ng-model="entity.AttendanceStatus"
 	                            dropdown-items="optionsAttendanceStatus"
-	                            dg-placeholder="Search AttendanceStatus ...">
+	                            dg-placeholder="Search Attendance Status ...">
 	                        </fd-combobox-input>
 	                    </div>
                     </fd-form-item>
