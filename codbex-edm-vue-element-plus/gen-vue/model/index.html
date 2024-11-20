@@ -51,7 +51,7 @@
                 </iframe>
                 <template #footer>
                     <div class="dialog-footer">
-                        <el-button @click="closeDialog()">Cancel</el-button>
+                        <el-button @click="onCloseDialog()">Cancel</el-button>
                         <el-button type="primary" @click="confirmDialog()">Confirm</el-button>
                     </div>
                 </template>
@@ -59,25 +59,22 @@
 
             <!-- Header -->
             <el-header>
-                <el-menu mode="horizontal" :ellipsis="false" @select="handleSelect">
-                    <el-menu-item index="/services/web/codbex-sample-vue-element-plus/components/Space/">
+                <el-menu mode="horizontal" :ellipsis="false" @select="selectNavigation">
+                    <el-menu-item :index="navigationSingleView[0].path + '#'">
                         <img style="width: 100px" src="ui/button-logo-orange.png" alt="codbex logo" />
                         <span class="text-large font-600 mr-3"> Hestia </span>
                     </el-menu-item>
-                    <el-menu-item index="/services/web/inbox/">Processes</el-menu-item>
-                    <el-menu-item index="/services/web/documents/">Documents</el-menu-item>
-                    <el-sub-menu index="help">
-                        <template #title>Help</template>
-                        <el-menu-item @click="openInNewTab('https://www.dirigible.io/help/')">Help Portal</el-menu-item>
-                        <el-menu-item @click="openInNewTab('https://github.com/eclipse/dirigible/issues')">Contact
-                            Support</el-menu-item>
-                        <el-menu-item
-                            @click="openInNewTab('https://github.com/eclipse/dirigible/issues/new?assignees=&labels=&template=feature_request.md&title=[New%20Feature]')">
-                            Suggest a Feature</el-menu-item>
-                        <el-menu-item @click="openInNewTab('https://www.dirigible.io/blogs/')">What's New</el-menu-item>
-                        <el-menu-item @click=" openInNewTab('https://download.dirigible.io/')">Check for Updates
+
+                    <el-menu-item :index="next.path" v-for="(next) in navigationHorizontalSingleView">{{next.name}}
+                    </el-menu-item>
+
+                    <el-sub-menu :index="'' + menuIndex" v-for="(next, menuIndex) in navigationHorizontalMenu">
+                        <template #title>{{next.name}}</template>
+                        <el-menu-item v-for="menuItem in next.menuItems" @click="openInNewTab(menuItem.url)">
+                            {{menuItem.name}}
                         </el-menu-item>
                     </el-sub-menu>
+
                     <el-sub-menu index="username">
                         <template #title>admin</template>
                         <el-sub-menu index="change-locale">
@@ -95,7 +92,7 @@
             <el-container>
                 <!-- Side Navigation -->
                 <el-aside width="200">
-                    <el-menu :default-active="navigationSingleView[0].path" @select="handleSelect"
+                    <el-menu :default-active="navigationSingleView[0].path" @select="selectNavigation"
                         :collapse="isNavigationCollapsed">
                         <el-menu-item @click="isNavigationCollapsed = !isNavigationCollapsed">
                             <el-icon v-show="isNavigationCollapsed">

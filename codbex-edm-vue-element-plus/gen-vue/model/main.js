@@ -10,11 +10,13 @@ const app = createApp({
         }
     },
     created() {
+        // Subscribe handlers on MessageHub events
         this.$messageHub.subscribe(this.onOpenDialog, 'app.openDialog');
         this.$messageHub.subscribe(this.onCloseDialog, 'app.closeDialog');
         this.$messageHub.subscribe(this.onShowMessage, 'app.showMessage');
         this.$messageHub.subscribe(this.onShowNotification, 'app.showNotification');
         this.$messageHub.subscribe(this.onShowConfirm, 'app.showConfirm');
+
         this.view = this.navigationSingleView[0].path;
     },
     data() {
@@ -46,15 +48,85 @@ const app = createApp({
                         }
                     ]
                 },
-            ]
+                {
+                    name: 'Recruitment & Onboarding',
+                    icon: 'Files',
+                    menuItems: [
+                        {
+                            name: 'Candidate Application',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/RecruitmentAndOnboarding/CandidateApplication/index.html'
+                        }, {
+                            name: 'Job Posting',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/RecruitmentAndOnboarding/JobPosting/index.html'
+                        }
+                    ]
+                },
+                {
+                    name: 'Performance & Attendance',
+                    icon: 'Postcard',
+                    menuItems: [
+                        {
+                            name: 'Performance Review',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/PerformanceAndAttendance/PerformanceReview/index.html'
+                        }, {
+                            name: 'Attendance Record',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/PerformanceAndAttendance/AttendanceRecord/index.html'
+                        }
+                    ]
+                },
+                {
+                    name: 'Settings',
+                    icon: 'Setting',
+                    menuItems: [
+                        {
+                            name: 'Contract Type',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/ContractType/index.html'
+                        }, {
+                            name: 'Attendance Status',
+                            path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/AttendanceStatus/index.html'
+                        }
+                    ]
+                },
+            ],
+            menu: [{
+                name: 'Processes',
+                path: '/services/web/inbox/index.html'
+            }, {
+                name: 'Documents',
+                path: '/services/web/documents/index.html'
+            }, {
+                name: 'Help',
+                menuItems: [{
+                    name: 'Help Portal',
+                    url: 'https://www.dirigible.io/help/'
+                }, {
+                    name: 'Contact Support',
+                    url: 'https://github.com/eclipse/dirigible/issues'
+                }, {
+                    name: 'Suggest a Feature',
+                    url: 'https://github.com/eclipse/dirigible/issues/new?assignees=&labels=&template=feature_request.md&title=[New%20Feature]'
+                }, {
+                    name: `What's New`,
+                    url: 'https://www.dirigible.io/blogs/'
+                }, {
+                    name: 'Check for Updates',
+                    url: 'https://download.dirigible.io/'
+                }]
+            }]
         };
     },
     computed: {
         navigationSingleView() {
             return this.perspectives.filter(e => e.path);
         },
+        navigationHorizontalSingleView() {
+            return this.menu.filter(e => e.path);
+        },
         navigationMenu() {
             return this.perspectives.filter(e => e.path === undefined);
+        },
+        navigationHorizontalMenu() {
+            return this.menu.filter(e => e.path === undefined);
         },
     },
     methods: {
@@ -67,8 +139,11 @@ const app = createApp({
         startTour() {
             this.$messageHub.post({}, 'app.startTour');
         },
-        handleSelect(key, keyPath) {
+        selectNavigation(key) {
             this.view = key;
+        },
+        confirmDialog() {
+            this.$messageHub.post({}, `${this.dialogTopic}.confirm`);
         },
         openInNewTab(url) {
             window.open(url);
@@ -76,6 +151,8 @@ const app = createApp({
         logout() {
             location.replace('/logout');
         },
+
+        // MessageHub Event Handlers
         onOpenDialog(event) {
             this.isDialogVisible = true;
             this.dialogTitle = event.title;
@@ -96,9 +173,6 @@ const app = createApp({
         },
         onShowMessage(event) {
             ElMessage(event);
-        },
-        confirmDialog() {
-            this.$messageHub.post({}, `${this.dialogTopic}.confirm`);
         },
         onShowNotification(event) {
             ElNotification(event);
