@@ -1,19 +1,19 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import { Plus } from '@element-plus/icons-vue'
-// import { createI18n } from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 
-// import en from './locales/en.json' with { type: "json" };
-// import bg from './locales/bg.json' with { type: "json" };
+import en from '../../../locales/en.json' with { type: "json" };
+import bg from '../../../locales/bg.json' with { type: "json" };
 
-// const i18n = createI18n({
-//     locale: 'en',
-//     fallbackLocale: 'en',
-//     messages: {
-//         en: en,
-//         bg: bg,
-//     }
-// });
+const i18n = createI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: {
+        en: en,
+        bg: bg,
+    }
+});
 
 const app = createApp({
     setup() {
@@ -27,6 +27,7 @@ const app = createApp({
     created() {
         this.$messageHub.subscribe(this.onOpenDialog, 'app.Settings.AttendanceStatus.openDialog');
         this.$messageHub.subscribe(this.onConfirmDialog, 'app.Settings.AttendanceStatus.openDialog.confirm');
+        this.$messageHub.subscribe(this.onChangeLocale, 'app.changeLocale');
     },
     data: function () {
         return {
@@ -34,6 +35,16 @@ const app = createApp({
         };
     },
     methods: {
+        saveCreate: async function () {
+        },
+        showErrorMessage: function (title, message) {
+            this.$messageHub.post({
+                title: title,
+                message: message,
+                type: 'error',
+                duration: 0,
+            }, 'app.showNotification');
+        },
         onOpenDialog: function (event) {
             if (event.data.isCreate) {
                 this.isCreate = true;
@@ -62,17 +73,17 @@ const app = createApp({
                     if (response.status === 201) {
                         this.$messageHub.post({}, 'app.Settings.AttendanceStatus.refreshData');
                         this.$messageHub.post({
-                            message: `Contract Type successfully created.`,
+                            message: `Attendance Status successfully created.`,
                             type: 'success',
                         }, 'app.showMessage');
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to create Contract Type', `Error message: ${error.message}`);
+                        this.showErrorMessage('Failed to create Attendance Status', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to create Contract Type', message);
+                    this.showErrorMessage('Failed to create Attendance Status', message);
                 }
             } else if (this.isUpdate) {
                 try {
@@ -83,36 +94,29 @@ const app = createApp({
                     if (response.status === 200) {
                         this.$messageHub.post({}, 'app.Settings.AttendanceStatus.refreshData');
                         this.$messageHub.post({
-                            message: `Contract Type successfully updated.`,
+                            message: `Attendance Status successfully updated.`,
                             type: 'success',
                         }, 'app.showMessage');
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to edit Contract Type', `Error message: ${error.message}`);
+                        this.showErrorMessage('Failed to edit Attendance Status', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to edit Contract Type', message);
+                    this.showErrorMessage('Failed to edit Attendance Status', message);
                 }
             }
             this.$messageHub.post({}, 'app.closeDialog');
         },
-        saveCreate: async function () {
-        },
-        showErrorMessage: function (title, message) {
-            this.$messageHub.post({
-                title: title,
-                message: message,
-                type: 'error',
-                duration: 0,
-            }, 'app.showNotification');
+        onChangeLocale: function (event) {
+            i18n.global.locale = event.data;
         },
     }
 });
 
 app.config.globalProperties.$messageHub = new FramesMessageHub();
 
-// app.use(i18n);
+app.use(i18n);
 app.use(ElementPlus);
 app.mount('#app');

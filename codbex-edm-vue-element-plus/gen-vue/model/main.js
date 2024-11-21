@@ -2,6 +2,19 @@ import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
 import * as icons from '@element-plus/icons-vue'
+import { createI18n } from 'vue-i18n'
+
+import en from './ui/locales/en.json' with { type: "json" };
+import bg from './ui/locales/bg.json' with { type: "json" };
+
+const i18n = createI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: {
+        en: en,
+        bg: bg,
+    }
+});
 
 const app = createApp({
     setup() {
@@ -16,6 +29,7 @@ const app = createApp({
         this.$messageHub.subscribe(this.onShowMessage, 'app.showMessage');
         this.$messageHub.subscribe(this.onShowNotification, 'app.showNotification');
         this.$messageHub.subscribe(this.onShowConfirm, 'app.showConfirm');
+        this.$messageHub.subscribe(this.onChangeLocale, 'app.changeLocale');
 
         this.view = this.navigationSingleView[0].path;
     },
@@ -23,7 +37,7 @@ const app = createApp({
         return {
             isNavigationCollapsed: false,
             isDialogVisible: false,
-            dialogTitle: null,
+            dialogTitle: '',
             dialogTopic: null,
             view: null,
             perspectives: [
@@ -172,18 +186,24 @@ const app = createApp({
             this.dialogTopic = null;
         },
         onShowMessage(event) {
+            // TODO: Translate the Message
             ElMessage(event);
         },
         onShowNotification(event) {
+            // TODO: Translate the Notification
             ElNotification(event);
         },
         async onShowConfirm(event) {
             try {
+                // TODO: Translate the Confirm
                 await ElMessageBox.confirm(event.description, event.title, event.options);
                 this.$messageHub.post({ isConfirmed: true }, event.confirmTopic);
             } catch (e) {
                 this.$messageHub.post({ isConfirmed: false }, event.confirmTopic);
             }
+        },
+        onChangeLocale(event) {
+            i18n.global.locale = event.data;
         }
     },
 });
@@ -192,6 +212,6 @@ Object.keys(icons).forEach(iconName => app.component(iconName.toLowerCase(), ico
 
 app.config.globalProperties.$messageHub = new FramesMessageHub();
 
+app.use(i18n);
 app.use(ElementPlus);
-
 app.mount('#app');

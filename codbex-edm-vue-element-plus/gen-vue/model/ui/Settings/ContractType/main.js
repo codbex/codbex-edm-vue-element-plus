@@ -1,10 +1,10 @@
-import { createApp } from 'vue';
+import { createApp, ref } from 'vue';
 import ElementPlus from 'element-plus';
 import { Plus } from '@element-plus/icons-vue'
 import { createI18n } from 'vue-i18n'
 
-import en from './locales/en.json' with { type: "json" };
-import bg from './locales/bg.json' with { type: "json" };
+import en from '../../locales/en.json' with { type: "json" };
+import bg from '../../locales/bg.json' with { type: "json" };
 
 const i18n = createI18n({
     locale: 'en',
@@ -18,16 +18,19 @@ const i18n = createI18n({
 const app = createApp({
     setup() {
         return {
-            tourSearchInput: null,
-            tourEditButton: null,
-            tourDeleteButton: null,
+            tourTableColumnName: ref(''),
+            tourTableColumnName2: ref(''),
+            tourButtonCreate: null,
+            tourButtonDetail: null,
+            tourButtonEdit: null,
+            tourButtonDelete: null,
             Plus: Plus,
         }
     },
     created() {
-        this.$messageHub.subscribe(this.start, 'app.startTour');
-        this.$messageHub.subscribe(this.changeLocale, 'app.changeLocale');
-        this.$messageHub.subscribe(this.confirmDelete, 'app.Settings.ContractType.confirmDelete');
+        this.$messageHub.subscribe(this.onStartToure, 'app.startTour');
+        this.$messageHub.subscribe(this.onChangeLocale, 'app.changeLocale');
+        this.$messageHub.subscribe(this.onConfirmDelete, 'app.Settings.ContractType.confirmDelete');
         this.$messageHub.subscribe(this.refreshData, 'app.Settings.ContractType.refreshData');
     },
     data: function () {
@@ -46,13 +49,9 @@ const app = createApp({
         };
     },
     methods: {
-        start: function () {
-            this.startTour = true;
-        },
         showDetail: function (_index, entity) {
-            debugger
             this.$messageHub.post({
-                title: 'Contract Type Details',
+                title: 'app.Settings.ContractType.dialog.Detail',
                 path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/ContractType/dialog/index.html',
                 dialogTopic: 'app.Settings.ContractType.openDialog',
                 dialogData: {
@@ -63,7 +62,7 @@ const app = createApp({
         },
         handleEdit: function (index, entity) {
             this.$messageHub.post({
-                title: 'Update Contract Type',
+                title: 'app.Settings.ContractType.dialog.Edit',
                 path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/ContractType/dialog/index.html',
                 dialogTopic: 'app.Settings.ContractType.openDialog',
                 dialogData: {
@@ -74,21 +73,13 @@ const app = createApp({
         },
         handleCreate: function () {
             this.$messageHub.post({
-                title: 'Create Contract Type',
+                title: 'app.Settings.ContractType.dialog.Create',
                 path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/ContractType/dialog/index.html',
                 dialogTopic: 'app.Settings.ContractType.openDialog',
                 dialogData: {
                     isCreate: true,
                 },
             }, 'app.openDialog');
-        },
-        showErrorMessage: function (title, message) {
-            this.$messageHub.post({
-                title: title,
-                message: message,
-                type: 'error',
-                duration: 0,
-            }, 'app.showNotification');
         },
         handleDelete: async function (index, entity) {
             this.selectedIndex = index;
@@ -105,7 +96,24 @@ const app = createApp({
             }
             this.$messageHub.post(event, 'app.showConfirm');
         },
-        confirmDelete: async function (event) {
+        handlePageChange: async function (currentPage, pageSize) {
+            this.currentPage = currentPage;
+            this.pageSize = pageSize;
+
+            await this.refreshData();
+        },
+        showErrorMessage: function (title, message) {
+            this.$messageHub.post({
+                title: title,
+                message: message,
+                type: 'error',
+                duration: 0,
+            }, 'app.showNotification');
+        },
+        onStartToure: function () {
+            this.startTour = true;
+        },
+        onConfirmDelete: async function (event) {
             if (event.isConfirmed) {
                 try {
                     const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/Settings/ContractTypeService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
@@ -128,7 +136,7 @@ const app = createApp({
             this.selectedIndex = undefined;
             this.selectedEntity = undefined;
         },
-        changeLocale: function (event) {
+        onChangeLocale: function (event) {
             i18n.global.locale = event.data;
         },
         refreshData: async function () {
@@ -152,18 +160,11 @@ const app = createApp({
                 this.showErrorMessage('Failed to load Contract Type', `Error message: ${error.message}`);
                 throw new Error(`Response status: ${response.status}`);
             }
+            this.tableData = await response.json();
 
-            setTimeout(async function (context) {
-                context.loading = false
-                context.tableData = await response.json();
-            }, 1000, this);
+
+            this.loading = false
         },
-        handlePageChange: async function (currentPage, pageSize) {
-            this.currentPage = currentPage;
-            this.pageSize = pageSize;
-
-            await this.refreshData();
-        }
     },
     mounted: async function () {
         await this.refreshData();
