@@ -25,8 +25,8 @@ const app = createApp({
         }
     },
     created() {
-        this.$messageHub.subscribe(this.onOpenDialog, 'app.EmployeeManagement.Department.openDialog');
-        this.$messageHub.subscribe(this.onConfirmDialog, 'app.EmployeeManagement.Department.openDialog.confirm');
+        this.$messageHub.subscribe(this.onOpenDialog, 'app.Settings.ContractType.openDialog');
+        this.$messageHub.subscribe(this.onConfirmDialog, 'app.Settings.ContractType.openDialog.confirm');
     },
     data: function () {
         return {
@@ -55,45 +55,45 @@ const app = createApp({
         onConfirmDialog: async function (event) {
             if (this.isCreate) {
                 try {
-                    const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts', {
+                    const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/Settings/ContractTypeService.ts', {
                         method: 'POST',
                         body: JSON.stringify(this.entity)
                     });
                     if (response.status === 201) {
-                        this.$messageHub.post({}, 'app.EmployeeManagement.Department.refreshData');
+                        this.$messageHub.post({}, 'app.Settings.ContractType.refreshData');
                         this.$messageHub.post({
-                            message: `Department successfully created.`,
+                            message: `Contract Type successfully created.`,
                             type: 'success',
                         }, 'app.showMessage');
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to create Department', `Error message: ${error.message}`);
+                        this.showErrorMessage('Failed to create Contract Type', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to create Department', message);
+                    this.showErrorMessage('Failed to create Contract Type', message);
                 }
             } else if (this.isUpdate) {
                 try {
-                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts/${this.entity.Id}`, {
+                    const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/Settings/ContractTypeService.ts/${this.entity.Id}`, {
                         method: 'PUT',
                         body: JSON.stringify(this.entity)
                     });
                     if (response.status === 200) {
-                        this.$messageHub.post({}, 'app.EmployeeManagement.Department.refreshData');
+                        this.$messageHub.post({}, 'app.Settings.ContractType.refreshData');
                         this.$messageHub.post({
-                            message: `Department successfully updated.`,
+                            message: `Contract Type successfully updated.`,
                             type: 'success',
                         }, 'app.showMessage');
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to edit Department', `Error message: ${error.message}`);
+                        this.showErrorMessage('Failed to edit Contract Type', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to edit Department', message);
+                    this.showErrorMessage('Failed to edit Contract Type', message);
                 }
             }
             this.$messageHub.post({}, 'app.closeDialog');
