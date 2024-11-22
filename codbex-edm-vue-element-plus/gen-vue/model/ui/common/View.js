@@ -5,29 +5,26 @@ import bg from '../locales/bg.json' with { type: "json" };
 
 export class View {
 
-    static i18n;
+    static messageHub = new FramesMessageHub();
+    static i18n = createI18n({
+        locale: localStorage.getItem('app.locale') ?? 'en',
+        fallbackLocale: 'en',
+        messages: {
+            en: en,
+            bg: bg,
+        }
+    });
 
-    messageHub;
     dialog;
 
     constructor(dialog = { path: '', topic: '' }) {
-        this.messageHub = new FramesMessageHub();
         this.dialog = dialog;
-
-        View.i18n = createI18n({
-            locale: localStorage.getItem('app.locale') ?? 'en',
-            fallbackLocale: 'en',
-            messages: {
-                en: en,
-                bg: bg,
-            }
-        });
 
         this.subscribe('app.changeLocale', this.onChangeLocale);
     }
 
     static getTranslation(key) {
-        return View.i18n.global.messages[View.i18n.global.locale][key];
+        return View.i18n.global.messages[View.i18n.global.locale][key] ?? View.i18n.global.messages[View.i18n.global.fallbackLocale][key] ?? key;
     }
 
     showMessage(message, type = "success") {
@@ -46,6 +43,19 @@ export class View {
         });
     }
 
+    showConfirm(title, description, confirmTopic) {
+        this.post('app.showConfirm', {
+            title: title,
+            description: description,
+            options: {
+                confirmButtonText: 'i18n.generic.confirm.yes',
+                cancelButtonText: 'i18n.generic.confirm.no',
+                type: 'warning',
+            },
+            confirmTopic: confirmTopic,
+        });
+    }
+
     showDialog(title, data) {
         this.post('app.openDialog', {
             title: title,
@@ -60,20 +70,19 @@ export class View {
     }
 
     subscribe(topic, callback) {
-        this.messageHub.subscribe(callback, topic);
+        View.messageHub.subscribe(callback, topic);
     }
 
     post(topic, data = {}) {
-        this.messageHub.post(data, topic);
+        View.messageHub.post(data, topic);
     }
 
     onChangeLocale(event) {
         localStorage.setItem('app.locale', event.data);
         View.i18n.global.locale = event.data;
 
-        // Workaround as the method is executed as a callback and "this" doesn't have access to the class instance
-        new FramesMessageHub().post({
-            message: 'app.locale.change',
+        View.messageHub.post({
+            message: 'i18n.locale.change',
             type: 'info',
         }, 'app.showMessage');
     }

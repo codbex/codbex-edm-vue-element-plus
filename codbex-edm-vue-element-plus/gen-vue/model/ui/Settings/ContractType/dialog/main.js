@@ -53,15 +53,16 @@ const app = createApp({
                     });
                     if (response.status === 201) {
                         view.post('app.Settings.ContractType.refreshData');
-                        view.showMessage(`Contract Type successfully created.`);
+                        view.showMessage('i18n.Settings.ContractType.Create.successful');
                     } else {
                         const error = await response.json();
-                        view.showErrorMessage('Failed to create Contract Type', `Error message: ${error.message}`);
+                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        view.showErrorMessage('i18n.Settings.ContractType.Create.failed', errorMessage);
                     }
                 } catch (e) {
-                    const message = `Error message: ${e.message}`;
-                    console.error(message, e);
-                    view.showErrorMessage('Failed to create Contract Type', message);
+                    console.error(`Error message: ${e.message}`, e);
+                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    view.showErrorMessage('i18n.Settings.ContractType.Create.failed', errorMessage);
                 }
             } else if (this.isUpdate) {
                 try {
@@ -71,15 +72,16 @@ const app = createApp({
                     });
                     if (response.status === 200) {
                         view.post('app.Settings.ContractType.refreshData');
-                        view.showMessage(`Contract Type successfully updated.`);
+                        view.showMessage('i18n.Settings.ContractType.Edit.successful');
                     } else {
                         const error = await response.json();
-                        view.showErrorMessage('Failed to edit Contract Type', `Error message: ${error.message}`);
+                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        view.showErrorMessage('i18n.Settings.ContractType.Edit.failed', errorMessage);
                     }
                 } catch (e) {
-                    const message = `Error message: ${e.message}`;
-                    console.error(message, e);
-                    view.showErrorMessage('Failed to edit Contract Type', message);
+                    console.error(`Error message: ${e.message}`, e);
+                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    view.showErrorMessage('i18n.Settings.ContractType.Edit.failed', errorMessage);
                 }
             }
             view.closeDialog();

@@ -194,8 +194,14 @@ const app = createApp({
             try {
                 const description = View.getTranslation(event.description);
                 const title = View.getTranslation(event.title);
+                const confirmButtonText = View.getTranslation(event.options.confirmButtonText);
+                const cancelButtonText = View.getTranslation(event.options.cancelButtonText);
 
-                await ElMessageBox.confirm(description, title, event.options);
+                await ElMessageBox.confirm(description, title, {
+                    ...event.options,
+                    confirmButtonText,
+                    cancelButtonText,
+                });
                 view.post(event.confirmTopic, { isConfirmed: true });
             } catch (e) {
                 view.post(event.confirmTopic, { isConfirmed: false },);

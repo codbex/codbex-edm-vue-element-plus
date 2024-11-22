@@ -27,27 +27,27 @@
         <div id="app">
 
             <el-table v-loading="loading" :data="tableData" style="width: 100%">
-                <el-table-column :label="$t('app.Settings.AttendanceStatus.table.column.Name')" sortable prop="Name">
+                <el-table-column :label="$t('i18n.Settings.AttendanceStatus.table.column.Name')" sortable prop="Name">
                 </el-table-column>
                 <el-table-column align="right">
                     <template #header>
                         <el-button type="primary" size="small" @click="handleCreate()" :icon="Plus"
                             ref="tourButtonCreate">
-                            {{ $t('app.generic.button.Create') }}
+                            {{ $t('i18n.generic.button.Create') }}
                         </el-button>
                     </template>
                     <template #default="scope">
                         <el-button link type="primary" size="small" @click="showDetail(scope.$index, scope.row)"
                             ref="tourButtonDetail">
-                            {{ $t('app.generic.button.Detail') }}
+                            {{ $t('i18n.generic.button.Detail') }}
                         </el-button>
                         <el-button link type="primary" size="small" @click="handleEdit(scope.$index, scope.row)"
                             ref="tourButtonEdit">
-                            {{ $t('app.generic.button.Edit') }}
+                            {{ $t('i18n.generic.button.Edit') }}
                         </el-button>
                         <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
                             ref="tourButtonDelete">
-                            {{ $t('app.generic.button.Delete') }}
+                            {{ $t('i18n.generic.button.Delete') }}
                         </el-button>
                     </template>
                 </el-table-column>
@@ -58,20 +58,20 @@
             </el-pagination>
 
             <el-tour v-model="startTour">
-                <el-tour-step :title="$t('app.Settings.AttendanceStatus.table.column.Name')"
-                    :description="$t('app.Settings.AttendanceStatus.tour.table.column.Name.description')">
+                <el-tour-step :title="$t('i18n.Settings.AttendanceStatus.table.column.Name')"
+                    :description="$t('i18n.Settings.AttendanceStatus.tour.table.column.Name.description')">
                 </el-tour-step>
-                <el-tour-step :target="tourButtonCreate?.$el" :title="$t('app.generic.button.Create')"
-                    :description="$t('app.Settings.AttendanceStatus.tour.button.Create.description')">
+                <el-tour-step :target="tourButtonCreate?.$el" :title="$t('i18n.generic.button.Create')"
+                    :description="$t('i18n.Settings.AttendanceStatus.tour.button.Create.description')">
                 </el-tour-step>
-                <el-tour-step :target="tourButtonDetail?.$el" :title="$t('app.generic.button.Detail')"
-                    :description="$t('app.Settings.AttendanceStatus.tour.button.Detail.description')">
+                <el-tour-step :target="tourButtonDetail?.$el" :title="$t('i18n.generic.button.Detail')"
+                    :description="$t('i18n.Settings.AttendanceStatus.tour.button.Detail.description')">
                 </el-tour-step>
-                <el-tour-step :target="tourButtonEdit?.$el" :title="$t('app.generic.button.Edit')"
-                    :description="$t('app.Settings.AttendanceStatus.tour.button.Edit.description')">
+                <el-tour-step :target="tourButtonEdit?.$el" :title="$t('i18n.generic.button.Edit')"
+                    :description="$t('i18n.Settings.AttendanceStatus.tour.button.Edit.description')">
                 </el-tour-step>
-                <el-tour-step :target="tourButtonDelete?.$el" :title="$t('app.generic.button.Delete')"
-                    :description="$t('app.Settings.AttendanceStatus.tour.button.Delete.description')">
+                <el-tour-step :target="tourButtonDelete?.$el" :title="$t('i18n.generic.button.Delete')"
+                    :description="$t('i18n.Settings.AttendanceStatus.tour.button.Delete.description')">
                 </el-tour-step>
             </el-tour>
 

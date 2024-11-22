@@ -36,19 +36,19 @@ const app = createApp({
     },
     methods: {
         showDetail: function (_index, entity) {
-            view.showDialog('app.EmployeeManagement.Department.dialog.Detail', {
+            view.showDialog('i18n.EmployeeManagement.Department.dialog.Detail', {
                 isPreview: true,
                 entity: JSON.parse(JSON.stringify(entity))
             });
         },
         handleEdit: function (_index, entity) {
-            view.showDialog('app.EmployeeManagement.Department.dialog.Edit', {
+            view.showDialog('i18n.EmployeeManagement.Department.dialog.Edit', {
                 isUpdate: true,
                 entity: JSON.parse(JSON.stringify(entity))
             });
         },
         handleCreate: function () {
-            view.showDialog('app.EmployeeManagement.Department.dialog.Create', {
+            view.showDialog('i18n.EmployeeManagement.Department.dialog.Create', {
                 isCreate: true,
             });
         },

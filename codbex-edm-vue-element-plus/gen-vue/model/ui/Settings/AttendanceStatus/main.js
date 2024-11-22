@@ -36,19 +36,19 @@ const app = createApp({
     },
     methods: {
         showDetail: function (_index, entity) {
-            view.showDialog('app.Settings.AttendanceStatus.dialog.Detail', {
+            view.showDialog('i18n.Settings.AttendanceStatus.dialog.Detail', {
                 isPreview: true,
                 entity: JSON.parse(JSON.stringify(entity))
             });
         },
         handleEdit: function (_index, entity) {
-            view.showDialog('app.Settings.AttendanceStatus.dialog.Edit', {
+            view.showDialog('i18n.Settings.AttendanceStatus.dialog.Edit', {
                 isUpdate: true,
                 entity: JSON.parse(JSON.stringify(entity))
             });
         },
         handleCreate: function () {
-            view.showDialog('app.Settings.AttendanceStatus.dialog.Create', {
+            view.showDialog('i18n.Settings.AttendanceStatus.dialog.Create', {
                 isCreate: true,
             });
         },
