@@ -39,11 +39,7 @@ const app = createApp({
             startTour: false,
             loading: true,
             tableData: [],
-            dialogDetailVisible: false,
-            dialogEditVisible: false,
-            dialogCreateVisible: false,
             selectedEntity: null,
-            selectedEntityIndex: null,
         };
     },
     methods: {
@@ -58,7 +54,7 @@ const app = createApp({
                 },
             }, 'app.openDialog');
         },
-        handleEdit: function (index, entity) {
+        handleEdit: function (_index, entity) {
             this.$messageHub.post({
                 title: 'app.EmployeeManagement.Department.dialog.Edit',
                 path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
@@ -79,8 +75,7 @@ const app = createApp({
                 },
             }, 'app.openDialog');
         },
-        handleDelete: async function (index, entity) {
-            this.selectedIndex = index;
+        handleDelete: async function (_index, entity) {
             this.selectedEntity = entity;
             const event = {
                 title: 'Delete Department?',
@@ -116,11 +111,11 @@ const app = createApp({
                 try {
                     const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
                     if (response.status === 204) {
-                        this.tableData.splice(this.selectedIndex, 1);
                         this.$messageHub.post({
                             message: `Department was deleted successfully.`,
                             type: 'success',
                         }, 'app.showMessage');
+                        this.refreshData();
                     } else {
                         const error = await response.json();
                         this.showErrorMessage('Failed to delete Department', `Error message: ${error.message}`);
@@ -131,7 +126,6 @@ const app = createApp({
                     this.showErrorMessage('Failed to delete Department', message);
                 }
             }
-            this.selectedIndex = undefined;
             this.selectedEntity = undefined;
         },
         onChangeLocale: function (event) {
