@@ -53,15 +53,16 @@ const app = createApp({
                     });
                     if (response.status === 201) {
                         view.post('app.Settings.AttendanceStatus.refreshData');
-                        view.showMessage(`Attendance Status successfully created.`);
+                        view.showMessage('i18n.Settings.AttendanceStatus.Create.successful');
                     } else {
                         const error = await response.json();
-                        view.showErrorMessage('Failed to create Attendance Status', `Error message: ${error.message}`);
+                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        view.showErrorMessage('i18n.Settings.AttendanceStatus.Create.failed', errorMessage);
                     }
                 } catch (e) {
-                    const message = `Error message: ${e.message}`;
-                    console.error(message, e);
-                    view.showErrorMessage('Failed to create Attendance Status', message);
+                    console.error(`Error message: ${e.message}`, e);
+                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    view.showErrorMessage('i18n.Settings.AttendanceStatus.Create.failed', errorMessage);
                 }
             } else if (this.isUpdate) {
                 try {
@@ -71,15 +72,16 @@ const app = createApp({
                     });
                     if (response.status === 200) {
                         view.post('app.Settings.AttendanceStatus.refreshData');
-                        view.showMessage(`Attendance Status successfully updated.`);
+                        view.showMessage('i18n.Settings.AttendanceStatus.Edit.successful');
                     } else {
                         const error = await response.json();
-                        view.showErrorMessage('Failed to edit Attendance Status', `Error message: ${error.message}`);
+                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        view.showErrorMessage('i18n.Settings.AttendanceStatus.Edit.failed', errorMessage);
                     }
                 } catch (e) {
-                    const message = `Error message: ${e.message}`;
-                    console.error(message, e);
-                    view.showErrorMessage('Failed to edit Attendance Status', message);
+                    console.error(`Error message: ${e.message}`, e);
+                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    view.showErrorMessage('i18n.Settings.AttendanceStatus.Edit.failed', errorMessage);
                 }
             }
             view.closeDialog();

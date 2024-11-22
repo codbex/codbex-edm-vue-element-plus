@@ -17,7 +17,6 @@ const app = createApp({
     created() {
         view.subscribe('app.EmployeeManagement.Department.openDialog', this.onOpenDialog);
         view.subscribe('app.EmployeeManagement.Department.openDialog.confirm', this.onConfirmDialog);
-        view.subscribe('app.changeLocale', this.onChangeLocale);
     },
     data: function () {
         return {
@@ -54,15 +53,16 @@ const app = createApp({
                     });
                     if (response.status === 201) {
                         view.post('app.EmployeeManagement.Department.refreshData');
-                        view.showMessage(`Department successfully created.`);
+                        view.showMessage('i18n.EmployeeManagement.Department.Create.successful');
                     } else {
                         const error = await response.json();
-                        view.showErrorMessage('Failed to create Department', `Error message: ${error.message}`);
+                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        view.showErrorMessage('i18n.EmployeeManagement.Department.Create.failed', errorMessage);
                     }
                 } catch (e) {
-                    const message = `Error message: ${e.message}`;
-                    console.error(message, e);
-                    view.showErrorMessage('Failed to create Department', message);
+                    console.error(`Error message: ${e.message}`, e);
+                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    view.showErrorMessage('i18n.EmployeeManagement.Department.Create.failed', errorMessage);
                 }
             } else if (this.isUpdate) {
                 try {
@@ -72,15 +72,16 @@ const app = createApp({
                     });
                     if (response.status === 200) {
                         view.post('app.EmployeeManagement.Department.refreshData');
-                        view.showMessage(`Department successfully updated.`);
+                        view.showMessage('i18n.EmployeeManagement.Department.Edit.successful');
                     } else {
                         const error = await response.json();
-                        view.showErrorMessage('Failed to edit Department', `Error message: ${error.message}`);
+                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        view.showErrorMessage('i18n.EmployeeManagement.Department.Edit.failed', errorMessage);
                     }
                 } catch (e) {
-                    const message = `Error message: ${e.message}`;
-                    console.error(message, e);
-                    view.showErrorMessage('Failed to edit Department', message);
+                    console.error(`Error message: ${e.message}`, e);
+                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    view.showErrorMessage('i18n.EmployeeManagement.Department.Edit.failed', errorMessage);
                 }
             }
             view.closeDialog();
