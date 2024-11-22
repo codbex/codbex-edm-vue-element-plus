@@ -1,23 +1,9 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import { Plus } from '@element-plus/icons-vue'
-import { createI18n } from 'vue-i18n'
 import { View } from '../../../common/View.js';
 
-import en from '../../../locales/en.json' with { type: "json" };
-import bg from '../../../locales/bg.json' with { type: "json" };
-
-
 const view = new View();
-
-const i18n = createI18n({
-    locale: 'en',
-    fallbackLocale: 'en',
-    messages: {
-        en: en,
-        bg: bg,
-    }
-});
 
 const app = createApp({
     setup() {
@@ -31,7 +17,6 @@ const app = createApp({
     created() {
         view.subscribe('app.Settings.ContractType.openDialog', this.onOpenDialog);
         view.subscribe('app.Settings.ContractType.openDialog.confirm', this.onConfirmDialog);
-        view.subscribe('app.changeLocale', this.onChangeLocale);
     },
     data: function () {
         return {
@@ -99,12 +84,9 @@ const app = createApp({
             }
             view.closeDialog();
         },
-        onChangeLocale: function (event) {
-            i18n.global.locale = event.data;
-        },
     }
 });
 
-app.use(i18n);
+app.use(View.i18n);
 app.use(ElementPlus);
 app.mount('#app');

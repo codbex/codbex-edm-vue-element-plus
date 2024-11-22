@@ -2,19 +2,9 @@ import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
 import * as icons from '@element-plus/icons-vue'
-import { createI18n } from 'vue-i18n'
+import { View } from './ui/common/View.js';
 
-import en from './ui/locales/en.json' with { type: "json" };
-import bg from './ui/locales/bg.json' with { type: "json" };
-
-const i18n = createI18n({
-    locale: 'en',
-    fallbackLocale: 'en',
-    messages: {
-        en: en,
-        bg: bg,
-    }
-});
+const view = new View();
 
 const app = createApp({
     setup() {
@@ -23,13 +13,12 @@ const app = createApp({
         }
     },
     created() {
-        // Subscribe handlers on MessageHub events
-        this.$messageHub.subscribe(this.onOpenDialog, 'app.openDialog');
-        this.$messageHub.subscribe(this.onCloseDialog, 'app.closeDialog');
-        this.$messageHub.subscribe(this.onShowMessage, 'app.showMessage');
-        this.$messageHub.subscribe(this.onShowNotification, 'app.showNotification');
-        this.$messageHub.subscribe(this.onShowConfirm, 'app.showConfirm');
-        this.$messageHub.subscribe(this.onChangeLocale, 'app.changeLocale');
+        // Subscribe handlers on view events
+        view.subscribe('app.openDialog', this.onOpenDialog);
+        view.subscribe('app.closeDialog', this.onCloseDialog);
+        view.subscribe('app.showMessage', this.onShowMessage);
+        view.subscribe('app.showNotification', this.onShowNotification);
+        view.subscribe('app.showConfirm', this.onShowConfirm);
 
         this.view = this.navigationSingleView[0].path;
     },
@@ -148,16 +137,16 @@ const app = createApp({
             return icons[iconName] ?? icons['Document'];
         },
         changeLocale(locale) {
-            this.$messageHub.post(locale, 'app.changeLocale');
+            view.post('app.changeLocale', locale);
         },
         startTour() {
-            this.$messageHub.post({}, 'app.startTour');
+            view.post('app.startTour');
         },
         selectNavigation(key) {
             this.view = key;
         },
         confirmDialog() {
-            this.$messageHub.post({}, `${this.dialogTopic}.confirm`);
+            view.post(`${this.dialogTopic}.confirm`);
         },
         openInNewTab(url) {
             window.open(url);
@@ -166,7 +155,7 @@ const app = createApp({
             location.replace('/logout');
         },
 
-        // MessageHub Event Handlers
+        // View Event Handlers
         onOpenDialog(event) {
             this.isDialogVisible = true;
             this.dialogTitle = event.title;
@@ -174,9 +163,9 @@ const app = createApp({
             this.dialogTopic = event.dialogTopic;
 
             // TODO: Is there a better way how to handle data transfer?
-            // This is a workaround, to ensue that the messageHub is loaded in the target dialog (iframe)
+            // This is a workaround, to ensure that the messageHub is loaded in the target dialog (iframe)
             setTimeout(() => {
-                this.$messageHub.post({ data: event.dialogData }, event.dialogTopic);
+                view.post(event.dialogTopic, { data: event.dialogData });
             }, 500);
         },
         onCloseDialog() {
@@ -186,32 +175,37 @@ const app = createApp({
             this.dialogTopic = null;
         },
         onShowMessage(event) {
-            // TODO: Translate the Message
-            ElMessage(event);
+            const message = View.getTranslation(event.message);
+
+            ElMessage({
+                ...event,
+                message
+            });
         },
         onShowNotification(event) {
-            // TODO: Translate the Notification
-            ElNotification(event);
+            const message = View.getTranslation(event.message);
+
+            ElNotification({
+                ...event,
+                message
+            });
         },
         async onShowConfirm(event) {
             try {
-                // TODO: Translate the Confirm
-                await ElMessageBox.confirm(event.description, event.title, event.options);
-                this.$messageHub.post({ isConfirmed: true }, event.confirmTopic);
+                const description = View.getTranslation(event.description);
+                const title = View.getTranslation(event.title);
+
+                await ElMessageBox.confirm(description, title, event.options);
+                view.post(event.confirmTopic, { isConfirmed: true });
             } catch (e) {
-                this.$messageHub.post({ isConfirmed: false }, event.confirmTopic);
+                view.post(event.confirmTopic, { isConfirmed: false },);
             }
         },
-        onChangeLocale(event) {
-            i18n.global.locale = event.data;
-        }
     },
 });
 
 Object.keys(icons).forEach(iconName => app.component(iconName.toLowerCase(), icons[iconName]));
 
-app.config.globalProperties.$messageHub = new FramesMessageHub();
-
-app.use(i18n);
+app.use(View.i18n);
 app.use(ElementPlus);
 app.mount('#app');

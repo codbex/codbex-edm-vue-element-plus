@@ -1,19 +1,9 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import { Plus } from '@element-plus/icons-vue'
-import { createI18n } from 'vue-i18n'
+import { View } from '../../../common/View.js';
 
-import en from '../../../locales/en.json' with { type: "json" };
-import bg from '../../../locales/bg.json' with { type: "json" };
-
-const i18n = createI18n({
-    locale: 'en',
-    fallbackLocale: 'en',
-    messages: {
-        en: en,
-        bg: bg,
-    }
-});
+const view = new View();
 
 const app = createApp({
     setup() {
@@ -25,9 +15,9 @@ const app = createApp({
         }
     },
     created() {
-        this.$messageHub.subscribe(this.onOpenDialog, 'app.EmployeeManagement.Department.openDialog');
-        this.$messageHub.subscribe(this.onConfirmDialog, 'app.EmployeeManagement.Department.openDialog.confirm');
-        this.$messageHub.subscribe(this.onChangeLocale, 'app.changeLocale');
+        view.subscribe('app.EmployeeManagement.Department.openDialog', this.onOpenDialog);
+        view.subscribe('app.EmployeeManagement.Department.openDialog.confirm', this.onConfirmDialog);
+        view.subscribe('app.changeLocale', this.onChangeLocale);
     },
     data: function () {
         return {
@@ -36,14 +26,6 @@ const app = createApp({
     },
     methods: {
         saveCreate: async function () {
-        },
-        showErrorMessage: function (title, message) {
-            this.$messageHub.post({
-                title: title,
-                message: message,
-                type: 'error',
-                duration: 0,
-            }, 'app.showNotification');
         },
         onOpenDialog: function (event) {
             if (event.data.isCreate) {
@@ -71,19 +53,16 @@ const app = createApp({
                         body: JSON.stringify(this.entity)
                     });
                     if (response.status === 201) {
-                        this.$messageHub.post({}, 'app.EmployeeManagement.Department.refreshData');
-                        this.$messageHub.post({
-                            message: `Department successfully created.`,
-                            type: 'success',
-                        }, 'app.showMessage');
+                        view.post('app.EmployeeManagement.Department.refreshData');
+                        view.showMessage(`Department successfully created.`);
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to create Department', `Error message: ${error.message}`);
+                        view.showErrorMessage('Failed to create Department', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to create Department', message);
+                    view.showErrorMessage('Failed to create Department', message);
                 }
             } else if (this.isUpdate) {
                 try {
@@ -92,31 +71,23 @@ const app = createApp({
                         body: JSON.stringify(this.entity)
                     });
                     if (response.status === 200) {
-                        this.$messageHub.post({}, 'app.EmployeeManagement.Department.refreshData');
-                        this.$messageHub.post({
-                            message: `Department successfully updated.`,
-                            type: 'success',
-                        }, 'app.showMessage');
+                        view.post('app.EmployeeManagement.Department.refreshData');
+                        view.showMessage(`Department successfully updated.`);
                     } else {
                         const error = await response.json();
-                        this.showErrorMessage('Failed to edit Department', `Error message: ${error.message}`);
+                        view.showErrorMessage('Failed to edit Department', `Error message: ${error.message}`);
                     }
                 } catch (e) {
                     const message = `Error message: ${e.message}`;
                     console.error(message, e);
-                    this.showErrorMessage('Failed to edit Department', message);
+                    view.showErrorMessage('Failed to edit Department', message);
                 }
             }
-            this.$messageHub.post({}, 'app.closeDialog');
-        },
-        onChangeLocale: function (event) {
-            i18n.global.locale = event.data;
+            view.closeDialog();
         },
     }
 });
 
-app.config.globalProperties.$messageHub = new FramesMessageHub();
-
-app.use(i18n);
+app.use(View.i18n);
 app.use(ElementPlus);
 app.mount('#app');

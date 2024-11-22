@@ -1,4 +1,5 @@
 {
+    "app.locale.change": "The language has been changed to English.",
     "app.generic.button.Create": "Create",
     "app.generic.button.Detail": "Detail",
     "app.generic.button.Edit": "Edit",

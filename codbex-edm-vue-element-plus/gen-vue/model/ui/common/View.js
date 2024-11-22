@@ -1,4 +1,11 @@
+import { createI18n } from 'vue-i18n'
+
+import en from '../locales/en.json' with { type: "json" };
+import bg from '../locales/bg.json' with { type: "json" };
+
 export class View {
+
+    static i18n;
 
     messageHub;
     dialog;
@@ -6,6 +13,21 @@ export class View {
     constructor(dialog = { path: '', topic: '' }) {
         this.messageHub = new FramesMessageHub();
         this.dialog = dialog;
+
+        View.i18n = createI18n({
+            locale: localStorage.getItem('app.locale') ?? 'en',
+            fallbackLocale: 'en',
+            messages: {
+                en: en,
+                bg: bg,
+            }
+        });
+
+        this.subscribe('app.changeLocale', this.onChangeLocale);
+    }
+
+    static getTranslation(key) {
+        return View.i18n.global.messages[View.i18n.global.locale][key];
     }
 
     showMessage(message, type = "success") {
@@ -43,5 +65,16 @@ export class View {
 
     post(topic, data = {}) {
         this.messageHub.post(data, topic);
+    }
+
+    onChangeLocale(event) {
+        localStorage.setItem('app.locale', event.data);
+        View.i18n.global.locale = event.data;
+
+        // Workaround as the method is executed as a callback and "this" doesn't have access to the class instance
+        new FramesMessageHub().post({
+            message: 'app.locale.change',
+            type: 'info',
+        }, 'app.showMessage');
     }
 }
