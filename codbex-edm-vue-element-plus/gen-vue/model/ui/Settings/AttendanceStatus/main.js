@@ -1,4 +1,4 @@
-import { createApp, ref } from 'vue';
+import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import { Plus } from '@element-plus/icons-vue'
 import { createI18n } from 'vue-i18n'
@@ -18,8 +18,6 @@ const i18n = createI18n({
 const app = createApp({
     setup() {
         return {
-            tourTableColumnName: ref(''),
-            tourTableColumnName2: ref(''),
             tourButtonCreate: null,
             tourButtonDetail: null,
             tourButtonEdit: null,
