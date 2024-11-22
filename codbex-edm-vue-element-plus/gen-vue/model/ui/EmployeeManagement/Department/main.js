@@ -44,36 +44,21 @@ const app = createApp({
     },
     methods: {
         showDetail: function (_index, entity) {
-            this.$messageHub.post({
-                title: 'app.EmployeeManagement.Department.dialog.Detail',
-                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
-                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
-                dialogData: {
-                    isPreview: true,
-                    entity: JSON.parse(JSON.stringify(entity))
-                },
-            }, 'app.openDialog');
+            this.showDialog('app.EmployeeManagement.Department.dialog.Detail', {
+                isPreview: true,
+                entity: JSON.parse(JSON.stringify(entity))
+            });
         },
         handleEdit: function (_index, entity) {
-            this.$messageHub.post({
-                title: 'app.EmployeeManagement.Department.dialog.Edit',
-                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
-                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
-                dialogData: {
-                    isUpdate: true,
-                    entity: JSON.parse(JSON.stringify(entity))
-                },
-            }, 'app.openDialog');
+            this.showDialog('app.EmployeeManagement.Department.dialog.Edit', {
+                isUpdate: true,
+                entity: JSON.parse(JSON.stringify(entity))
+            });
         },
         handleCreate: function () {
-            this.$messageHub.post({
-                title: 'app.EmployeeManagement.Department.dialog.Create',
-                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
-                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
-                dialogData: {
-                    isCreate: true,
-                },
-            }, 'app.openDialog');
+            this.showDialog('app.EmployeeManagement.Department.dialog.Create', {
+                isCreate: true,
+            });
         },
         handleDelete: async function (_index, entity) {
             this.selectedEntity = entity;
@@ -95,6 +80,14 @@ const app = createApp({
 
             await this.refreshData();
         },
+        showDialog: function (title, data) {
+            this.$messageHub.post({
+                title: title,
+                path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/dialog/index.html',
+                dialogTopic: 'app.EmployeeManagement.Department.openDialog',
+                dialogData: data,
+            }, 'app.openDialog');
+        },
         showErrorMessage: function (title, message) {
             this.$messageHub.post({
                 title: title,
@@ -102,6 +95,12 @@ const app = createApp({
                 type: 'error',
                 duration: 0,
             }, 'app.showNotification');
+        },
+        showMessage: function (message, type) {
+            this.$messageHub.post({
+                message: message,
+                type: type,
+            }, 'app.showMessage');
         },
         onStartToure: function () {
             this.startTour = true;
@@ -111,10 +110,7 @@ const app = createApp({
                 try {
                     const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/EmployeeManagement/DepartmentService.ts/${this.selectedEntity.Id}`, { method: 'DELETE' })
                     if (response.status === 204) {
-                        this.$messageHub.post({
-                            message: `Department was deleted successfully.`,
-                            type: 'success',
-                        }, 'app.showMessage');
+                        this.showMessage(`Department was deleted successfully.`, 'success');
                         this.refreshData();
                     } else {
                         const error = await response.json();

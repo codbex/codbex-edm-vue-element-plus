@@ -181,7 +181,7 @@ const app = createApp({
         },
         onCloseDialog() {
             this.isDialogVisible = false;
-            this.dialogTitle = null;
+            this.dialogTitle = '';
             this.dialogPath = null;
             this.dialogTopic = null;
         },
