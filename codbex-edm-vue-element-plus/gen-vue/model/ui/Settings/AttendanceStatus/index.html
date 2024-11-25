@@ -26,7 +26,8 @@
     <body>
         <div id="app">
 
-            <el-table v-loading="loading" :data="tableData" style="width: 100%">
+            <el-table v-loading="loading" :data="tableData" @row-dblclick="showDetail" table-layout="auto"
+                style="width: 100%">
                 <el-table-column :label="$t('i18n.Settings.AttendanceStatus.table.column.Name')" sortable prop="Name">
                 </el-table-column>
                 <el-table-column align="right">

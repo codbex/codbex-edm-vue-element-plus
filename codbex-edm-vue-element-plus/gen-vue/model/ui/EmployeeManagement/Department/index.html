@@ -26,7 +26,8 @@
     <body>
         <div id="app">
 
-            <el-table v-loading="loading" :data="tableData" style="width: 100%">
+            <el-table v-loading="loading" :data="tableData" @row-dblclick="showDetail" table-layout="auto"
+                style="width: 100%">
                 <el-table-column :label="$t('i18n.EmployeeManagement.Department.table.column.Name')" sortable
                     prop="Name">
                 </el-table-column>
@@ -38,16 +39,14 @@
                         </el-button>
                     </template>
                     <template #default="scope">
-                        <el-button link type="primary" size="small" @click="showDetail(scope.$index, scope.row)"
+                        <el-button link type="primary" size="small" @click="showDetail(scope.row)"
                             ref="tourButtonDetail">
                             {{ $t('i18n.generic.button.Detail') }}
                         </el-button>
-                        <el-button link type="primary" size="small" @click="handleEdit(scope.$index, scope.row)"
-                            ref="tourButtonEdit">
+                        <el-button link type="primary" size="small" @click="handleEdit(scope.row)" ref="tourButtonEdit">
                             {{ $t('i18n.generic.button.Edit') }}
                         </el-button>
-                        <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
-                            ref="tourButtonDelete">
+                        <el-button size="small" type="danger" @click="handleDelete(scope.row)" ref="tourButtonDelete">
                             {{ $t('i18n.generic.button.Delete') }}
                         </el-button>
                     </template>

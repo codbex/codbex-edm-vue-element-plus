@@ -35,13 +35,13 @@ const app = createApp({
         };
     },
     methods: {
-        showDetail: function (_index, entity) {
+        showDetail: function (entity) {
             view.showDialog('i18n.Settings.AttendanceStatus.dialog.Detail', {
                 isPreview: true,
                 entity: JSON.parse(JSON.stringify(entity))
             });
         },
-        handleEdit: function (_index, entity) {
+        handleEdit: function (entity) {
             view.showDialog('i18n.Settings.AttendanceStatus.dialog.Edit', {
                 isUpdate: true,
                 entity: JSON.parse(JSON.stringify(entity))
@@ -52,7 +52,7 @@ const app = createApp({
                 isCreate: true,
             });
         },
-        handleDelete: async function (_index, entity) {
+        handleDelete: async function (entity) {
             this.selectedEntity = entity;
             view.showConfirm('i18n.Settings.AttendanceStatus.confirm.Delete', 'i18n.Settings.AttendanceStatus.confirm.Delete.description', 'app.Settings.AttendanceStatus.confirmDelete');
         },
