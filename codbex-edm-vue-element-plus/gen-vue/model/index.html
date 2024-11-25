@@ -67,25 +67,25 @@
                         <span class="text-large font-600 mr-3"> Hestia </span>
                     </el-menu-item>
 
-                    <el-menu-item :index="next.path" v-for="(next) in navigationHorizontalSingleView">{{next.name}}
+                    <el-menu-item :index="next.path" v-for="(next) in navigationHorizontalSingleView">{{$t(next.name)}}
                     </el-menu-item>
 
                     <el-sub-menu :index="'' + menuIndex" v-for="(next, menuIndex) in navigationHorizontalMenu">
-                        <template #title>{{next.name}}</template>
+                        <template #title>{{$t(next.name)}}</template>
                         <el-menu-item v-for="menuItem in next.menuItems" @click="openInNewTab(menuItem.url)">
-                            {{menuItem.name}}
+                            {{$t(menuItem.name)}}
                         </el-menu-item>
                     </el-sub-menu>
 
                     <el-sub-menu index="username">
                         <template #title>admin</template>
                         <el-sub-menu index="change-locale">
-                            <template #title>Locale</template>
-                            <el-menu-item @click="changeLocale('en')">English</el-menu-item>
-                            <el-menu-item @click="changeLocale('bg')">Bulgarian</el-menu-item>
+                            <template #title>{{$t('i18n.menu.User.Locale')}}</template>
+                            <el-menu-item v-for="next in locales" @click="changeLocale(next.id)">{{$t(next.name)}}
+                            </el-menu-item>
                         </el-sub-menu>
-                        <el-menu-item @click="startTour">Start Guided Tour</el-menu-item>
-                        <el-menu-item @click="logout()">Logout</el-menu-item>
+                        <el-menu-item @click="startTour">{{$t('i18n.menu.User.StartGuidedTour')}}</el-menu-item>
+                        <el-menu-item @click="logout()">{{$t('i18n.menu.User.Logout')}}</el-menu-item>
                     </el-sub-menu>
                 </el-menu>
             </el-header>
@@ -108,17 +108,17 @@
                             <el-icon>
                                 <component :is="getIcon(next.icon)"></component>
                             </el-icon>
-                            <span>{{next.name}}</span>
+                            <span>{{$t(next.name)}}</span>
                         </el-menu-item>
                         <el-sub-menu :index="'' + menuIndex" v-for="(next, menuIndex) in navigationMenu">
                             <template #title>
                                 <el-icon>
                                     <component :is="getIcon(next.icon)"></component>
                                 </el-icon>
-                                <span>{{next.name}}</span>
+                                <span>{{$t(next.name)}}</span>
                             </template>
                             <el-menu-item v-for="menuItem in next.menuItems" :index="menuItem.path">
-                                {{menuItem.name}}
+                                {{$t(menuItem.name)}}
                             </el-menu-item>
                             <el-sub-menu :index="menuIndex + '-' + subMenuIndex"
                                 v-for="(subMenu, subMenuIndex) in next.subMenus">
@@ -126,10 +126,10 @@
                                     <el-icon>
                                         <component :is="getIcon(next.icon)"></component>
                                     </el-icon>
-                                    <span>{{subMenu.name}}</span>
+                                    <span>{{$t(subMenu.name)}}</span>
                                 </template>
                                 <el-menu-item v-for="subMenuItem in subMenu.menuItems" :index="subMenuItem.path">
-                                    {{subMenuItem.name}}
+                                    {{$t(subMenuItem.name)}}
                                 </el-menu-item>
                             </el-sub-menu>
                         </el-sub-menu>

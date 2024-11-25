@@ -31,91 +31,111 @@ const app = createApp({
             view: null,
             perspectives: [
                 {
-                    name: 'Home',
+                    name: 'i18n.menu.Home',
                     icon: 'House',
                     path: '/services/web/codbex-edm-vue-element-plus/gen/model/ui/launchpad/Home/index.html'
                 },
                 {
-                    name: 'Employee Management',
+                    name: 'i18n.menu.EmployeeManagement',
                     icon: 'User',
                     menuItems: [
                         {
-                            name: 'Employee',
+                            name: 'i18n.menu.EmployeeManagement.Employee',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Employee/index.html'
                         }, {
-                            name: 'Employment Contract',
+                            name: 'i18n.menu.EmployeeManagement.EmploymentContract',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/EmploymentContract/index.html'
                         }, {
-                            name: 'Department',
+                            name: 'i18n.menu.EmployeeManagement.Department',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/EmployeeManagement/Department/index.html'
                         }
                     ]
                 },
                 {
-                    name: 'Recruitment & Onboarding',
+                    name: 'i18n.menu.RecruitmentAndOnboarding',
                     icon: 'Files',
                     menuItems: [
                         {
-                            name: 'Candidate Application',
+                            name: 'i18n.menu.RecruitmentAndOnboarding.CandidateApplication',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/RecruitmentAndOnboarding/CandidateApplication/index.html'
                         }, {
-                            name: 'Job Posting',
+                            name: 'i18n.menu.RecruitmentAndOnboarding.JobPosting',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/RecruitmentAndOnboarding/JobPosting/index.html'
                         }
                     ]
                 },
                 {
-                    name: 'Performance & Attendance',
+                    name: 'i18n.menu.PerformanceAndAttendance',
                     icon: 'Postcard',
                     menuItems: [
                         {
-                            name: 'Performance Review',
+                            name: 'i18n.menu.PerformanceAndAttendance.PerformanceReview',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/PerformanceAndAttendance/PerformanceReview/index.html'
                         }, {
-                            name: 'Attendance Record',
+                            name: 'i18n.menu.PerformanceAndAttendance.AttendanceRecord',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/PerformanceAndAttendance/AttendanceRecord/index.html'
                         }
                     ]
                 },
                 {
-                    name: 'Settings',
+                    name: 'i18n.menu.Settings',
                     icon: 'Setting',
                     menuItems: [
                         {
-                            name: 'Contract Type',
+                            name: 'i18n.menu.Settings.ContractType',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/ContractType/index.html'
                         }, {
-                            name: 'Attendance Status',
+                            name: 'i18n.menu.Settings.AttendanceStatus',
                             path: '/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/Settings/AttendanceStatus/index.html'
                         }
                     ]
                 },
             ],
-            menu: [{
-                name: 'Processes',
-                path: '/services/web/inbox/index.html'
-            }, {
-                name: 'Documents',
-                path: '/services/web/documents/index.html'
-            }, {
-                name: 'Help',
-                menuItems: [{
-                    name: 'Help Portal',
-                    url: 'https://www.dirigible.io/help/'
-                }, {
-                    name: 'Contact Support',
-                    url: 'https://github.com/eclipse/dirigible/issues'
-                }, {
-                    name: 'Suggest a Feature',
-                    url: 'https://github.com/eclipse/dirigible/issues/new?assignees=&labels=&template=feature_request.md&title=[New%20Feature]'
-                }, {
-                    name: `What's New`,
-                    url: 'https://www.dirigible.io/blogs/'
-                }, {
-                    name: 'Check for Updates',
-                    url: 'https://download.dirigible.io/'
-                }]
-            }]
+            menu: [
+                {
+                    name: 'i18n.menu.Processes',
+                    path: '/services/web/inbox/index.html'
+                },
+                {
+                    name: 'i18n.menu.Documents',
+                    path: '/services/web/documents/index.html'
+                },
+                {
+                    name: 'i18n.menu.Help',
+                    menuItems: [
+                        {
+                            name: 'i18n.menu.Help.HelpPortal',
+                            url: 'https://www.dirigible.io/help/'
+                        },
+                        {
+                            name: 'i18n.menu.Help.ContactSupport',
+                            url: 'https://github.com/eclipse/dirigible/issues'
+                        },
+                        {
+                            name: 'i18n.menu.Help.SuggestAFeature',
+                            url: 'https://github.com/eclipse/dirigible/issues/new?assignees=&labels=&template=feature_request.md&title=[New%20Feature]'
+                        },
+                        {
+                            name: `i18n.menu.Help.WhatsNew`,
+                            url: 'https://www.dirigible.io/blogs/'
+                        },
+                        {
+                            name: 'i18n.menu.Help.CheckForUpdates',
+                            url: 'https://download.dirigible.io/'
+                        }
+                    ]
+                }
+            ],
+            locales: [
+                {
+                    id: 'en',
+                    name: 'i18n.menu.User.Locale.English'
+                },
+                {
+                    id: 'bg',
+                    name: 'i18n.menu.User.Locale.Bulgarian'
+                }
+            ]
         };
     },
     computed: {
