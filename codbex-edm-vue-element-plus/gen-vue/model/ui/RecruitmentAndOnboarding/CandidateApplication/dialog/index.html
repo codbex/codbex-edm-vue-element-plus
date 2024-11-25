@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Element Plus with ESM Import Map</title>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://unpkg.com/vue@3.2.45/dist/vue.esm-browser.js",
+                    "vue-i18n": "https://unpkg.com/vue-i18n@9/dist/vue-i18n.esm-browser.js",
+                    "element-plus": "https://cdn.jsdelivr.net/npm/element-plus@latest/dist/index.full.min.mjs",
+                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/",
+                    "@element-plus/icons-vue": "https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2/dist/index.min.js"
+                }
+            }
+        </script>
+
+        <script src="/services/web/resources-core/core/message-hub.js"></script>
+
+        <link rel="stylesheet" href="/services/web/codbex-edm-vue-element-plus/gen-vue/model/ui/styles.css">
+    </head>
+
+    <body>
+        <div id="app">
+
+            <el-form ref="entityForm" :model="entity" :rules="validationRules" status-icon>
+                <el-form-item
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.CandidateName')"
+                    label-width="200" prop="CandidateName">
+                    <el-input v-model=" entity.CandidateName" maxlength="20" show-word-limit v-show="!isPreview">
+                    </el-input>
+                    <el-input v-model="entity.CandidateName" disabled v-show="isPreview"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.Email')"
+                    label-width="200" prop="Email">
+                    <el-input v-model="entity.Email" maxlength="20" show-word-limit v-show="!isPreview">
+                    </el-input>
+                    <el-input v-model="entity.Email" disabled v-show="isPreview"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.ResumeLink')"
+                    label-width="200" prop="ResumeLink">
+                    <el-input v-model="entity.ResumeLink" maxlength="20" show-word-limit v-show="!isPreview"></el-input>
+                    <el-input v-model="entity.ResumeLink" disabled v-show="isPreview"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.PhoneNumber')"
+                    label-width="200" prop="PhoneNumber">
+                    <el-input v-model="entity.PhoneNumber" maxlength="20" show-word-limit v-show="!isPreview">
+                    </el-input>
+                    <el-input v-model="entity.PhoneNumber" disabled v-show="isPreview"></el-input>
+                </el-form-item>
+                <el-form-item
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.PreferredStartDate')"
+                    label-width="200" prop="PreferredStartDate">
+                    <el-date-picker v-model="entity.PreferredStartDate" type="date" v-if="!isPreview">
+                    </el-date-picker>
+                    <el-date-picker v-model="entity.PreferredStartDate" disabled type="date" v-if="isPreview">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.ExpectedSalary')"
+                    label-width="200" prop="ExpectedSalary">
+                    <el-input-number v-model="entity.ExpectedSalary" v-show="!isPreview">
+                    </el-input-number>
+                    <el-input v-model="entity.ExpectedSalary" disabled v-show="isPreview"></el-input>
+                </el-form-item>
+            </el-form>
+
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
+
+</html>

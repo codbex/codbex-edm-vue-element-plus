@@ -26,8 +26,9 @@
     <body>
         <div id="app">
 
-            <el-form>
-                <el-form-item :label="$t('i18n.Settings.AttendanceStatus.table.column.Name')" label-width="200">
+            <el-form ref="entityForm" :model="entity" :rules="validationRules" status-icon>
+                <el-form-item :label="$t('i18n.Settings.AttendanceStatus.table.column.Name')" label-width="200"
+                    prop="Name">
                     <el-input v-model="entity.Name" maxlength="20" show-word-limit v-show="!isPreview"></el-input>
                     <el-input v-model="entity.Name" disabled v-show="isPreview"></el-input>
                 </el-form-item>

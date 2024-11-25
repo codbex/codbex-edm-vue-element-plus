@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Element Plus with ESM Import Map</title>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://unpkg.com/vue@3.2.45/dist/vue.esm-browser.js",
+                    "vue-i18n": "https://unpkg.com/vue-i18n@9/dist/vue-i18n.esm-browser.js",
+                    "element-plus": "https://cdn.jsdelivr.net/npm/element-plus@latest/dist/index.full.min.mjs",
+                    "element-plus/": "https://cdn.jsdelivr.net/npm/element-plus@latest/",
+                    "@element-plus/icons-vue": "https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2/dist/index.min.js"
+                }
+            }
+        </script>
+
+        <script src="/services/web/resources-core/core/message-hub.js"></script>
+
+        <link rel="stylesheet" href="../../styles.css">
+    </head>
+
+    <body>
+        <div id="app">
+
+            <el-table v-loading="loading" :data="tableData" @row-dblclick="showDetail" table-layout="auto"
+                style="width: 100%">
+                <el-table-column
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.CandidateName')"
+                    sortable prop="CandidateName">
+                </el-table-column>
+                <el-table-column :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.Email')"
+                    sortable prop="Email">
+                    <template #default="scope">
+                        <el-link :href="mailtoLink(scope.row.Email)" :underline="false" type="primary">
+                            {{ scope.row.Email }}
+                        </el-link>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.ResumeLink')" sortable
+                    prop="ResumeLink">
+                    <template #default="scope">
+                        <el-link :href="scope.row.ResumeLink" target="_blank" :underline="false" type="primary">
+                            {{ scope.row.ResumeLink }}
+                        </el-link>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.PhoneNumber')" sortable
+                    prop="PhoneNumber">
+                    <template #default="scope">
+                        <el-link :href="telLink(scope.row.PhoneNumber)" :underline="false" type="primary">
+                            {{ scope.row.PhoneNumber }}
+                        </el-link>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.PreferredStartDate')"
+                    sortable prop="PreferredStartDate">
+                    <template #default="scope">
+                        <el-date-picker v-model="scope.row.PreferredStartDate" readonly type="date">
+                        </el-date-picker>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    :label="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.ExpectedSalary')"
+                    sortable prop="ExpectedSalary">
+                    <template #default="scope">
+                        <el-input-number v-model="scope.row.ExpectedSalary" readonly></el-input-number>
+                    </template>
+
+                </el-table-column>
+                <el-table-column align="right">
+                    <template #header>
+                        <el-button type="primary" size="small" @click="handleCreate()" :icon="Plus"
+                            ref="tourButtonCreate">
+                            {{ $t('i18n.generic.button.Create') }}
+                        </el-button>
+                    </template>
+                    <template #default="scope">
+                        <el-button link type="primary" size="small" @click="showDetail(scope.row)"
+                            ref="tourButtonDetail">
+                            {{ $t('i18n.generic.button.Detail') }}
+                        </el-button>
+                        <el-button link type="primary" size="small" @click="handleEdit(scope.row)" ref="tourButtonEdit">
+                            {{ $t('i18n.generic.button.Edit') }}
+                        </el-button>
+                        <el-button size="small" type="danger" @click="handleDelete(scope.row)" ref="tourButtonDelete">
+                            {{ $t('i18n.generic.button.Delete') }}
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <el-pagination class="pagination-center" layout="sizes, prev, pager, next, total" :total="total"
+                :page-sizes="[10, 20, 50]" @change="handlePageChange">
+            </el-pagination>
+
+            <el-tour v-model="startTour">
+                <el-tour-step :title="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.table.column.Name')"
+                    :description="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.tour.table.column.Name.description')">
+                </el-tour-step>
+                <el-tour-step :target="tourButtonCreate?.$el" :title="$t('i18n.generic.button.Create')"
+                    :description="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.tour.button.Create.description')">
+                </el-tour-step>
+                <el-tour-step :target="tourButtonDetail?.$el" :title="$t('i18n.generic.button.Detail')"
+                    :description="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.tour.button.Detail.description')">
+                </el-tour-step>
+                <el-tour-step :target="tourButtonEdit?.$el" :title="$t('i18n.generic.button.Edit')"
+                    :description="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.tour.button.Edit.description')">
+                </el-tour-step>
+                <el-tour-step :target="tourButtonDelete?.$el" :title="$t('i18n.generic.button.Delete')"
+                    :description="$t('i18n.RecruitmentAndOnboarding.CandidateApplication.tour.button.Delete.description')">
+                </el-tour-step>
+            </el-tour>
+
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
+
+</html>

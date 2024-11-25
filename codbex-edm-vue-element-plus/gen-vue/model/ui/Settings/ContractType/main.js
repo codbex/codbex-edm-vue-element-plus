@@ -74,12 +74,12 @@ const app = createApp({
                         this.refreshData();
                     } else {
                         const error = await response.json();
-                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + error.message;
                         view.showErrorMessage('i18n.Settings.ContractType.Delete.failed', errorMessage);
                     }
                 } catch (e) {
                     console.error(`Error message: ${e.message}`, e);
-                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + e.message;
                     view.showErrorMessage('i18n.Settings.ContractType.Delete.failed', errorMessage);
                 }
             }
@@ -91,7 +91,7 @@ const app = createApp({
             const responseCount = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/Settings/ContractTypeService.ts/count');
             if (!responseCount.ok) {
                 const error = await responseCount.json();
-                const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + error.message;
                 view.showErrorMessage('i18n.Settings.ContractType.Count.failed', errorMessage);
                 throw new Error(`Response status: ${responseCount.status}`);
             }
@@ -104,7 +104,7 @@ const app = createApp({
             const response = await fetch(`/services/ts/codbex-edm-vue-element-plus/gen/model/api/Settings/ContractTypeService.ts?$offset=${offset}&$limit=${limit}`);
             if (!response.ok) {
                 const error = await response.json();
-                const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + error.message;
                 view.showErrorMessage('i18n.Settings.ContractType.Load.failed', errorMessage);
                 throw new Error(`Response status: ${response.status}`);
             }

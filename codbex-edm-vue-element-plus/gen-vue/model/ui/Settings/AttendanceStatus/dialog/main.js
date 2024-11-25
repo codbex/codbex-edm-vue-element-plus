@@ -11,6 +11,7 @@ const app = createApp({
             isCreate: false,
             isUpdate: false,
             isPreview: false,
+            entityForm: null,
             Plus: Plus,
         }
     },
@@ -20,7 +21,16 @@ const app = createApp({
     },
     data: function () {
         return {
-            entity: {}
+            entity: {},
+            validationRules: {
+                Name: [
+                    {
+                        required: true,
+                        message: View.getTranslation('i18n.Settings.AttendanceStatus.form.Name.required'),
+                        trigger: 'blur',
+                    }
+                ],
+            },
         };
     },
     methods: {
@@ -45,6 +55,10 @@ const app = createApp({
             }
         },
         onConfirmDialog: async function (event) {
+            const isValid = await this.entityForm.validate();
+            if (!isValid) {
+                return;
+            }
             if (this.isCreate) {
                 try {
                     const response = await fetch('/services/ts/codbex-edm-vue-element-plus/gen/model/api/Settings/AttendanceStatusService.ts', {
@@ -56,12 +70,12 @@ const app = createApp({
                         view.showMessage('i18n.Settings.AttendanceStatus.Create.successful');
                     } else {
                         const error = await response.json();
-                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + error.message;
                         view.showErrorMessage('i18n.Settings.AttendanceStatus.Create.failed', errorMessage);
                     }
                 } catch (e) {
                     console.error(`Error message: ${e.message}`, e);
-                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + e.message;
                     view.showErrorMessage('i18n.Settings.AttendanceStatus.Create.failed', errorMessage);
                 }
             } else if (this.isUpdate) {
@@ -75,12 +89,12 @@ const app = createApp({
                         view.showMessage('i18n.Settings.AttendanceStatus.Edit.successful');
                     } else {
                         const error = await response.json();
-                        const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + error.message;
+                        const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + error.message;
                         view.showErrorMessage('i18n.Settings.AttendanceStatus.Edit.failed', errorMessage);
                     }
                 } catch (e) {
                     console.error(`Error message: ${e.message}`, e);
-                    const errorMessage = view.getTranslation('i18n.generic.error.message') + ": " + e.message;
+                    const errorMessage = View.getTranslation('i18n.generic.error.message') + ": " + e.message;
                     view.showErrorMessage('i18n.Settings.AttendanceStatus.Edit.failed', errorMessage);
                 }
             }
