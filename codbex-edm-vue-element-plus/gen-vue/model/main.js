@@ -20,7 +20,10 @@ const app = createApp({
         view.subscribe('app.showNotification', this.onShowNotification);
         view.subscribe('app.showConfirm', this.onShowConfirm);
 
-        this.view = this.navigationSingleView[0].path;
+        const defaultView = localStorage.getItem('app.view') ?? this.navigationSingleView[0].path;
+
+        this.view = defaultView;
+        this.defaultActiveMenu = defaultView;
     },
     data() {
         return {
@@ -29,6 +32,7 @@ const app = createApp({
             dialogTitle: '',
             dialogTopic: null,
             view: null,
+            defaultActiveMenu: null,
             perspectives: [
                 {
                     name: 'i18n.menu.Home',
@@ -164,6 +168,7 @@ const app = createApp({
         },
         selectNavigation(key) {
             this.view = key;
+            localStorage.setItem('app.view', key);
         },
         confirmDialog() {
             view.post(`${this.dialogTopic}.confirm`);

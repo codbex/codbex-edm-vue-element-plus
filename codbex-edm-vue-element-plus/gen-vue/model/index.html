@@ -94,7 +94,7 @@
             <el-container>
                 <!-- Side Navigation -->
                 <el-aside width="200">
-                    <el-menu :default-active="navigationSingleView[0].path" @select="selectNavigation"
+                    <el-menu :default-active="defaultActiveMenu" @select="selectNavigation"
                         :collapse="isNavigationCollapsed">
                         <el-menu-item @click="isNavigationCollapsed = !isNavigationCollapsed">
                             <el-icon v-show="isNavigationCollapsed">
